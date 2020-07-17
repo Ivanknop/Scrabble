@@ -28,18 +28,54 @@ def general(dirAyuda):
 
 def juego(dirAyuda):
     col = [
-        [sg.Image(filename=f'{dirAyuda}ba.png'), sg.Text(' Muestra la Ayuda', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bj.png'), sg.Text(' Comenzar a jugar', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bp.png'),
-         sg.Text('Muestra la Tabla de Puntajes', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bnueva.png'),
-         sg.Text('Iniciar una Nueva partida', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bcargar.png'),
-         sg.Text('Carga la ultima partida guardada. Si existe', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bvolver.png'),
-         sg.Text('Vuelve al Menu principal', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}nueva.png'), sg.Text('',
+        [sg.Image(filename=f'{dirAyuda}tablero2.png'), sg.Text('Esta es la vista general del Tablero.\n A continuaci{on podr{a encontrar informaci{on detallada de c{omo se juega', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}areasuperior.png')], [sg.Text('En el area superior se encunetra el indicador de Tiempo (1),\nel boton de Pausa y el de Ayuda\n'
+                                                                     '\n1) TEMPORIZADOR: en tiempo JUGADo (indicado con números en el area negra)\n es el tiempo transcurrido según la configuración elegida.\n'
+                                                                     'La barra de color naranja indica el tiempo RESTANTE. Esta se encoe a medida que pasa el tiempo.\n'
+                                                                     '2) si usted cliquea el boton de pausa, la partida quda detenida y e muestra un menu con opciones que verá más abajo.\n'
+                                                                     '\n3)luego e encunetra el simbolo de \"?\" el cual le muestra esta ayuda.\n ', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}botonConfiguracion.png'),
+         sg.Text('Sobre los Avatars de los jugadores, usted encontrara\n un boton que al precionarlo le '
+                 'muestra la configuracion elegida para eta partida', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}indicadorJugador.png'),
+         sg.Text('A la derecha del tablero se encunetra el Avatar de cada jugador\n'
+                 'debajo se encunetra el apodo elegido y los puntos acumulados en la partida. \n '
+                 'Si su apodo esta de color verde, el juego indica  que es siu turno', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}atril.png'),
+         sg.Text('Debajo de los  avatares se encunetra el atril con sus fichas \n'
+                  ' junto al boton de VALIDAR (simbolo check) y CAMBIAR FICHAS (bolsa)'
+                 '\n  Cuando usted seleccione una ficha esta se pondra transparente como e indica en la imagen\n'
+                  'en el area superior del atril podra visualizar la palabra.\n'
+                  'Note que al seleccionar una ficha usted no puede preisonar la bola para cambiar las fichas.\n'
+                 'Note que si deja el mouse sobre una ficha esta muestra una etiqueta con su puntaje.\n'
+                 'Recuerde que el mismo tambien puede verse en el boton de Preferencias inidcado anteriormente.', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}atrilValidado.png')],
+         [sg.Text('Una vez que usted ya formo su palabra \n'
+                  'debe dar click en el boton de validar y si todo es correcto'
+                  'ScrabbleAR le indicará que seleccione donde insertar la palabra\n'
+                  'en la pestaña de REGLAS podr{a consultar las reglas generales de ScrabbleAR'
+                  'com ose ve en la imagen', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}seleccionarlugar.png'), sg.Text('Cuando haga click en un casillero del tablero\n'
+                                                                       'se muestra el indicador de orientacion. Una vez elegida\n'
+                                                                       'la orientacion la palabra quedara insertada en el tablero.',
                                                             font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}palabracompu.png'), sg.Image(filename=f'{dirAyuda}palabraJugador.png'), ],
+        [sg.Text('En el tablero las palbras con fondo Rojo son las insertadas por el oponente\n'
+                 'Y las de fondo verde son sus palabras',
+
+                                                            font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}bolsaFinalizar.png'), sg.Text('Si usted ve que el icono de la Bolsa de Fichas\n'
+                                                                     'cambio y ahota dice FINALIZAR, puede que pasen dos cosas:\n'
+                                                                     '- No hay mas fichas en la bolsa\n - No puedes cambiar mas fichas (maximo tres cambios) ',
+                                                            font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}pausa.png'), sg.Image(filename=f'{dirAyuda}pantallaFinal.png'),sg.Image(filename=f'{dirAyuda}historialPalabras.png'),],
+         [sg.Text('Aqui puede ver el menu de Pausa.\n'
+                  'este le permite Retornar a la partida, Guardar la partida y Abandonar la partida\n'
+                  'Luego puede ver la ventana de final de partida.\n'
+                  'Esta muestra los puntos de cada jugador y el/la ganador/ora\n'
+                  ' En este ventana si usted presiona el boton de Listado de palabras \n'
+                  'podra ver las palabras que inserto cada jugador y los puntos que hizo con cada una'
+                  ,font=('Arial, 18'), text_color='white')],
         ]
 
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
@@ -88,6 +124,32 @@ def otros(dirAyuda):
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
 
     return layout
+
+def reglas(dirAyuda):
+    pass
+
+
+def niveles(dirAyuda):
+    col = [
+        [sg.Image(filename=f'{dirAyuda}ba.png'), sg.Text(' Muestra la Ayuda', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}bj.png'), sg.Text(' Comenzar a jugar', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}bp.png'),
+         sg.Text('Muestra la Tabla de Puntajes', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}bnueva.png'),
+         sg.Text('Iniciar una Nueva partida', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}bcargar.png'),
+         sg.Text('Carga la ultima partida guardada. Si existe', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}bvolver.png'),
+         sg.Text('Vuelve al Menu principal', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}nueva.png'), sg.Text('',
+                                                            font=('Arial, 18'), text_color='white')],
+        ]
+
+    layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
+
+    return layout
+
+
 
 def ayuda() :
     '''esta función  es la encargada de motrar la interfaz
