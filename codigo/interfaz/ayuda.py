@@ -126,23 +126,57 @@ def otros(dirAyuda):
     return layout
 
 def reglas(dirAyuda):
-    pass
+
+    col = [[sg.Text('ACA IRAN LAS REGLAS DEL JUEGO EN GENERAL')],
+
+    ]
+    layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
+    return layout
+
 
 
 def niveles(dirAyuda):
-    col = [
-        [sg.Image(filename=f'{dirAyuda}ba.png'), sg.Text(' Muestra la Ayuda', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bj.png'), sg.Text(' Comenzar a jugar', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bp.png'),
-         sg.Text('Muestra la Tabla de Puntajes', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bnueva.png'),
-         sg.Text('Iniciar una Nueva partida', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bcargar.png'),
-         sg.Text('Carga la ultima partida guardada. Si existe', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}bvolver.png'),
-         sg.Text('Vuelve al Menu principal', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}nueva.png'), sg.Text('',
-                                                            font=('Arial, 18'), text_color='white')],
+    col = [[sg.Frame(
+            layout=[[sg.Text(' Tamaño tablero: 20*20.     \n  '
+                             'Puntaje de Fichas:  \n'
+                             '\t Vocales y L, N, S, T, R = 5 pts; C, D, G = 2 pts; M, B, P = 8 pts; \n '
+                             'F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 9 pts; Z= 10 pts \n  '
+                             '\tCantidad de fichas:   99  \n  '
+                             '\t Duración de la   partida: 25 minutos    \n  '
+                             '\t Tipo de casilleros  especiales: Suma y Resta   \n   '
+                             '\tCantidad de Cambios   computador: 1\n'
+                             '\tTipos de palabras  permitidas: sustantivos, adjetivos y verbos      \n'
+                             '\t la PC: Busca la primer  palabra posible y \nla inserta en el primer lugar disponible en el   tablero.\n',
+                             font=('Arial, 18'), text_color='black',justification='left',background_color='#afad71')]],
+
+            title='Nivel Facil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
+            element_justification='left',  key='contenedor'),],
+        [sg.Frame(
+            layout=[[sg.Text(' Tamaño tablero 15*15. Idem anterior   \n '
+                             '  Puntaje de Fichas:  Vocales y L, N, S, T, R = 1 pts; C, D, G = 2 pts; M, B,\n P = 3 pts; F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 8 pts; Z= 10 pts       \n'
+                             ' Cantidad de fichas: 95     \n    '
+                             ' Duración de la partida: 20 minutos     \n    '
+                             ' Tipo de casilleros especiales: Suma, resta, multiplica x 2, divide x2.      \n   '
+                             ' Cantidad de Cambios computador: 1         \n'
+                             ' Tipos de palabras   permitidas: sustantivos, adjetivos y verbos  \n       '
+                             'PC: Evalúa la   primer palabra que puede formar y analiza en el tablero cuál es la mejor posición.\n',
+                             font=('Arial, 18'), text_color='black',justification='left',background_color='#afad71')]],
+            title='Nivel Medio', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
+            element_justification='center', key='contenedor'), ],
+        [sg.Frame(
+            layout=[[sg.Text('Tamaño tablero: 10*10Idem anterior\n'
+                             'Puntaje de Fichas: Vocales y L, N, S, T, R = 1 pts; C, D, G = 1 pts; \n'
+                             'M, B, P = 3 pts; F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 8 pts; Z= 10 pts\n'
+                             'Cantidad de fichas: 95\n'
+                             'Duración de la partida: 15 minutos\n'
+                             'Tipo de casilleros especiales: Suma, resta, multiplica x 2, divide x2, multiplica palabra x 0\n'
+                             'Cantidad de Cambios computador: 1\n'
+                             'Tipos de palabras permitidas: adjetivos y verbos\n'
+                             'PC: Prueba todas las palabras posibles y cuáles puede \ninsertar en las mejores posiciones a fin de encontrar la mejor combinación palabra-espacio.\n',
+                             font=('Arial, 18'), text_color='black',justification='left',background_color='#afad71')]],
+            title='Dificil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
+            element_justification='center' , key='contenedor'), ],
+
         ]
 
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
@@ -160,14 +194,19 @@ def ayuda() :
 
     tabGeneral = [general(dirAyuda)]
     tabJuego = [juego(dirAyuda)]
+    tabReglas = [reglas(dirAyuda)]
+    tabNiveles = [niveles(dirAyuda)]
     tabIconCas = [iconCas(dirAyuda)]
-    tabOtros = [otros(dirAyuda)]
-    # Agregar solapa o boton que te de un poco de info del proyecto, un link a Git y que diga que en el informe ocmpleto hay mas info
+
+    tabOtros = [otros(dirAyuda)]    # Agregar solapa o boton que te de un poco de info del proyecto, un link a Git y que diga que en el informe ocmpleto hay mas info
+
 
 
     layout = [[sg.TabGroup([[sg.Tab('General', tabGeneral,background_color='#4f280a',  key='pGeneral'),
                           sg.Tab('Instrucciones de Juego', tabJuego ,background_color='#4f280a',),
                           sg.Tab('Iconos y Casilleros', tabIconCas,background_color='#4f280a',),
+                          sg.Tab('Reglas', tabReglas, background_color='#4f280a', ),
+                          sg.Tab('Niveles', tabNiveles, background_color='#4f280a', ),
                           sg.Tab('Más', tabOtros,background_color='#4f280a',)]],
                            font=('Arial', 14),
                           key='pestanas', title_color='red',
