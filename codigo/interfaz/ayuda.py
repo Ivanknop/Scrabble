@@ -125,14 +125,25 @@ def otros(dirAyuda):
 
     return layout
 
-def reglas(dirAyuda):
-
+def reglas():
+    #agregar la imagen que usara en el top aca asi es portable el modulo
     col = [[sg.Text('ACA IRAN LAS REGLAS DEL JUEGO EN GENERAL')],
 
     ]
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
     return layout
 
+def popReglas():
+    layout = [reglas(),
+              [sg.Button('Comenzar!',size=(20,5),key='comenzar')],]
+    ventana = sg.Window('Reglas', layout=layout,element_justification='center', no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
+
+    while True:
+
+        event, values = ventana.read()
+        if event in ( None,'comenzar'):
+            break
+    ventana.close()
 
 
 def niveles(dirAyuda):
@@ -194,7 +205,7 @@ def ayuda() :
 
     tabGeneral = [general(dirAyuda)]
     tabJuego = [juego(dirAyuda)]
-    tabReglas = [reglas(dirAyuda)]
+    tabReglas = [reglas()]
     tabNiveles = [niveles(dirAyuda)]
     tabIconCas = [iconCas(dirAyuda)]
 
@@ -226,5 +237,9 @@ def ayuda() :
 
 
 
+
+
+
 if __name__ == '__main__':
     ayuda()
+    popReglas()

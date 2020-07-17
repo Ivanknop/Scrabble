@@ -10,7 +10,7 @@ from codigo.logica.jugador import Jugador
 from codigo.interfaz.interfaz_palabras import *
 from codigo.interfaz.final import*
 from codigo.interfaz.ayuda import ayuda
-
+from codigo.interfaz.ayuda import popReglas
 import os.path
 import time
 import random
@@ -86,6 +86,10 @@ def lazo_principal(jugador, cargar_partida=True):
         puntaje = 0
         puntaje_pc = 0
         interfaz = Dibujar(unTablero, preferencias, atril_jugador, jugador)
+
+        #------------Se mostrara la pantalal de las Reglas---------------
+        popReglas()
+        #----------------------------------------------------------------
         #El tiempo de la partida se determina según el nivel de dificultad
         tiempo_partida = configuracion['tiempo']
         interfaz.setTimer(tiempo_partida)
