@@ -6,7 +6,7 @@ import codigo.interfaz.interfaz_puntaje as pun
 from codigo.interfaz.tema import *
 from  codigo.interfaz.ayuda import ayuda
 from codigo.interfaz import configuracion_personalizada
-
+from codigo.logica import administrar_usuarios
 
 def check_apodo(apodo):
     '''Esta función se encarga de evaluar el campo del APODO al momento
@@ -113,12 +113,49 @@ def interfaz_principal(img_logo, img_boton_largo, img_boton_madera, avatar):
 
     return layout
 
+def ventana_carga():
+    usuarios = administrar_usuarios.cargar_usuarios()
+    #Si canceló la carga o cerró la ventana, retorna un nombre de jugador vacío
+    jugador_seleccionado = ''
+    if (len(usuarios) == 0):
+        sg.Popup('¡No hay ninguna partida guardada!')
+        return jugador_seleccionado
+    layout = [[sg.Text('Por favor, seleccione la partida que desea cargar: ')],
+                [sg.Listbox(usuarios, size=(40, 14), key='listado_partidas')],
+                [sg.Button('Confirmar', key='confirmar'), sg.Button('Cancelar', key='cancelar'), sg.Button('Eliminar', key='eliminar')]]
+    ventana_carga = sg.Window('Cargar partida', layout)
+    ventana_carga.Finalize()
+    while True:
+        event, values = ventana_carga.read()
+        if (event in (None, 'cancelar')):
+            break
+        if (event == 'confirmar'):
+            if (len(values['listado_partidas']) != 0):
+                jugador_seleccionado = values['listado_partidas'][0]
+                partida_guardada = os.path.join('guardados', f'partida_{jugador_seleccionado}')
+                if (os.path.isfile(partida_guardada)):
+                    break
+                else:
+                    jugador_seleccionado = ''
+                    sg.Popup('¡La partida ya no existe!')
+            else:
+                sg.popup('No ha seleccionado ninguna partida para cargar')
+        if (event == 'eliminar'):
+            if (len(values['listado_partidas']) != 0):
+                partida = values['listado_partidas'][0]
+                administrar_usuarios.eliminar_partida(partida, usuarios)
+                ventana_carga['listado_partidas'].Update(usuarios)
+                if ((len(usuarios) == 0)):
+                    sg.Popup('El registro de partidas está vacío')
+                    break
+    ventana_carga.Close()
+    return jugador_seleccionado
+
 def lazo_principal():
     #Asigno las rutas de las imagenes a usar.
     #La idea es tener un modulo que cargue al iniciar el programa todas las imagenes necesarias
     #y usar excepciones si no encuentra los archivos
     #-----------------------------------------------
-    directorio_partidas = os.path.join('guardados', 'juego_guardado.pckl')
     directorio_avatares = os.path.join('media','media_ii','avatars', '')  #  sg.popup_get_folder('Image folder to open', default_path='')
     img_boton_largo =  os.path.join('media','media_ii','botonlargo.png')
     img_boton_madera = os.path.join('media','media_ii','botonMadera.png')
@@ -136,8 +173,8 @@ def lazo_principal():
     mi_tema()
     ventana = sg.Window('ScrabbleAr', interfaz_principal(img_logo, img_boton_largo, img_boton_madera, avatar), size = (ANCHO,ALTO),resizable=True,element_justification='center',no_titlebar=False)
     ventana.Finalize()
-    while True:
 
+    while True:
         event, value = ventana.read()
 
         if (event == None) or (event == 'salir'):
@@ -145,13 +182,11 @@ def lazo_principal():
         elif event == 'jugar':
             actualizar_columnas(ventana, 'colJugar2')
         elif event == 'cargar':
-            if (os.path.isfile(directorio_partidas)):
-                #Se asigna un nombre al jugador para que el main pueda validarlo
-                jugador.setNombre('Jugador guardado')
+            jugador_seleccionado = ventana_carga()
+            if (jugador_seleccionado != ''):
+                jugador.setNombre(jugador_seleccionado)
                 cargar_partida = True
                 break
-            else:
-                sg.popup('¡No hay ninguna partida guardada!')
         elif event == 'volver':
             actualizar_columnas(ventana, 'colInicial')
         elif event == 'nueva':

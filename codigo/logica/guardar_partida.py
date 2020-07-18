@@ -10,7 +10,7 @@ class Juego_Guardado:
     juego = []
     def __init__(self, ruta_guardado, tablero=None, jugador_user=None, atril=None, atril_pc=None, b_fichas=None,
                 puntaje=None, puntaje_pc=None, tiempo_restante=None, pref=None, cant_cambiar=None, avatar=None,
-                palabras_jugador=None, palabras_pc=None):
+                palabras_jugador=None, palabras_pc=None, dificultad=None):
         self.tablero = tablero
         self.jugador_user = jugador_user
         self.atril = atril
@@ -25,6 +25,7 @@ class Juego_Guardado:
         self.avatar = avatar
         self.palabras_jugador = palabras_jugador
         self.palabras_pc = palabras_pc
+        self.dificultad = dificultad
 
     def getTablero (self):
         return self.tablero
@@ -54,21 +55,23 @@ class Juego_Guardado:
         return self.palabras_jugador
     def getPalabrasPC(self):
         return self.palabras_pc
+    def getDificultad(self):
+        return self.dificultad
 
     def crear_guardado(self):
         '''
         Cada vez que se lo invoca sobreescribe el archivo. Guarda una única partida
         '''
-        fichero = open(f'{self.getRutaGuardado()}juego_guardado.pckl', 'wb')
+        fichero = open(f'{self.getRutaGuardado()}', 'wb')
         self.juego = [self.tablero, self.jugador_user, self.atril, self.bolsa_fichas, self.puntaje,
                     self.tiempo_restante, self.preferencias, self.cant_cambiar, self.puntaje_pc, self.atril_pc,
-                    self.avatar, self.palabras_jugador, self.palabras_pc]
+                    self.avatar, self.palabras_jugador, self.palabras_pc, self.dificultad]
         pickle.dump(self.juego, fichero)
         fichero.close()
 
     def cargar_guardado(self):
         try:
-            fichero = open(f'{self.getRutaGuardado()}juego_guardado.pckl', 'rb')
+            fichero = open(f'{self.getRutaGuardado()}', 'rb')
             self.juego = pickle.load (fichero)
             fichero.close()
             self.tablero = self.juego[0]
@@ -84,6 +87,7 @@ class Juego_Guardado:
             self.avatar = self.juego[10]
             self.palabras_jugador = self.juego[11]
             self.palabras_pc = self.juego[12]
+            self.dificultad = self.juego[13]
             return True
         except:
             print ('No hay partidas guardadas')

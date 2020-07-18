@@ -12,6 +12,7 @@ from codigo.interfaz.final import*
 from codigo.interfaz.ayuda import ayuda
 from codigo.interfaz.ayuda import popReglas
 from codigo.interfaz import configuracion_personalizada
+from codigo.logica import administrar_usuarios
 import os.path
 import time
 import random
@@ -39,24 +40,24 @@ def lazo_principal(jugador, cargar_partida=True):
     :param cargar_partida: Booleano. Si es True, intentará cargar un archivo
     de partida.'''
 
-    configuracion = determinar_dificultad(jugador)
-    puntaje = jugador.getPuntaje()
-    #Instancia la información en diferentes objetos
-    preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
-    unTablero = Tablero(preferencias)
-    #Crea un string con el directorio donde se almacenan las partidas. El formato
-    #de la ruta depende del sistema operativo en el que se esté ejecutando
-    ruta_guardado = os.path.join('guardados', '')
+    #Crea un string con el directorio donde se almacena la partida. El formato
+    #de la ruta depende del sistema operativo en ejecución
+    ruta_guardado = os.path.join('guardados', f'partida_{jugador.getNombre()}')
     #Crea el objeto que gestionará el guardado y cargado de la partida
     archivo_partida = Juego_Guardado(ruta_guardado)
     #Si se clickeó en "Cargar" en la interfaz principal...
     if (cargar_partida):
         #Carga una partida. Es True si se cargó con éxito, False en caso contrario
         if (archivo_partida.cargar_guardado()):
+            jugador.setDificultad(archivo_partida.getDificultad())
+            configuracion = determinar_dificultad(jugador)
+            #Instancia la información en diferentes objetos
+            preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
             #Prepara la información extraída del archivo
             jugador.setAvatar(archivo_partida.getAvatar())
             jugador.setNombre(archivo_partida.getJugadorUser())
             puntaje = archivo_partida.getPuntaje()
+            jugador.setPuntaje(puntaje)
             unTablero = archivo_partida.getTablero()
             atril_jugador = archivo_partida.getAtril()
             atril_pc = archivo_partida.getAtrilPC()
@@ -79,8 +80,12 @@ def lazo_principal(jugador, cargar_partida=True):
             #segundos y lo envía al timer
             interfaz.setTimer(archivo_partida.getTiempoRestante() / 60)
             interfaz.actualizarPuntajePC(puntaje_pc)
-            interfaz.actualizarPuntaje(puntaje)
     else:
+        configuracion = determinar_dificultad(jugador)
+        puntaje = jugador.getPuntaje()
+        #Instancia la información en diferentes objetos
+        preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
+        unTablero = Tablero(preferencias)
         #Si no se clickeó "Cargar" en la interfaz inicial, crea una bolsa y nuevos atriles
         bolsa_fichas = crear_bolsa(configuracion['cant_fichas'],configuracion['puntaje_ficha'])
         atril_jugador = Atril(bolsa_fichas, 7)
@@ -302,7 +307,11 @@ def lazo_principal(jugador, cargar_partida=True):
                     eleccion = interfaz.popUpOkCancel('¿Estas seguro que deseas guardar la partida?')
                     if eleccion == 'OK':
                         jugador.setPuntaje(puntaje)
-                        archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc)
+                        usuarios = administrar_usuarios.cargar_usuarios()
+                        if (jugador.getNombre() not in usuarios):
+                            usuarios.append(jugador.getNombre())
+                            administrar_usuarios.guardar_usuarios(usuarios)
+                        archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
                         archivo_partida.crear_guardado()
                         jugar = False
                 instante = interfaz.paralizarTimer(instante)
