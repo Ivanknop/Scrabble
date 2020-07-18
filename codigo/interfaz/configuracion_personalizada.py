@@ -66,7 +66,7 @@ def obtener_especiales(ventana):
 
 def generar_configuracion(ventana, conf):
     '''Crea un diccionario con la información proporcionada por el usuario,
-    su estructura es idéntica al de los niveles predeterminados.
+    su estructura es idéntica a la de los niveles predeterminados.
     Además, controla que no se hayan ingresado datos incorrectos'''
     #Al inicio, se asume que no hay ningún error
     conf['error'] = ''
