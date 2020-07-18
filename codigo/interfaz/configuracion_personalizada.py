@@ -103,13 +103,15 @@ def generar_configuracion(ventana, conf):
     return conf
 
 def cargar_configuracion(usuario):
-    directorio = os.path.join('guardados', f'configuracion_{usuario}.json')
+    directorio = os.path.join('guardados', 'configuracion_usuario.pckl')
     with open(directorio, 'rb') as archivo:
         configuracion = pickle.load(archivo)
     return configuracion
 
 def guardar_configuracion(configuracion, usuario):
-    directorio = os.path.join('guardados', f'configuracion_{usuario}.json')
+    #En un futuro, si se implementa la opción de tener multijugadores, se cargará
+    #la configuración de cada usuario individualmente
+    directorio = os.path.join('guardados', f'configuracion_usuario.pckl')
     with open(directorio, 'wb') as archivo:
         pickle.dump(configuracion, archivo)
 
