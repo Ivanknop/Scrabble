@@ -100,7 +100,7 @@ class Dibujar():
                             [sg.Button(image_filename=f'{self._directorio_media}validar.png', border_width=0, key='validar'),
                             sg.Button(image_filename=f'{self._directorio_media}bolsallenaP.png', border_width=0, key='cambiar')]]
         #Crea la ventana y la muestra
-        diseño = [top,[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='right', pad=(10, None))]]
+        diseño = [top,[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='right',size=(450,600), pad=(10, 0))]]
         self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=False, no_titlebar=False)
         self._interfaz.Finalize()
 
