@@ -9,26 +9,21 @@ from codigo.interfaz import configuracion_personalizada
 
 
 def check_apodo(apodo):
-    '''esta función se encarga de evaluar el campo del APODO  al momento
-    decrear una partida. Los apodos deben tener mas de 3 caracteres, no poseer espacion en blanco
-    no poseer caracteres especiales, y no ser solo numeros'''
+    '''Esta función se encarga de evaluar el campo del APODO al momento
+    de crear una partida. Los apodos deben tener mas de 3 caracteres, no poseer
+    espacios en blanco, caracteres especiales ni no ser solo números'''
 
     carEspecial = '!@#$%^&*()[]{};:,./<>?\|`~-=_+'
     if len(apodo) < 3 or len(apodo) > 10:
         print('longitud')
         return False
     elif (apodo == '') or  (apodo.isspace()== True) or (' ' in apodo):
-
         return False
     elif apodo.isdigit()==True:
-
         return False
-
     for c in apodo:
-
         if c in carEspecial:
             return False
-
     return True
 
 def nivel(ventana):
@@ -49,13 +44,10 @@ def jugar (avatar, value, ventana):
     jugador = Jugador(nombre=value['apodo'], dificultad=nivel(ventana), avatar=avatar)
     return jugador
 
-
-
-
 def actualizar_columnas(ventana, *columna):
     '''Esta función hará visible la columna que recibe como parámetro
     e invisible el resto de las columnas.
-    Sirve para actualizar la interfaz principal segun la opción elegida'''
+    Sirve para actualizar la interfaz principal según la opción elegida'''
     #Busca en la lista de elementos hasta encontrar una columna
     for e in ventana.element_list():
         if e.Type == 'column':
@@ -68,13 +60,11 @@ def actualizar_columnas(ventana, *columna):
             else:
                 ventana.FindElement(e.Key).update(visible=False)
 
-
 def cargando():
     layout=[
         [sg.popup_animated(image_source='blue_blocks.gif', message="Cargando...", alpha_channel=1,time_between_frames=2,no_titlebar=True)],
     ]
     return layout
-
 
 def nueva_partida(avatar):
     layout = [
@@ -93,7 +83,6 @@ def nueva_partida(avatar):
     ]
     return layout
 
-
 def jugar_interfaz(img_boton_largo):
     layout = [
         [sg.Button('Nueva Partida',image_filename=img_boton_largo,  border_width=0,font=('Italic 24'),size = (20,3), key='nueva')],
@@ -108,7 +97,6 @@ def inicio(img_boton_madera):
                sg.Button(image_filename=img_boton_madera,  border_width=0,button_text='Puntajes', size=(200, 200), font=('Impact', 30),key='puntajes')],
               [sg.Button('Salir', button_color=('black','#f75404'),size=(10, 2),font=('Arial Black', 20),border_width=1, key='salir')]]
     return layout
-
 
 def interfaz_principal(img_logo, img_boton_largo, img_boton_madera, avatar):
     colInicial = inicio(img_boton_madera)

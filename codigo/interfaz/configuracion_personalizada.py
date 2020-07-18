@@ -40,8 +40,29 @@ def layout():
             #En el layout, toma la última lista que se insertó (la que contiene el primer frame) y le agrega el frame recién creado.
             #Esto causa que el espacio con los puntajes se vea a la derecha del de la bolsa, en lugar de debajo.
             layout[-1].extend([sg.Frame(layout=frame_resultante, font=('Italic 12'), title='Puntajes de las fichas', element_justification='right')])
+    casilleros_especiales = [[sg.Text('Seleccione los casilleros especiales que le gustaría que apareciesen: ')],
+                                [sg.Checkbox('+: Suma 5 puntos al valor de la palabra', default=True, key='*sum'), sg.Checkbox('-: Resta 5 puntos al valor de la palabra', default=True, key='*rest')],
+                                [sg.Checkbox('*: Duplica el valor de la palabra', default=False, key='*mult') ,sg.Checkbox('%: Divide a la mitad el valor de la palabra', default=False, key='*div')],
+                                [sg.Checkbox('0: Anula el valor total de la palabra', default=False, key='*0')]]
+    layout.extend(casilleros_especiales)
     layout.append([sg.Button('Guardar y jugar', key='guardar', button_color=('Black', 'White')), sg.Button('Cancelar', key='cancel', button_color=('Black','White'))])
     return layout
+
+def obtener_especiales(ventana):
+    '''Retorna una lista con los casilleros especiales que se
+    marcaron en las checkbox'''
+    especiales = []
+    if (ventana['*sum'].Get()):
+        especiales.append('*sum')
+    if (ventana['*rest'].Get()):
+        especiales.append('*rest')
+    if (ventana['*mult'].Get()):
+        especiales.append('*mult')
+    if (ventana['*div'].Get()):
+        especiales.append('*div')
+    if (ventana['*0'].Get()):
+        especiales.append('*0')
+    return especiales
 
 def generar_configuracion(ventana, conf):
     '''Crea un diccionario con la información proporcionada por el usuario,
@@ -99,7 +120,8 @@ def generar_configuracion(ventana, conf):
     conf['cant_fichas'] = cant_fichas
     conf['puntaje_ficha'] = puntaje_ficha
     #Agrega casilleros especiales al tablero
-    conf['especiales'] = configuracion.especial(conf['filas'], conf['columnas'], 'medio')
+    especiales_seleccionados = obtener_especiales(ventana)
+    conf['especiales'] = configuracion.especial(conf['filas'], conf['columnas'], conf['nivel'], especiales_seleccionados)
     return conf
 
 def cargar_configuracion(usuario):

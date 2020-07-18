@@ -93,7 +93,7 @@ class Dibujar():
 
         columna_derecha = [[sg.Button(button_text=f'Nivel: {preferencias.getNivel().capitalize()}', font=('Arial', 14),border_width=1,tooltip='Configuración de la partida',key='infoPartida')],
                             [sg.Column(avatarJ, element_justification='center'),sg.Column(avatarPC, element_justification='center')],
-                            [sg.Text(f'         ¡Comencemos, {jugador.getNombre()}!           ', background_color='black', font=('Nimbus Mono PS', 14), text_color='White', key='textoPC')],
+                            [sg.Text(f'                   ¡Comencemos, {jugador.getNombre()}!                    ', background_color='black', font=('Nimbus Mono PS', 14), text_color='White', key='textoPC')],
                             [sg.Text('                ---TUS FICHAS---              ', font=('Arial', 14), background_color='Black', text_color='White', key='textoJugador')],
                             fichas,
                             [sg.Text('_'*30)],
@@ -200,10 +200,10 @@ class Dibujar():
                 self.borrarElemento(f'ficha {f}')
 
     def actualizarPuntaje(self, nuevo_puntaje):
-        self._getInterfaz()['puntaje'].Update(f'{nuevo_puntaje}', font=('Arial', 14))
+        self._getInterfaz()['puntaje'].Update(f'{nuevo_puntaje}', font=('Arial', 20))
 
     def actualizarPuntajePC(self, nuevo_puntaje):
-        self._getInterfaz()['puntaje_pc'].Update(f'{nuevo_puntaje}', font=('Arial', 14))
+        self._getInterfaz()['puntaje_pc'].Update(f'{nuevo_puntaje}', font=('Arial', 20))
 
     def seleccionarOrientacion(self, coordenada, pref):
         '''Una vez validada la palabra, permite mostrar los botones para

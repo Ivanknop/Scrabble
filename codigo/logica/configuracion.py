@@ -46,10 +46,11 @@ def infoConfiguracion(conf):
             break
     ventana.close()
 
-def especial(filas, columnas, nivel):
+def especial(filas, columnas, nivel, esp_personalizados=[]):
     '''Genera casilleros especiales según el nivel,
     teniendo en cuenta la cantidad de columnas, filas y la dificultad.
     Además, controla que exista cierta cantidad de casilleros especiales'''
+    especiales = {}
     if nivel == 'facil':
         esp = ['*rest', '*sum']
         minEsp= 10
@@ -60,13 +61,14 @@ def especial(filas, columnas, nivel):
         esp = ['*rest', '*sum', '*mult', '*0', '*div']
         minEsp = 7
     else:
-        esp = []
-    especiales = {}
+        esp = esp_personalizados
+        if (len(esp) == 0):
+            return especiales
     for fila in range(filas):
         for columna in range(columnas):
             probabilidad = random.randint(0, 100)
             if probabilidad < 25:
-                #Asigna el casillero especial
+                #Crea el casillero especial
                 coordenada = str(fila) + ', ' + str(columna)
                 random.shuffle(esp)
                 especiales[coordenada] = esp[0]
