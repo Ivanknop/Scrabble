@@ -5,6 +5,7 @@ from codigo.logica.jugador import Jugador
 import codigo.interfaz.interfaz_puntaje as pun
 from codigo.interfaz.tema import *
 from  codigo.interfaz.ayuda import ayuda
+from codigo.interfaz import configuracion_personalizada
 
 
 def check_apodo(apodo):
@@ -37,8 +38,10 @@ def nivel(ventana):
         n = "facil"
     elif ventana.FindElement('rMedio').Get() == True:
         n = 'medio'
-    else:
+    elif ventana.FindElement('rDificil').Get() == True:
         n = 'dificil'
+    else:
+        n = 'personalizado'
     return n
 
 def jugar (avatar, value, ventana):
@@ -80,10 +83,11 @@ def nueva_partida(avatar):
         [sg.Frame(
                   layout= [[sg.Radio('Fácil', "dificultad",font=('Italic 24'), default=True, size=(10,3), key='rFacil')],
                           [sg.Radio('Medio', "dificultad",font=('Italic 24'), default=False, size=(10,3), key='rMedio')],
-                          [sg.Radio('Difícil', "dificultad",font=('Italic 24'), default=False, size=(10,3), key='rDificil')],],
+                          [sg.Radio('Difícil', "dificultad",font=('Italic 24'), default=False, size=(10,3), key='rDificil')],
+                          [sg.Radio('Personalizado', "dificultad",font=('Italic 24'), default=False, size=(11,3), key='rPersonalizado')]],
 
                   title='Dificultad' ,title_color='black', relief=sg.RELIEF_SUNKEN,font=('Italic 24'),
-                        element_justification='center',key='contenedor'),
+                        element_justification='left',key='contenedor'),
          sg.Column(avatar.getAvatarLayout(), visible=False,key='colAvatar')],
         [sg.Button('Jugar', size=(10, 2),button_color=('black','#afad71'),font=('Arial', 18),border_width=1, key='confirmar'),sg.Button('cancelar', size=(10, 2),font=('Arial', 18),border_width=1,button_color=('black','#afad71'), key='cancelar')],
     ]
@@ -172,12 +176,20 @@ def lazo_principal():
                 decision = sg.popup_yes_no(f'¿Confirmar los datos?\nNombre: {value["apodo"]}\nDificultad: {nivel(ventana)}',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
                 if decision == 'Yes':
                     jugador = jugar(avatarSelec, value, ventana)
-                    break
+                    if (jugador.getDificultad() == 'personalizado'):
+                        configuracion = configuracion_personalizada.interfaz_personalizacion(jugador.getNombre())
+                        if ((len(configuracion) != 0) and (len(configuracion['error']) == 0)):
+                            jugador = jugar(avatarSelec, value, ventana)
+                            break
+                        else:
+                            jugador.setNombre('')
+                    else:
+                        jugador = jugar(avatarSelec, value, ventana)
+                        break
             else:
                 sg.popup_ok('Debe ingresar un Apodo (debe tener entre 3 y 10 caracteres,puede ser alfanumerico, pero no debe contener caracteres especiales)',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
         elif event in ('<<<', '>>>'):
             avatarSelec = avatar.controles(event, ventana.FindElement('avatarVisor'))
-
         elif event == 'puntajes':
             pun.puntajes()
         elif event == 'ayuda':

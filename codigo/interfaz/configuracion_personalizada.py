@@ -1,5 +1,8 @@
 import PySimpleGUI as sg
-from tema import mi_tema
+from codigo.interfaz.tema import mi_tema
+import os.path
+import json
+from codigo.logica import configuracion
 
 def layout():
     '''Diseña el layout de la ventana de configuración.
@@ -37,7 +40,7 @@ def layout():
             #En el layout, toma la última lista que se insertó (la que contiene el primer frame) y le agrega el frame recién creado.
             #Esto causa que el espacio con los puntajes se vea a la derecha del de la bolsa, en lugar de debajo.
             layout[-1].extend([sg.Frame(layout=frame_resultante, font=('Italic 12'), title='Puntajes de las fichas', element_justification='right')])
-    layout.append([sg.Button('Guardar y jugar', key='guardar', button_color=('Black', 'White')), sg.Button('Cancelar', key='cancelar', button_color=('Black','White'))])
+    layout.append([sg.Button('Guardar y jugar', key='guardar', button_color=('Black', 'White')), sg.Button('Cancelar', key='cancel', button_color=('Black','White'))])
     return layout
 
 def generar_configuracion(ventana, conf):
@@ -95,10 +98,22 @@ def generar_configuracion(ventana, conf):
     #Asigna los diccionarios resultantes (cantidades y puntuación) a la configuración global
     conf['cant_fichas'] = cant_fichas
     conf['puntaje_ficha'] = puntaje_ficha
+    #Agrega casilleros especiales al tablero
+    conf['especiales'] = configuracion.especial(conf['filas'], conf['columnas'], 'medio')
     return conf
 
+def cargar_configuracion(usuario):
+    directorio = os.path.join('guardados', f'configuracion_{usuario}.json')
+    with open(directorio, 'r') as archivo:
+        configuracion = json.load(archivo)
+    return configuracion
 
-def interfaz_personalizacion():
+def guardar_configuracion(configuracion, usuario):
+    directorio = os.path.join('guardados', f'configuracion_{usuario}.json')
+    with open(directorio, 'w') as archivo:
+        json.dump(configuracion, archivo)
+
+def interfaz_personalizacion(usuario):
     '''Muestra la interfaz de configuración y controla sus eventos'''
     conf = {}
     mi_tema()
@@ -106,12 +121,19 @@ def interfaz_personalizacion():
     ventana.Finalize()
     while True:
         event, values = ventana.Read()
-        if (event in (None, 'cancelar')):
+        if (event == None):
+            break
+        if (event == 'cancel'):
             break
         if (event == 'guardar'):
             configuracion = generar_configuracion(ventana, conf)
-            print(configuracion)
-            break
+            #Si no hay ningún error en la configuración, la guarda
+            if (len(configuracion['error']) == 0):
+                guardar_configuracion(configuracion, usuario)
+                break
+            else:
+                sg.popup(configuracion['error'])
+    ventana.close()
     return conf
 
 if __name__ == '__main__':

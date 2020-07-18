@@ -11,6 +11,7 @@ from codigo.interfaz.interfaz_palabras import *
 from codigo.interfaz.final import*
 from codigo.interfaz.ayuda import ayuda
 from codigo.interfaz.ayuda import popReglas
+from codigo.interfaz import configuracion_personalizada
 import os.path
 import time
 import random
@@ -19,12 +20,15 @@ def determinar_dificultad(jugador):
     '''Retorna un diccionario que contiene toda la información necesaria
     para configurar la partida (puntajes de las fichas, cantidad de filas
     y columnas, coordenadas de casilleros especiales, etc.)'''
-    if (jugador.getDificultad() == 'facil'):
+    dificultad = jugador.getDificultad()
+    if (dificultad == 'facil'):
         configuracion = nivel_facil()
-    elif (jugador.getDificultad() == 'medio'):
+    elif (dificultad == 'medio'):
         configuracion = nivel_medio()
-    else:
+    elif (dificultad == 'dificil'):
         configuracion = nivel_dificil()
+    else:
+        configuracion = configuracion_personalizada.cargar_configuracion(jugador.getNombre())
     return configuracion
 
 def lazo_principal(jugador, cargar_partida=True):

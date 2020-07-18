@@ -112,7 +112,7 @@ def nivel_facil():
         10: ['Z']
     }
     }
-    conf['especiales']=especial(conf['filas'], conf['columnas'],conf['nivel'])
+    conf['especiales'] = especial(conf['filas'], conf['columnas'],conf['nivel'])
     return conf
 
 
