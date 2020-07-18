@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 from codigo.interfaz.tema import mi_tema
 
 def infoConfiguracion(conf):
-    '''Esta función crea una ventana con la configuración
+    '''Crea una ventana que muestra la configuración
     de la partida que se está jugando.'''
     layout = [
                 [sg.Text('Nivel: '), sg.Text(f'{conf["nivel"].capitalize()}')],
@@ -46,13 +46,10 @@ def infoConfiguracion(conf):
             break
     ventana.close()
 
-def especial(fila, col,nivel):
-    ''' esta funci{on genera casilleros especiales, segun el nivel
-    teniendo en cuenta la cantidad de columnas y filas, y la dificultad dle mismo
-    y siempre controla que tenga cierta cantidad de casilleros especiales'''
-
-
-
+def especial(filas, columnas, nivel):
+    '''Genera casilleros especiales según el nivel,
+    teniendo en cuenta la cantidad de columnas, filas y la dificultad.
+    Además, controla que exista cierta cantidad de casilleros especiales'''
     if nivel == 'facil':
         esp = ['*rest', '*sum']
         minEsp= 10
@@ -64,30 +61,15 @@ def especial(fila, col,nivel):
         minEsp = 7
     else:
         esp = []
-
-
-
     especiales = {}
-    # minok = False
-    # while not minok:
-    for row in range(fila):
-        for col in range(col):
-            if random.randint(0, 100) > 10:
-                pass
-            else:
-                # aca asigno el casillero especial
-                l = [str(row), ', ', str(col)]
-                c = ''.join(l)
-
+    for fila in range(filas):
+        for columna in range(columnas):
+            probabilidad = random.randint(0, 100)
+            if probabilidad < 25:
+                #Asigna el casillero especial
+                coordenada = str(fila) + ', ' + str(columna)
                 random.shuffle(esp)
-                especiales[c] = esp[0]
-
-        # controlo el minimo de casilleros
-        # print(especiales)
-        # print(len(especiales))
-        # if len(especiales) >= minEsp:
-        #     minok = True
-
+                especiales[coordenada] = esp[0]
     return especiales
 
 def nivel_facil():
