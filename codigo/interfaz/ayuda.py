@@ -161,7 +161,7 @@ def niveles(dirAyuda):
                              font=('Arial, 18'), text_color='black',justification='left',background_color='#afad71')]],
 
             title='Nivel Facil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
-            element_justification='left',  key='contenedor'),],
+            element_justification='left',  key='contenedor_facil'),],
         [sg.Frame(
             layout=[[sg.Text(' Tamaño tablero 15*15. Idem anterior   \n '
                              '  Puntaje de Fichas:  Vocales y L, N, S, T, R = 1 pts; C, D, G = 2 pts; M, B,\n P = 3 pts; F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 8 pts; Z= 10 pts       \n'
@@ -173,7 +173,7 @@ def niveles(dirAyuda):
                              'PC: Evalúa la   primer palabra que puede formar y analiza en el tablero cuál es la mejor posición.\n',
                              font=('Arial, 18'), text_color='black',justification='left',background_color='#afad71')]],
             title='Nivel Medio', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
-            element_justification='center', key='contenedor'), ],
+            element_justification='center', key='contenedor_medio'), ],
         [sg.Frame(
             layout=[[sg.Text('Tamaño tablero: 10*10Idem anterior\n'
                              'Puntaje de Fichas: Vocales y L, N, S, T, R = 1 pts; C, D, G = 1 pts; \n'
@@ -186,7 +186,7 @@ def niveles(dirAyuda):
                              'PC: Prueba todas las palabras posibles y cuáles puede \ninsertar en las mejores posiciones a fin de encontrar la mejor combinación palabra-espacio.\n',
                              font=('Arial, 18'), text_color='black',justification='left',background_color='#afad71')]],
             title='Dificil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
-            element_justification='center' , key='contenedor'), ],
+            element_justification='center' , key='contenedor_dificil'), ],
 
         ]
 

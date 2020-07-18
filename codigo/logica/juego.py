@@ -31,7 +31,9 @@ def lazo_principal(jugador, cargar_partida=True):
     '''Lazo que controla el flujo normal de la partida. Determina qué
     sucede ante cada evento que ocurre en el juego.
     :param jugador: Objeto que contiene los datos del jugador, lo
-    utiliza al crear una nueva partida o cargar una anterior.'''
+    utiliza al crear una nueva partida o cargar una anterior.
+    :param cargar_partida: Booleano. Si es True, intentará cargar un archivo
+    de partida.'''
 
     configuracion = determinar_dificultad(jugador)
     puntaje = jugador.getPuntaje()
@@ -86,10 +88,8 @@ def lazo_principal(jugador, cargar_partida=True):
         puntaje = 0
         puntaje_pc = 0
         interfaz = Dibujar(unTablero, preferencias, atril_jugador, jugador)
-
-        #------------Se mostrara la pantalal de las Reglas---------------
+        #Muestra la pantalla con las reglas si es la primera vez que está jugando
         popReglas()
-        #----------------------------------------------------------------
         #El tiempo de la partida se determina según el nivel de dificultad
         tiempo_partida = configuracion['tiempo']
         interfaz.setTimer(tiempo_partida)
@@ -309,7 +309,7 @@ def lazo_principal(jugador, cargar_partida=True):
             if (event == 'ayuda'):
                 ayuda()
 
-   
+
 
             interfaz.actualizarTimer()
 
