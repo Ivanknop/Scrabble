@@ -49,7 +49,7 @@ def generar_configuracion(ventana, conf):
     Además, controla que no se hayan ingresado datos incorrectos'''
     #Al inicio, se asume que no hay ningún error
     conf['error'] = ''
-    conf['nivel'] = 'Personalizado'
+    conf['nivel'] = 'personalizado'
 
     #Evalúa si los datos en los spin de filas, columnas y tiempo son correctos
     for spin in ['filas', 'columnas', 'tiempo']:

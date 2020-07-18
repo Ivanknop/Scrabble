@@ -88,7 +88,7 @@ def check_jugador(palabra, dificultad ='facil'):
         #en cuanto encunetre una opcion que de 'True' dejara de comprobar e insertara esa
         while not ok and cont < len(posibles):
             pal = ''
-            if es_palabra(posibles[cont]) and dificultad == 'facil':
+            if es_palabra(posibles[cont]) and (dificultad == 'facil' or dificultad == 'personalizado'):
                 pal = pes.parse(posibles[cont]).split('/')
 
                 if pal[1] in TIPO['adj']:
