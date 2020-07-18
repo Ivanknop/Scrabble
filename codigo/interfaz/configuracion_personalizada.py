@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from tema import mi_tema
 
 def layout():
     '''Diseña el layout de la ventana de configuración.
@@ -36,7 +37,7 @@ def layout():
             #En el layout, toma la última lista que se insertó (la que contiene el primer frame) y le agrega el frame recién creado.
             #Esto causa que el espacio con los puntajes se vea a la derecha del de la bolsa, en lugar de debajo.
             layout[-1].extend([sg.Frame(layout=frame_resultante, font=('Italic 12'), title='Puntajes de las fichas', element_justification='right')])
-    layout.append([sg.Button('Guardar y jugar', key='guardar'), sg.Button('Cancelar', key='cancelar')])
+    layout.append([sg.Button('Guardar y jugar', key='guardar', button_color=('Black', 'White')), sg.Button('Cancelar', key='cancelar', button_color=('Black','White'))])
     return layout
 
 def generar_configuracion(ventana, conf):
@@ -47,6 +48,7 @@ def generar_configuracion(ventana, conf):
     conf['error'] = ''
     conf['nivel'] = 'Personalizado'
 
+    #Evalúa si los datos en los spin de filas, columnas y tiempo son correctos
     for spin in ['filas', 'columnas', 'tiempo']:
         valor_spin = ventana[f'{spin}'].Get()
         try:
@@ -54,11 +56,15 @@ def generar_configuracion(ventana, conf):
         except:
             conf['error'] = 'Se asignó un valor no numérico a la cantidad de filas, columnas o al tiempo'
             return conf
-        if (valor_spin < 1):
-            conf['error'] = 'Se asignó un valor nulo o negativo a la cantidad de filas, columnas o al tiempo'
+        if (valor_spin < 5):
+            conf['error'] = 'Se asignó un valor menor a 5 a la cantidad de filas, columnas o al tiempo'
+            return conf
         conf[spin] = valor_spin
 
+    #Comprueba que los spin de cantidades y puntajes sean correctos. Si es así,
+    #almacena la información en diccionarios
     cant_fichas = {}
+    puntaje_ficha = {}
     for frame in ['cantidades', 'puntajes']:
         for i in range(ord('A'), ord('Z')+2):
             letra = chr(i)
@@ -77,14 +83,25 @@ def generar_configuracion(ventana, conf):
                 conf['error'] = f'La letra {letra} posee valor nulo o negativo en el espacio de {frame}'
                 return conf
             cant_fichas[f'{letra}'] = valor_spin
-    conf['cant_fichas'] = cant_fichas
+            #Si el frame actual es el de puntajes...
+            if (frame == 'puntajes'):
+                #...y el valor del spin no se encuentra en el diccionario de puntajes, crea la clave y le asigna la primer letra
+                if (valor_spin not in puntaje_ficha):
+                    puntaje_ficha[valor_spin] = [letra]
+                else:
+                    #Si no, agrega una nueva letra en ese espacio
+                    puntaje_ficha[valor_spin].append(letra)
 
+    #Asigna los diccionarios resultantes (cantidades y puntuación) a la configuración global
+    conf['cant_fichas'] = cant_fichas
+    conf['puntaje_ficha'] = puntaje_ficha
     return conf
 
 
 def interfaz_personalizacion():
     '''Muestra la interfaz de configuración y controla sus eventos'''
     conf = {}
+    mi_tema()
     ventana = sg.Window('Configuración personalizada', layout())
     ventana.Finalize()
     while True:
