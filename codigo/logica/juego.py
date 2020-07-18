@@ -80,6 +80,7 @@ def lazo_principal(jugador, cargar_partida=True):
             #segundos y lo envía al timer
             interfaz.setTimer(archivo_partida.getTiempoRestante() / 60)
             interfaz.actualizarPuntajePC(puntaje_pc)
+            partida_existente = True
     else:
         configuracion = determinar_dificultad(jugador)
         puntaje = jugador.getPuntaje()
@@ -105,6 +106,7 @@ def lazo_principal(jugador, cargar_partida=True):
         #Prepara los listados donde se guardarán las palabras utilizadas
         palabras_jugador=[]
         palabras_pc=[]
+        partida_existente = False
 
     #Lazo principal del juego
     interfaz.turnoJugador(turno_jugador)
@@ -313,6 +315,7 @@ def lazo_principal(jugador, cargar_partida=True):
                             administrar_usuarios.guardar_usuarios(usuarios)
                         archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
                         archivo_partida.crear_guardado()
+                        partida_existente = True
                         jugar = False
                 instante = interfaz.paralizarTimer(instante)
 
@@ -368,3 +371,8 @@ def lazo_principal(jugador, cargar_partida=True):
                     interfaz.habilitarFinalizacion()
             interfaz.turnoJugador(True)
             turno_jugador = True
+
+    #Si al terminar el programa no se guardó la partida y se está jugando en modo personalizado,
+    #se borra el archivo con la configuración
+    if (jugador.getDificultad() == 'personalizado') and (not partida_existente):
+        configuracion_personalizada.eliminar_configuracion(jugador.getNombre())
