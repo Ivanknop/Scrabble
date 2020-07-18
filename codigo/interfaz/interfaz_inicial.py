@@ -158,7 +158,7 @@ def lazo_principal():
             actualizar_columnas(ventana, 'colJugar2')
         elif event == 'cargar':
             if (os.path.isfile(directorio_partidas)):
-                 #Se asigna un nombre al jugador para que el main pueda validarlo
+                #Se asigna un nombre al jugador para que el main pueda validarlo
                 jugador.setNombre('Jugador guardado')
                 cargar_partida = True
                 break

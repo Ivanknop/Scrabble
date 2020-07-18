@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 from codigo.interfaz.tema import mi_tema
 import os.path
-import json
+import pickle
 from codigo.logica import configuracion
 
 def layout():
@@ -104,14 +104,14 @@ def generar_configuracion(ventana, conf):
 
 def cargar_configuracion(usuario):
     directorio = os.path.join('guardados', f'configuracion_{usuario}.json')
-    with open(directorio, 'r') as archivo:
-        configuracion = json.load(archivo)
+    with open(directorio, 'rb') as archivo:
+        configuracion = pickle.load(archivo)
     return configuracion
 
 def guardar_configuracion(configuracion, usuario):
     directorio = os.path.join('guardados', f'configuracion_{usuario}.json')
-    with open(directorio, 'w') as archivo:
-        json.dump(configuracion, archivo)
+    with open(directorio, 'wb') as archivo:
+        pickle.dump(configuracion, archivo)
 
 def interfaz_personalizacion(usuario):
     '''Muestra la interfaz de configuración y controla sus eventos'''

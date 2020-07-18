@@ -9,7 +9,6 @@ def crear_bolsa(cant, puntos, propietario='jugador'):
     #l = cantidad de veces que aparece una ficha
     #k = puntaje de una ficha
     for l in cant:
-        ficha = {}
         ok = False
         k = 1
         while not ok:
