@@ -1,5 +1,6 @@
 import os
 import json
+from codigo.interfaz import configuracion_personalizada
 
 def cargar_usuarios():
     try:
@@ -21,3 +22,4 @@ def eliminar_partida(partida, usuarios):
     filename_partida = os.path.join('guardados', f'partida_{partida}')
     if (os.path.isfile(filename_partida)):
         os.remove(filename_partida)
+    configuracion_personalizada.eliminar_configuracion(partida)

@@ -126,16 +126,30 @@ def generar_configuracion(ventana, conf):
 
 def cargar_configuracion(usuario):
     directorio = os.path.join('guardados', f'configuracion_{usuario}.pckl')
-    with open(directorio, 'rb') as archivo:
-        configuracion = pickle.load(archivo)
-    return configuracion
+    try:
+        with open(directorio, 'rb') as archivo:
+            configuracion = pickle.load(archivo)
+        return configuracion
+    except:
+        configuracion['error'] = 'No se encontró el archivo'
+        return configuracion
 
 def guardar_configuracion(configuracion, usuario):
-    #En un futuro, si se implementa la opción de tener multijugadores, se cargará
-    #la configuración de cada usuario individualmente
     directorio = os.path.join('guardados', f'configuracion_{usuario}.pckl')
-    with open(directorio, 'wb') as archivo:
-        pickle.dump(configuracion, archivo)
+    try:
+        with open(directorio, 'wb') as archivo:
+            pickle.dump(configuracion, archivo)
+        return True
+    except:
+        return False
+
+def eliminar_configuracion(usuario):
+    directorio = os.path.join('guardados', f'configuracion_{usuario}.pckl')
+    try:
+        os.remove(directorio)
+        return True
+    except:
+        return False
 
 def interfaz_personalizacion(usuario):
     '''Muestra la interfaz de configuración y controla sus eventos'''
