@@ -228,7 +228,10 @@ def loading():
             v['texto'].update('{}'.format(texto[i]))
             try:
                 if str(chequeos[i]) > '0':
-                    v['ok'].update('Cuidado, tienes imágenes dañadas')
+                    if i == 0:
+                        v['ok'].update('Cuidado, tienes algún directorio dañado')
+                    else:
+                        v['ok'].update('Cuidado, tienes imágenes dañadas')
                     img2 = crear_error()
                 else:
                     v['ok'].update('Correctas')
