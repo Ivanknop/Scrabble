@@ -29,7 +29,7 @@ class Dibujar():
         self._tiempo_inicio = 0
         self._tiempo_fin = 0
         #Directorios con las imágenes necesarias
-        self._directorio_media = os.path.join('media', '')
+        self._directorio_media = os.path.join('media','media_ii' '')
         self._directorio_fichas = os.path.join('media', 'Fichas y espacios', '')
         self._directorio_media_ii = os.path.join('media', 'media_ii','')
         self._directorio_avatars =  os.path.join('media', 'media_ii','avatars','')
