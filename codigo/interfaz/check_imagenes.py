@@ -127,7 +127,7 @@ def check_fichas ():
     return errores
 
 def check_ayuda ():
-    ayuda = [a for a in range(0,39)]
+    ayuda = [a for a in range(0,40)]
     directorio = os.path.join ('media','ayuda','')
     errores = 0
     for i in range (len(ayuda)):
