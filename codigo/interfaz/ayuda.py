@@ -127,7 +127,7 @@ def otros(dirAyuda):
     return layout
 
 def reglas():
-    imgReglas = os.path.join('media', 'ayuda', 'reglas.png')
+    imgReglas = os.path.join('media', 'ayuda', 'ayuda 39.png') #reglas
 
     col = [[sg.Image(filename=imgReglas)],
            [sg.Multiline('¡¿Cómo te va?! Vamos a jugar al ScrabbleAR. Veamos bien cómo se juega...'
