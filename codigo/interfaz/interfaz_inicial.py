@@ -141,13 +141,15 @@ def ventana_carga():
             else:
                 sg.popup('No ha seleccionado ninguna partida para cargar')
         if (event == 'eliminar'):
-            if (len(values['listado_partidas']) != 0):
-                partida = values['listado_partidas'][0]
-                administrar_usuarios.eliminar_partida(partida, usuarios)
-                ventana_carga['listado_partidas'].Update(usuarios)
-                if ((len(usuarios) == 0)):
-                    sg.Popup('El registro de partidas está vacío')
-                    break
+            decision = sg.popup_yes_no('Realmente desea eliminar las partidas guardadas?',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
+            if decision == 'Yes':
+                if (len(values['listado_partidas']) != 0):
+                    partida = values['listado_partidas'][0]
+                    administrar_usuarios.eliminar_partida(partida, usuarios)
+                    ventana_carga['listado_partidas'].Update(usuarios)
+                    if ((len(usuarios) == 0)):
+                        sg.Popup('El registro de partidas está vacío')
+                        break
     ventana_carga.Close()
     return jugador_seleccionado
 
