@@ -46,12 +46,9 @@ def crear_especial(esp,directorio):
         dibujo = ImageDraw.Draw(img)
         dibujo.text((10, 5), '=>', 'black', font)
     elif esp == 'orientacion': 
-        try:
-            img = Image.open(f'{directorio}{esp}.png')
-        except:
-            img = Image.new('RGBA',(29,31),(100,100,100,255))
-            dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
-            dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
+        img = Image.new('RGBA',(29,31),(100,100,100,255))
+        dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
+        dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
     img.save(f'{directorio}{esp}.png')
     return img
 
@@ -60,14 +57,49 @@ def crear_avatar(av,directorio):
     Recibe un avatar y el directorio donde debe estar almacenado.
     Avalúa si es así. En caso contrario, crea una imagen nueva
     '''
-    try:
-        img = Image.open(f'{directorio}avatarError.png')
-    except:
-        img = Image.new('RGBA',(200,200),(100,100,100,255))
-        dibujo = ImageDraw.Draw(img)
-        dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
-        dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
-        img.save(f'{directorio}avatarError.png')
+    img = Image.new('RGBA',(200,200),(100,100,100,255))
+    dibujo = ImageDraw.Draw(img)
+    dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
+    dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
+    img.save(f'{directorio}{av}.png')
+    return img
+
+def crear_varios(varios,directorio):
+    if varios == 'botonlargo':
+        img = Image.new('RGBA',(300,100),(100,100,100,255))
+    elif varios == 'botonMadera':
+        img = Image.new('RGBA',(216,216),(100,100,100,255))
+    elif varios == 'logo':
+        img = Image.new('RGBA',(780,250),(100,100,100,255))
+    elif varios == 'scrabbleArLogo':
+        img = Image.new('RGBA',(300,850),(100,100,100,255))
+    elif varios == 'puntuaciones2':
+        img = Image.new('RGBA',(349,120),(100,100,100,255))
+    elif varios == 'pausa':
+        img = Image.new('RGBA',(230,70),(100,100,100,255))
+    elif varios == 'bolsafichasvacia':
+        img = Image.new('RGBA',(100,105),(100,100,100,255))
+    elif varios == 'bolsallenaP':
+        img = Image.new('RGBA',(100,107),(100,100,100,255))
+    elif varios == 'validar':
+        img = Image.new('RGBA',(100,100),(100,100,100,255))
+    elif varios == 'ayuda':
+        img = Image.new('RGBA',(64,80),(100,100,100,255))
+    dibujo = ImageDraw.Draw(img)
+    dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
+    dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
+    img.save(f'{directorio}{varios}.png')
+    return img
+
+def crear_ayuda (ay,directorio):
+    '''
+    Recibe una imagen de ayuda y el directorio donde debe almacenarse y crea una imagen nueva
+    '''
+    img = Image.new('RGBA', (50,50), (100,100,100,255))
+    dibujo = ImageDraw.Draw(img)
+    dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
+    dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
+    img.save(f'{directorio}ayuda {ay}.png')
     return img
 
 def crear_error ():
@@ -82,20 +114,6 @@ def crear_error ():
         img.save(f'{directorio}imagenError.png')
     return img
 
-def crear_varios (imagen,directorio):
-    '''
-    Este va a trabajar con el resto de las imagenes, tipo logo y otros
-    '''
-    try:
-        img = Image.open(f'\\ficha error.png')
-    except:
-        img = Image.new('RGBA',(200,200),(100,100,100,255))
-        dibujo = ImageDraw.Draw(img)
-        dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
-        dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
-        img.save(f'{directorio}ficha error.png')
-    return img
-
 def check_fichas ():
     fichas=[chr(i) for i in range(ord('a'),ord('z')+1)]
     directorio = os.path.join('media', 'Fichas y espacios', '')
@@ -105,6 +123,18 @@ def check_fichas ():
             img = Image.open (f'{directorio}ficha {fichas[i]}.png')
         except:
             img = crear_ficha(fichas[i],directorio)
+            errores += 1
+    return errores
+
+def check_ayuda ():
+    ayuda = [a for a in range(0,39)]
+    directorio = os.path.join ('media','ayuda','')
+    errores = 0
+    for i in range (len(ayuda)):
+        try:
+            img = Image.open (f'{directorio}ayuda {ayuda[i]}.png')
+        except:
+            img = crear_ayuda (ayuda[i],directorio)
             errores += 1
     return errores
 
@@ -123,32 +153,48 @@ def check_especiales ():
 def check_avatares():
     avatar = ['avatar1','avatar2','avatar3','avatar4','avatar7','avatar6']
     directorio = os.path.join('media', 'media_ii', 'avatars', '')
-    errores = '0'
+    errores = 0
     for i in range (len(avatar)):
         try:
             img = Image.open (f'{directorio}{avatar[i]}.png')
         except:
             img = crear_avatar(avatar[i],directorio)
-            errores = errores + ' ' + avatar[i]
+            errores +=1
+    return errores
+
+def check_varios ():
+    varios = ['botonlargo','botonMadera','logo','scrabbleArLogo','puntuaciones2','pausa','validar','bolsallenaP','bolsafichasvacia','ayuda']
+    directorio = os.path.join('media', 'media_ii', '')
+    errores = 0
+    for i in range(len(varios)):
+        try:
+            img = Image.open (f'{directorio}{varios[i]}.png')
+        except:
+            img = crear_varios(varios[i],directorio)
+            errores += 1
     return errores
 
 def loading():
+    mi_tema()
     img_logo = os.path.join('media', 'scrabbleArLogo.png')
     contenido = [[sg.Image(img_logo)],
                 [sg.Text(font=('Arial',12),size=(20,12),justification='center',key='texto')],
                 [sg.Text(font=('Arial',12),size=(15,5),justification='center',key='ok')]
                 ]
     v = sg.Window('Loading',layout=contenido,size=(400,400), background_color='#4f280a',element_justification='center', keep_on_top=True, grab_anywhere=True)
-    texto = ['Chequeando imágenes de fichas','Chequeando imágenes de casilleros especiales','Chequeando imágenes de avatares','LISTO PARA JUGAR']
+    texto = ['Chequeando imágenes de fichas','Chequeando imágenes de casilleros especiales',
+    'Chequeando imágenes de avatares','Chequeando la ayuda','Chequeando logos y botones','LISTO PARA JUGAR']
     chequeos=[]
-    fichas, especiales, avatares = check_fichas(),check_especiales(),check_avatares()
+    fichas, especiales, avatares,ayuda, varios = check_fichas(), check_especiales(),check_avatares(),check_ayuda(),check_varios()
     chequeos.append(fichas)
     chequeos.append(especiales)
     chequeos.append(avatares)
+    chequeos.append(ayuda)
+    chequeos.append(varios)
     i=0
     while True:
         event, values = v.read(timeout=10)
-        if i < 4:
+        if i < 6:
             v['texto'].update('{}'.format(texto[i]))
             try:
                 if str(chequeos[i]) > '0':
@@ -161,6 +207,8 @@ def loading():
             i += 1
             time.sleep(2)
         else:
+            v['texto'].update('{}'.format(texto[-1]))
+            time.sleep(2)
             break
     v.close()
 if __name__ == '__main__':
