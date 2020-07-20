@@ -15,7 +15,7 @@ def blanquear (puntaje):
 
 def puntajes():
 
-    imgPuntos = os.path.join('media', 'puntuaciones2.png')
+    imgPuntos = os.path.join('media','media_ii', 'puntuaciones2.png')
     contenido = [
         #[sg.Text('Puntuaciones máximas',size=(20,1),font=('Impact',18),text_color=('black'),key='_puntos')],
         [sg.Image(filename=imgPuntos, )],
