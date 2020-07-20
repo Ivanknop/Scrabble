@@ -6,7 +6,7 @@ import os
 def menu_pausa():
 
     img_boton_largo = os.path.join('media', 'media_ii', 'botonlargo.png')
-    img_logo = os.path.join('media', 'scrabbleArLogo.png')
+    img_logo = os.path.join('media','media_ii', 'scrabbleArLogo.png')
     layout = [[sg.Image(img_logo, background_color='#4f280a')],
               [sg.Button('Retomar', image_filename=img_boton_largo, button_color=('black', '#4f280a'), border_width=0, font=('Italic 24'),
                          size=(20, 3), key='retomar')],
