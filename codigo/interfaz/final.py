@@ -13,6 +13,8 @@ def ver_ganador (jug,pc,ven):
     ven['pje_pc'].update(value=pc)
     if int(jug) > int(pc):
         ven['ganador'].update(value='GANASTE!!')
+    elif int(jug) < int(pc):
+        ven['ganador'].update(value='INCREIBLE, EMPATARON')
     else:
         ven['ganador'].update(value='QUÉ LÁSTIMA.. PERDISTE')
 
