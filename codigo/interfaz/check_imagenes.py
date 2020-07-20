@@ -2,7 +2,8 @@ from PIL import Image,ImageDraw,ImageFont
 import PySimpleGUI as sg
 import time
 from codigo.interfaz.tema import*
-import os.path
+import os
+import errno
 
 def crear_ficha (ficha,directorio):
     '''
@@ -174,6 +175,34 @@ def check_varios ():
             errores += 1
     return errores
 
+def check_directorios():
+    ok = 4
+    try:
+        os.mkdir('media')
+    except OSError as e: #captura el error por si ya está creada la carpeta
+        ok -=1
+        if e.errno != errno.EEXIST:
+            raise 
+    try:
+        os.makedirs('media/media_ii/avatars')
+    except OSError as e: #captura el error por si ya está creada la carpeta
+        ok -=1
+        if e.errno != errno.EEXIST:
+            raise 
+    try:
+        os.makedirs('media/ayuda')
+    except OSError as e:
+        ok -=1
+        if e.errno != errno.EEXIST:
+            raise
+    try:    
+        os.makedirs('media/Fichas y espacios')
+    except OSError as e:
+        ok -=1
+        if e.errno != errno.EEXIST:
+            raise
+    return ok
+
 def loading():
     mi_tema()
     img_logo = os.path.join('media', 'scrabbleArLogo.png')
@@ -182,10 +211,11 @@ def loading():
                 [sg.Text(font=('Arial',12),size=(15,5),justification='center',key='ok')]
                 ]
     v = sg.Window('Loading',layout=contenido,size=(400,400), background_color='#4f280a',element_justification='center', keep_on_top=True, grab_anywhere=True)
-    texto = ['Chequeando imágenes de fichas','Chequeando imágenes de casilleros especiales',
+    texto = ['Chequeando directorios de imágenes','Chequeando imágenes de fichas','Chequeando imágenes de casilleros especiales',
     'Chequeando imágenes de avatares','Chequeando la ayuda','Chequeando logos y botones','LISTO PARA JUGAR']
     chequeos=[]
-    fichas, especiales, avatares,ayuda, varios = check_fichas(), check_especiales(),check_avatares(),check_ayuda(),check_varios()
+    dirs, fichas, especiales, avatares,ayuda, varios = check_directorios(), check_fichas(), check_especiales(),check_avatares(),check_ayuda(),check_varios()
+    chequeos.append(dirs)
     chequeos.append(fichas)
     chequeos.append(especiales)
     chequeos.append(avatares)
@@ -194,7 +224,7 @@ def loading():
     i=0
     while True:
         event, values = v.read(timeout=10)
-        if i < 6:
+        if i < 7:
             v['texto'].update('{}'.format(texto[i]))
             try:
                 if str(chequeos[i]) > '0':
