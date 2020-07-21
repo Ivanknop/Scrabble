@@ -12,11 +12,11 @@ def ver_ganador (jug,pc,ven):
     ven['pje_jug'].update(value=jug)
     ven['pje_pc'].update(value=pc)
     if int(jug) > int(pc):
-        ven['ganador'].update(value='GANASTE!!')
+        ven['ganador'].update(value='FELICIDADES, GANASTE!!')
     elif int(jug) < int(pc):
-        ven['ganador'].update(value='INCREIBLE, EMPATARON')
-    else:
         ven['ganador'].update(value='QUÉ LÁSTIMA.. PERDISTE')
+    else:
+        ven['ganador'].update(value='EMPATE SOBRE EL FINAL')
 
 def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc):
     contenido = [
