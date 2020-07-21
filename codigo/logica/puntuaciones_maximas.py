@@ -48,29 +48,4 @@ class Puntuacion_Maxima():
             self.puntajes.append(Jugador('Vacío',0))
         self.puntajes = self.puntajes[0:self.MAXIMOS]
         self.guardar()
-'''
-    def inicializar_puntuacion (self):
-        '''
-        #Reinicializa las puntuaciones máximas
-        '''
-        #Siempre, antes de agregarse por primera vez un jugador, debe invocarse a "_vaciar_puntajes()"
-        self._vaciar_puntajes()
-        self.agregar(Jugador('Enzo',300))
-        self.agregar(Jugador('Iván',300))
-        self.agregar(Jugador('Diego',300))
-        self.agregar(Jugador('Kakaroto',280))
-        self.agregar(Jugador('Vegetta',250))
-        self.agregar(Jugador('Quién',230))
-        self.agregar(Jugador('Cómo',200))
-        self.agregar(Jugador('Cuándo',150))
-        self.agregar(Jugador('Qué',120))
-        self.agregar(Jugador('Por qué',100))
-        self.puntajes = self.puntajes[0:self.MAXIMOS]
-        self.guardar()        
-    def mostrar(self):
-        if len(self.puntajes) == 0:
-            print("No hay puntuaciones")
-            return
-        for j in self.puntajes:
-            print(j)
-            '''
+
