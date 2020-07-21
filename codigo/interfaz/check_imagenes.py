@@ -238,10 +238,10 @@ def loading():
             except:
                 pass
             i += 1
-            time.sleep(2)
+            time.sleep(0.5)
         else:
             v['texto'].update('{}'.format(texto[-1]))
-            time.sleep(2)
+            time.sleep(0.5)
             break
     v.close()
 if __name__ == '__main__':
