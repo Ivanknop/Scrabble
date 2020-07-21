@@ -1,14 +1,6 @@
 import pickle
 import os
-
-class Jugador():
-
-    def __init__(self,nombre,puntaje):
-        self.nombre = nombre
-        self.puntuacion = puntaje
-
-    def __str__(self):
-        return '{:^15} {:15} {:^15}'.format(self.nombre,' ', self.puntuacion)
+from codigo.logica.jugador import*
 
 class Puntuacion_Maxima():
     ruta_guardado = os.path.join("guardados", "puntuacion_maxima.pckl")
@@ -28,7 +20,7 @@ class Puntuacion_Maxima():
         Recibe un jugador y evalúa si su puntuación es mayor a las guardadas. Produce el desplazamiento y elimina a la posición 11
         '''
         self.puntajes.append(jug)
-        self.puntajes.sort(key=lambda jugador: jugador.puntuacion,reverse=True)
+        self.puntajes.sort(key=lambda jugador: jugador.getPuntaje(),reverse=True)
         self.puntajes.pop()
         self.guardar()
 
@@ -39,14 +31,6 @@ class Puntuacion_Maxima():
             fichero.close()
         except:
             print("El fichero no existe")
-            
-
-    def mostrar(self):
-        if len(self.puntajes) == 0:
-            print("No hay puntuaciones")
-            return
-        for j in self.puntajes:
-            print(j)
 
     def ver_puntaje(self,pos):
         '''
@@ -64,10 +48,10 @@ class Puntuacion_Maxima():
             self.puntajes.append(Jugador('Vacío',0))
         self.puntajes = self.puntajes[0:self.MAXIMOS]
         self.guardar()
-
+'''
     def inicializar_puntuacion (self):
         '''
-        Reinicializa las puntuaciones máximas
+        #Reinicializa las puntuaciones máximas
         '''
         #Siempre, antes de agregarse por primera vez un jugador, debe invocarse a "_vaciar_puntajes()"
         self._vaciar_puntajes()
@@ -82,15 +66,11 @@ class Puntuacion_Maxima():
         self.agregar(Jugador('Qué',120))
         self.agregar(Jugador('Por qué',100))
         self.puntajes = self.puntajes[0:self.MAXIMOS]
-        self.guardar()
-
-    def borrar_puntuacion (self):
-        '''
-         Borra las puntuaciones máximas
-        '''
-        self._vaciar_puntajes()
-        jug = Jugador ('###',0)
-        for i in range(self.MAXIMOS):
-            self.puntajes.append(jug)
-        self.puntajes = self.puntajes[0:self.MAXIMOS]
-        self.guardar()
+        self.guardar()        
+    def mostrar(self):
+        if len(self.puntajes) == 0:
+            print("No hay puntuaciones")
+            return
+        for j in self.puntajes:
+            print(j)
+            '''
