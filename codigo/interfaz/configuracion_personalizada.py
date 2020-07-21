@@ -80,8 +80,11 @@ def generar_configuracion(ventana, conf):
         except:
             conf['error'] = 'Se asignó un valor no numérico a la cantidad de filas, columnas o al tiempo'
             return conf
-        if (valor_spin < 5):
-            conf['error'] = 'Se asignó un valor menor a 5 a la cantidad de filas, columnas o al tiempo'
+        if spin == 'tiempo':
+            if (valor_spin > 60) or (valor_spin < 0):
+                conf['error'] = 'El tiempo no puede ser mayor a una hora'    
+        elif (valor_spin < 5) or (valor_spin > 20):
+            conf['error'] = 'Se asignó un valor menor a 5 o mayor a 20 a la cantidad de filas, columnas'
             return conf
         conf[spin] = valor_spin
 
