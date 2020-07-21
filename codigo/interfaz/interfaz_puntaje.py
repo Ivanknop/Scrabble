@@ -5,7 +5,7 @@ import os
 def actualizar_puntaje (puntaje,ventana):
     listado_puntos =''
     for p in range(len(puntaje.puntajes)):
-        listado_puntos = listado_puntos + str(puntaje.puntajes[p]) + '\n'
+        listado_puntos = listado_puntos + str(puntaje.puntajes[p].infoJugador().upper() ) + '\n'
         ventana['puntos'].update(value=listado_puntos)
 
 def blanquear (puntaje):
@@ -25,8 +25,7 @@ def puntajes():
 
         ]
     mi_tema()
-    ventana = sg.Window ('Puntaje Máximo',layout=contenido,size= (420,500),
-                         element_justification='center', no_titlebar=True,grab_anywhere=True, keep_on_top=True)
+    ventana = sg.Window ('Puntaje Máximo',layout=contenido,size= (420,500),element_justification='center', no_titlebar=True,grab_anywhere=True, keep_on_top=True)
     ventana.finalize()
 
     puntuaciones = Puntuacion_Maxima()
