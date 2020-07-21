@@ -121,7 +121,7 @@ def lazo_principal(jugador, cargar_partida=True):
             if (event == None):
                 break
             if (interfaz.terminoTimer()):
-                terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                 break
 
             #-----EVENTO: Clickear en una ficha del atril-----
@@ -152,7 +152,7 @@ def lazo_principal(jugador, cargar_partida=True):
                         jugar = False
                         break
                     if (interfaz.terminoTimer()):
-                        terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                        terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                         jugar = False
                         break
                     if (event == 'validar'):
@@ -188,7 +188,7 @@ def lazo_principal(jugador, cargar_partida=True):
                                 jugar = False
                                 break
                             if (interfaz.terminoTimer()):
-                                terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                                terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                                 jugar = False
                                 break
 
@@ -212,7 +212,7 @@ def lazo_principal(jugador, cargar_partida=True):
                                         jugar = False
                                         break
                                     if (interfaz.terminoTimer()):
-                                        terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                                        terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                                         jugar = False
                                         break
 
@@ -291,7 +291,7 @@ def lazo_principal(jugador, cargar_partida=True):
                         turno_jugador = False
                 else:
                     #Si se clickea "Finalizar juego", se termina la ronda
-                    terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                    terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                     jugar = False
 
             #-----EVENTO: Pausar juego-----
@@ -301,7 +301,7 @@ def lazo_principal(jugador, cargar_partida=True):
                 event = interfaz.ventanaPausa()
                 if (event == 'abandonar'):
                     #Si abandonó la partida, muestra la lista completa de palabras usadas antes de salir
-                    terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                    terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                     jugar = False
 
                 #-----EVENTO: Guardar partida-----
@@ -333,7 +333,7 @@ def lazo_principal(jugador, cargar_partida=True):
             interfaz.turnoJugador(False)
             interfaz.leer()
             if (interfaz.terminoTimer()):
-                terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc)
+                terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                 break
 
             #Busca una palabra y un lugar en el tablero
