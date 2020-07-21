@@ -36,7 +36,7 @@ def infoConfiguracion(conf):
     layout.append([sg.Button('Volver',button_color=('black', '#f75404'),key='volverConf')])
 
     mi_tema()
-    ventana = sg.Window('configuracion',layout=layout,size=(300,670),no_titlebar=True,grab_anywhere=True, keep_on_top=False).Finalize()
+    ventana = sg.Window('configuracion',layout=layout,size=(300,670),no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
 
     while True:
         event, value = ventana.read()
@@ -82,7 +82,9 @@ def nivel_facil():
         'especiales':{},
 
         'tiempo': 25, #minutos
-        'cant_fichas': {'A':11, 'E':11, 'O':8, 'S':7, 'I':6,'U': 6, 'N': 5, 'L': 4, 'R': 4, 'T': 4,'C': 4, 'D': 4, 'G': 2, 'M': 3, 'B': 3,'P': 2, 'F': 2, 'H': 2, 'V': 2, 'Y': 1,'J': 2, 'K': 1, 'Ñ': 1, 'Q': 1, 'W': 1, 'X': 1, 'Z': 1 },
+        'cant_fichas': {'A':11, 'E':11, 'O':8, 'S':7, 'I':6,'U': 6, 'N': 5, 'L': 4, 'R': 4, 'T': 4,'C': 4,
+                        'D': 4, 'G': 2, 'M': 3, 'B': 3,'P': 2, 'F': 2, 'H': 2,
+                        'V': 2, 'Y': 1,'J': 2, 'K': 1, 'Ñ': 1, 'Q': 1, 'W': 1, 'X': 1, 'Z': 1 },
 
          #  dic el indice indica le puntaje y lo valores son las letras que itenen ese puntaje
         # tienen mayor puntaje que otros niveles

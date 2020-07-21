@@ -135,16 +135,18 @@ def reglas():
                          'tampoco en la bolsa de fichas, cuando no hay espacios en el Tablero o cuando alguno de los dos '
                          'jugadores han agotado sus cambios de fichas disponibles y aún así no tienen dónde jugar una nueva'
                          ' combinación de letras. Al finalizar se comparan las puntuaciones y... ¡Tenemos un ganador!',
-                         font=('Arial',12),text_color='white',size=(53,40),autoscroll=True, disabled=True,background_color='#4f280a')],
+                         font=('Arial',12),text_color='white',size=(53,40),autoscroll=True,
+                         pad=((10,10),10),disabled=True,background_color='#4f280a')],
 
     ]
-    layout = [sg.Column(col,scrollable=True,background_color='#4f280a',element_justification='center', vertical_scroll_only=True,size=(720,470))]
+    layout = [sg.Column(col,scrollable=True,background_color='#4f280a',element_justification='center', justification='center', vertical_scroll_only=True,size=(720,470))]
     return layout
 
 def popReglas():
     layout = [reglas(),
               [sg.Button('Comenzar!',size=(20,5),key='comenzar')],]
-    ventana = sg.Window('Reglas', layout=layout,element_justification='center', no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
+    ventana = sg.Window('Reglas', layout=layout,element_justification='center',
+                        no_titlebar=True,grab_anywhere=True, keep_on_top=True,background_color='#afad71',border_depth=50).Finalize()
     while True:
         event, values = ventana.read()
         if event in ( None,'comenzar'):
@@ -235,8 +237,8 @@ def ayuda() :
     layout = [[sg.TabGroup([[sg.Tab('General', tabGeneral,background_color='#4f280a',  key='pGeneral'),
                           sg.Tab('Instrucciones de Juego', tabJuego ,background_color='#4f280a',),
                           sg.Tab('Iconos y Casilleros', tabIconCas,background_color='#4f280a',),
-                          sg.Tab('Reglas', tabReglas, background_color='#4f280a', ),
-                          sg.Tab('Niveles', tabNiveles, background_color='#4f280a', ),
+                          sg.Tab('Reglas', tabReglas, background_color='#4f280a', element_justification='center'),
+                          sg.Tab('Niveles', tabNiveles, background_color='#4f280a',element_justification='center' ),
                           sg.Tab('Más', tabOtros,background_color='#4f280a',)]],
                            font=('Arial', 14),
                           key='pestanas', title_color='red',
@@ -245,7 +247,7 @@ def ayuda() :
 
     mi_tema()
     ventana = sg.Window('Ayuda', layout=layout,element_justification='center',grab_anywhere=True,no_titlebar=True,
-                        size=(780,580)).Finalize()
+                      keep_on_top=True,border_depth=5,background_color='#afad71',  size=(780,580)).Finalize()
     while True:
 
         eventos, valor = ventana.read()

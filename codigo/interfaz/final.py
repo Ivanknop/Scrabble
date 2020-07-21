@@ -32,7 +32,7 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc):
 
         ]
     mi_tema()
-    ven = sg.Window ('Ganador',layout=contenido,size= (400,400), no_titlebar=False)
+    ven = sg.Window ('Ganador',layout=contenido,size= (400,400), no_titlebar=False,keep_on_top=True)
     ven.finalize()
 
     while True:         
