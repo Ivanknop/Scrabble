@@ -5,105 +5,91 @@ from codigo.interfaz.tema import mi_tema
 def general(dirAyuda):
     sg.theme_text_element_background_color('#4f280a')
     sg.theme_element_background_color('#4f280a')
-    col = [[sg.Image(filename=f'{dirAyuda}ayuda 3.png'),sg.Text(' Muestra la Ayuda',font=('Arial, 18'),text_color='white')], #botón ayuda
-           [sg.Image(filename=f'{dirAyuda}ayuda 5.png'),sg.Text(' Comenzar a jugar',font=('Arial, 18'),text_color='white')], #botón comenzar a jugar
-           [sg.Image(filename=f'{dirAyuda}ayuda 9.png'), sg.Text('Muestra la Tabla de Puntajes', font=('Arial, 18'), text_color='white')], #botón puntajes
-           [sg.Image(filename=f'{dirAyuda}ayuda 6.png'), sg.Text('Iniciar una Nueva partida', font=('Arial, 18'), text_color='white')], #botón nueva partida
-           [sg.Image(filename=f'{dirAyuda}ayuda 4.png'), sg.Text('Carga la ultima partida guardada. Si existe', font=('Arial, 18'), text_color='white')], #botón cargar partida
-           [sg.Image(filename=f'{dirAyuda}ayuda 10.png'), sg.Text('Vuelve al Menu principal', font=('Arial, 18'), text_color='white')], #botón volver menú principal
+    col = [[sg.Image(filename=f'{dirAyuda}ayuda 3.png'),sg.Text('Muestra la Ayuda',font=('Arial, 16'),text_color='white')], #botón ayuda
+           [sg.Image(filename=f'{dirAyuda}ayuda 5.png'),sg.Text('Comenzar a jugar',font=('Arial, 16'),text_color='white')], #botón comenzar a jugar
+           [sg.Image(filename=f'{dirAyuda}ayuda 9.png'), sg.Text('Muestra la Tabla de Puntajes', font=('Arial, 16'), text_color='white')], #botón puntajes
+           [sg.Image(filename=f'{dirAyuda}ayuda 6.png'), sg.Text('Iniciar una Nueva partida', font=('Arial, 16'), text_color='white')], #botón nueva partida
+           [sg.Image(filename=f'{dirAyuda}ayuda 4.png'), sg.Text('Carga una partida guardada', font=('Arial, 16'), text_color='white')], #botón cargar partida
+           [sg.Image(filename=f'{dirAyuda}ayuda 10.png'), sg.Text('Vuelve al Menu principal', font=('Arial, 16'), text_color='white')], #botón volver menú principal
            [sg.Image(filename=f'{dirAyuda}ayuda 22.png'), sg.Multiline(default_text=
-                                                      'En esta ventana usted podrá configurar \nlos datos para'
-                                                      'la nueva partida\n'
-                                                      'el apodo debe tener entre 3 y 10 caractere, sin caracteres especiales\n'
-                                                      'Debe indicar una dificultad (or defecto se inicia en modo Fácil)\n'
-                                                      'al momento de precionar en Jugar se le mostrará un ventana de ocnfirmación\n'
-                                                      'en todo momento usted podrá cancelar esta acción\n',
-                                                        auto_size_text=True, font=('Arial, 14'), text_color='white', disabled=True, size=(30,10),background_color='#4f280a')],
+                                                      'En esta ventana se configuran los datos para la nueva partida: \n'
+                                                      'El apodo debe tener entre 3 y 10 caracteres y no se pueden utilizar caracteres especiales;' 
+                                                      'Hay que elegir una dificultad y se puede cambiar el Avatar. \n'
+                                                      'Se pueden elegir entre las dificultades Fácil, Medio o Díficil; también se puede personalizar toda la partida. \n' 
+                                                      'Al momento de oprimir en Jugar se muestra un ventana de confirmación.\n'
+                                                      'En todo momento se puede cancelar esta acción\n',
+                                                        auto_size_text=True, font=('Arial, 12'), text_color='white', disabled=True, size=(30,10),background_color='#4f280a')],
     ]
-
-
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a',vertical_scroll_only=True,size=(700,470))]
-
-
     return layout
 
 def juego(dirAyuda):
     col = [     #Ayuda 14 = tablero, ayuda 0 = timer
-        [sg.Image(filename=f'{dirAyuda}ayuda 14.png'), sg.Multiline('Esta es la vista general del Tablero.\n A continuaci{on podr{a encontrar informaci{on detallada de c{omo se juega', font=('Arial, 18'), text_color='white', disabled=True, size=(25,10),background_color='#4f280a')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 0.png')], [sg.Multiline('En el area superior se encunetra el indicador de Tiempo (1),\nel boton de Pausa y el de Ayuda\n'
-                                                                     '\n1) TEMPORIZADOR: en tiempo JUGADo (indicado con números en el area negra)\n es el tiempo transcurrido según la configuración elegida.\n'
-                                                                     'La barra de color naranja indica el tiempo RESTANTE. Esta se encoe a medida que pasa el tiempo.\n'
-                                                                     '2) si usted cliquea el boton de pausa, la partida quda detenida y e muestra un menu con opciones que verá más abajo.\n'
-                                                                     '\n3)luego e encunetra el simbolo de \"?\" el cual le muestra esta ayuda.\n ', font=('Arial, 18'), text_color='white' ,autoscroll=True, disabled=True, size=(40,8),background_color='#4f280a')],
+        [sg.Image(filename=f'{dirAyuda}ayuda 14.png'), sg.Multiline('Vista general del Tablero. A continuación se encuentra detallada la información sobre cómo jugar', font=('Arial, 16'), text_color='white', disabled=True, size=(25,10),background_color='#4f280a')],
+        [sg.Image(filename=f'{dirAyuda}ayuda 0.png')], [sg.Multiline('En el area superior se encuentra el indicador de Tiempo y los botones de Pausa Ayuda.\n'
+                                                                     '\n1) TEMPORIZADOR: en tiempo jugado (indicado con números en el area negra) se ve el tiempo transcurrido. '
+                                                                     'La barra de color naranja indica el tiempo RESTANTE, que se reduce a medida que pasa el tiempo.\n'
+                                                                     '2) Si se oprime el boton de pausa, la partida queda detenida y se despliega un menú de opciones (abajo explicadas).\n'
+                                                                     '3)El simbolo de \"?\" abre esta misma ayuda.\n ', font=('Arial, 12'), text_color='white' ,autoscroll=True, disabled=True, size=(40,8),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 8.png'), #Botón para ver configuración de nivel
-         sg.Multiline('Sobre los Avatars de los jugadores, usted encontrara\n un boton que al precionarlo le '
-                 'muestra la configuracion elegida para eta partida', font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(30,6),background_color='#4f280a')],
+         sg.Multiline('Sobre los avatares de los jugadores, se encuentra un botón que al presionarlo '
+                 'muestra la configuración elegida para la partida', font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(30,6),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 19.png'), #indicadorJugador
-         sg.Multiline('A la derecha del tablero se encunetra el Avatar de cada jugador\n'
-                 'debajo se encunetra el apodo elegido y los puntos acumulados en la partida. \n '
-                 'Si su apodo esta de color verde, el juego indica  que es siu turno', font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(30,8),background_color='#4f280a')],
+         sg.Multiline('A la derecha del tablero se encuentra el Avatar de cada jugador; '
+                 'debajo se encuentra el apodo elegido y los puntos acumulados en la partida. \n '
+                 'El apodo remarcado con color verde indica de quién es el turno', font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(30,8),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 1.png'), #atril
-         sg.Multiline('Debajo de los  avatares se encunetra el atril con sus fichas \n'
-                  ' junto al boton de VALIDAR (simbolo check) y CAMBIAR FICHAS (bolsa)'
-                 '\n  Cuando usted seleccione una ficha esta se pondra transparente como e indica en la imagen\n'
-                  'en el area superior del atril podra visualizar la palabra.\n'
-                  'Note que al seleccionar una ficha usted no puede preisonar la bola para cambiar las fichas.\n'
-                 'Note que si deja el mouse sobre una ficha esta muestra una etiqueta con su puntaje.\n'
-                 'Recuerde que el mismo tambien puede verse en el boton de Preferencias inidcado anteriormente.', font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(20,8),background_color='#4f280a')],
+         sg.Multiline('Debajo de los  avatares se encuentra el atril con sus fichas '
+                  ' junto al boton de VALIDAR (símbolo check) y CAMBIAR FICHAS (bolsa).'
+                 '\n  Cuando se selecciona una ficha esta se pondra transparente como se indica en la imagen. \n'
+                  'En el area superior del atril se comenzará a visualizar la palabra en formación.\n'
+                  'Nota: al seleccionar una ficha no se puede presionar la bolsa para cambiar las fichas.\n'
+                 'Nota 2: si deja el mouse sobre una ficha esta muestra una etiqueta con el puntaje de la misma.\n'
+                 'En el botón de preferencias pueden verse todos los puntajes para esa partida.', font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(20,8),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 2.png')], #atril validado
-         [sg.Multiline('Una vez que usted ya formo su palabra \n'
-                  'debe dar click en el boton de validar y si todo es correcto'
-                  'ScrabbleAR le indicará que seleccione donde insertar la palabra\n'
-                  'en la pestaña de REGLAS podr{a consultar las reglas generales de ScrabbleAR'
-                  'com ose ve en la imagen', font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(40,8),background_color='#4f280a')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 33.png'), sg.Multiline('Cuando haga click en un casillero del tablero\n'
-                                                                       'se muestra el indicador de orientacion. Una vez elegida\n'
-                                                                       'la orientacion la palabra quedara insertada en el tablero.',
-                                                            font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(30,8),background_color='#4f280a')],
+         [sg.Multiline('Una vez que se formó la palabra, se debe dar click en el boton de validar. Si esta es válida, '
+                  'ScrabbleAR le indicará que seleccione dónde insertarla.\n'
+                  'En la pestaña de REGLAS podr{a consultar las reglas generales de ScrabbleAR'
+                  'como se ve en la imagen', font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(40,8),background_color='#4f280a')],
+        [sg.Image(filename=f'{dirAyuda}ayuda 33.png'), sg.Multiline('Cuando se hace click en un casillero del tablero con una palabra ya validada,\n'
+                                                                       'se muestra el indicador de orientacion. Una vez elegida,la palabra quedara insertada en el tablero.',
+                                                            font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(30,8),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 27.png'), sg.Image(filename=f'{dirAyuda}ayuda 28.png'), ], #palabra pc y palabra jugador
-        [sg.Multiline('En el tablero las palbras con fondo Rojo son las insertadas por el oponente\n'
-                 'Y las de fondo verde son sus palabras',
-
-                                                            font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(40,5),background_color='#4f280a')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 7.png'), sg.Multiline('Si usted ve que el icono de la Bolsa de Fichas\n'
-                                                                     'cambio y ahota dice FINALIZAR, puede que pasen dos cosas:\n'
+        [sg.Multiline('En el tablero las palabras con fondo ROJO son las insertadas por el oponente '
+                 'y las de fondo VENDE son las suyas',font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(40,5),background_color='#4f280a')],
+        [sg.Image(filename=f'{dirAyuda}ayuda 7.png'), sg.Multiline('Si en la Bolsa de Fichasa parece "FINALIZAR", puede que pasen dos cosas:\n'
                                                                      '- No hay mas fichas en la bolsa\n - No puedes cambiar mas fichas (maximo tres cambios) ',
-                                                            font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(20,10),background_color='#4f280a')],
+                                                            font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(20,10),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 30.png'), sg.Image(filename=f'{dirAyuda}ayuda 29.png'),sg.Image(filename=f'{dirAyuda}ayuda 18.png'),], #pausa, pantalla final, historial palabras
-         [sg.Multiline('Aqui puede ver el menu de Pausa.\n'
-                  'este le permite Retornar a la partida, Guardar la partida y Abandonar la partida\n'
-                  'Luego puede ver la ventana de final de partida.\n'
-                  'Esta muestra los puntos de cada jugador y el/la ganador/ora\n'
-                  ' En este ventana si usted presiona el boton de Listado de palabras \n'
-                  'podra ver las palabras que inserto cada jugador y los puntos que hizo con cada una'
-                  ,font=('Arial, 18'), text_color='white',autoscroll=True, disabled=True, size=(40,8),background_color='#4f280a')],
+         [sg.Multiline('Aqui puede verse el menu de Pausa.\n'
+                  'Se puede retornar a la partida, guardarla o abandonar. \n' 
+                  'En caso de abandonar o finalizar o si se terminó el tiempo,se verá la ventana de final de partida. '
+                  'Aquí se muestran los puntos de cada jugador y quién ganó.'
+                  ' En esta ventana si usted presiona el boton de Listado de palabras '
+                  'podrán verse las palabras que insertó cada jugador y los puntos que hizo con cada una'
+                  ,font=('Arial, 12'), text_color='white',autoscroll=True, disabled=True, size=(40,8),background_color='#4f280a')],
         ]
-
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
-
     return layout
 
 def iconCas(dirAyuda):
     col = [
-        [sg.Image(filename=f'{dirAyuda}ayuda 25.png'), sg.Text('Casillero seleccionado para insertar palabra', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 24.png'), sg.Text('insertar horizontalmente', font=('Arial, 18'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}ayuda 25.png'), sg.Text('Casillero seleccionado para insertar palabra', font=('Arial, 16'), text_color='white')],
+        [sg.Image(filename=f'{dirAyuda}ayuda 24.png'), sg.Text('Insertar horizontalmente', font=('Arial, 16'), text_color='white')],
         [sg.Image(filename=f'{dirAyuda}ayuda 23.png'), #estos tres son la orientación
-         sg.Text('insertar verticalmente', font=('Arial, 18'), text_color='white')],
+         sg.Text('Insertar verticalmente', font=('Arial, 18'), text_color='white')],
         [sg.Image(filename=f'{dirAyuda}ayuda 34.png'), #suma
-         sg.Text('Incrementa 5 puntos el valor total de la palabra', font=('Arial, 18'), text_color='white')],
+         sg.Text('Incrementa 5 puntos el valor total de la palabra', font=('Arial, 16'), text_color='white')],
         [sg.Image(filename=f'{dirAyuda}ayuda 20.png'), #resta
-         sg.Text('Resta 5 puntos al valor total de la palabra', font=('Arial, 18'), text_color='white')],
+         sg.Text('Resta 5 puntos al valor total de la palabra', font=('Arial, 16'), text_color='white')],
         [sg.Image(filename=f'{dirAyuda}ayuda 21.png'), #multiplica x 2
-         sg.Text('Duplica el valor de la palabra', font=('Arial, 18'), text_color='white')],
+         sg.Text('Duplica el valor de la palabra', font=('Arial, 16'), text_color='white')],
         [sg.Image(filename=f'{dirAyuda}ayuda 15.png'), #divide
-         sg.Text('Divide a la mitad el valor de la palabra', font=('Arial, 18'), text_color='white')],
+         sg.Text('Divide a la mitad el valor de la palabra', font=('Arial, 16'), text_color='white')],
         [sg.Image(filename=f'{dirAyuda}ayuda 11.png'), #multiplica x 0
-         sg.Text('Anula el valor de la palabra', font=('Arial, 18'), text_color='white')],
-
+         sg.Text('Anula el valor de la palabra', font=('Arial, 16'), text_color='white')],
         ]
-
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
-
     return layout
 
 def otros(dirAyuda):
@@ -121,39 +107,35 @@ def otros(dirAyuda):
         [sg.Image(filename=f'{dirAyuda}ayuda 22.png'), sg.Text('',
                                                             font=('Arial, 18'), text_color='white')],
         ]
-
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
-
     return layout
 
 def reglas():
     imgReglas = os.path.join('media', 'ayuda', 'ayuda 39.png') #reglas
-
     col = [[sg.Image(filename=imgReglas)],
            [sg.Multiline('¡¿Cómo te va?! Vamos a jugar al ScrabbleAR. Veamos bien cómo se juega...'
-                         'Sí,   es   el   famoso   juego   de   mesa   donde   probarás   tu   conocimiento   acerca   de   las '
-                         '  palabras\'realmente\' '
-                         'existentes. Frente a tí tendrás al computador. ¿Serás capaz de derrotarlo?Lo primero que debes saber '
-                         'es que las distintas dificultades afectan la inteligencia del ordenador.¿Inteligencia?   Dejémoslo   así '
-                         '  por   el   momento.   Puedes   elegir   entre   FÁCIL,   MEDIO,  o   DIFÍCIL.Además   de   tener   un  '
-                         ' adversario   más   complejo   de   enfrentar,   cambian   algunas   disposiciones   deljuego. Si quieres'
-                         ' más detalles puedes ir a la sección específica en estas mismas reglas.Una vez elegida la dificultad se '
-                         'abrirá el Tablero de juego y comenzará la verdadera prueba. Eneste juego tu tienes tres cosas para '
-                         'hacer:•Escoger entre las fichas de tu atril la combinación que forme la mejor palabra posible (cadaletra posee '
-                         'una puntuación propia, así que toda palabra tiene un puntaje) y, luego de eso,colocarla   en   la   mejor  '
-                         ' posición   del   tablero.   Un   detalle,   antes   de   colocar   tu   palabra   en   eltablero deberás'
-                         ' validar la palabra. No queremos tramposos.•Cambiar tus fichas por nuevas. ¡Ojo! Sólo dispones de 3 (tres) '
-                         'cambios por partida.•Rendirte.... Bueno, esto mejor no.Presta mucha atención al tablero de juego. Encontrarás '
+                         'Sí, es el famoso juego de mesa donde probarás tu conocimiento acerca de las palabras realmente '
+                         'existentes. Frente a tí tendrás al computador. ¿Serás capaz de derrotarlo? Lo primero que debes saber '
+                         'es que las distintas dificultades afectan la inteligencia del ordenador. ¿Inteligencia? Dejémoslo así'
+                         '  por el momento. Puedes elegir entre FÁCIL, MEDIO, o DIFÍCIL o PERSONALIZAR íntegramente la partida .Además   de   tener   un  '
+                         ' adversario más complejo de enfrentar, cambian algunas disposiciones del juego. Si quieres'
+                         ' más detalles puedes ir a la sección específica en estas mismas reglas. \n'
+                         'Una vez elegida la dificultad se abrirá el Tablero de juego y comenzará la verdadera prueba. En este juego tienes tres cosas para '
+                         'hacer:\n •Escoger entre las fichas de tu atril la combinación que forme la mejor palabra posible (cada letra posee '
+                         'una puntuación propia, así que toda palabra tiene un puntaje) y, luego de eso, colocarla en la mejor  '
+                         ' posición del tablero. Un detalle, antes de colocar tu palabra en el tablero deberás'
+                         ' validarla. No queremos tramposos.\n •Cambiar tus fichas por nuevas. ¡Ojo! Sólo dispones de 3 (tres) '
+                         'cambios por partida.•Rendirte... Bueno, esto mejor no.Presta mucha atención al tablero de juego. Encontrarás '
                          'casilleros especiales donde se sumaránpuntos o quizás multipliques el valor de la palabra... Pero '
                          'también hay otros que restan, dividen ohasta multiplican el valor total por CERO. Escoge con mucho '
                          'cuidado dónde colocarás tu palabra.Por suerte para tí esto también afecta al ordenador.Las   palabras  '
-                         ' pueden   insertarse   en   vertical   u   horizonal.   En   este   juego   no   podrás   hacerlo   '
-                         'endiagonal. Tampoco está permitido que se crucen las palabras entre sí. Calcula muy bien los '
-                         'espaciosdisponibles.¿Cuándo termina la partida? Cuando no hay más fichas en algún atril y '
-                         'tampoco en la bolsa defichas, cuando no hay espacios en el Tablero o cuando alguno de los dos '
-                         'jugadores han agotado suscambios de fichas disponibles y aún así no tienen dónde jugar una nueva'
-                         ' combinación de letras. Alfinalizar se comparan las puntuaciones y... ¡Tenemos un ganador!',
-                         font=('Arial',18),text_color='white',size=(53,50),autoscroll=True, disabled=True,background_color='#4f280a')],
+                         ' pueden insertarse en vertical u horizonal. En este juego no podrás hacerlo '
+                         'en diagonal. Tampoco está permitido que se crucen las palabras entre sí. Calcula muy bien los '
+                         'espacios disponibles.¿Cuándo termina la partida? Cuando no hay más fichas en algún atril y '
+                         'tampoco en la bolsa de fichas, cuando no hay espacios en el Tablero o cuando alguno de los dos '
+                         'jugadores han agotado sus cambios de fichas disponibles y aún así no tienen dónde jugar una nueva'
+                         ' combinación de letras. Al finalizar se comparan las puntuaciones y... ¡Tenemos un ganador!',
+                         font=('Arial',12),text_color='white',size=(53,40),autoscroll=True, disabled=True,background_color='#4f280a')],
 
     ]
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a',element_justification='center', vertical_scroll_only=True,size=(720,470))]
@@ -163,61 +145,72 @@ def popReglas():
     layout = [reglas(),
               [sg.Button('Comenzar!',size=(20,5),key='comenzar')],]
     ventana = sg.Window('Reglas', layout=layout,element_justification='center', no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
-
     while True:
-
         event, values = ventana.read()
         if event in ( None,'comenzar'):
             break
     ventana.close()
 
-
 def niveles(dirAyuda):
     col = [[sg.Frame(
-            layout=[[sg.Multiline(' Tamaño tablero: 20*20.     \n  '
-                             'Puntaje de Fichas:  \n'
-                             '\t Vocales y L, N, S, T, R = 5 pts; C, D, G = 2 pts; M, B, P = 8 pts; \n '
-                             'F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 9 pts; Z= 10 pts \n  '
-                             '\tCantidad de fichas:   99  \n  '
-                             '\t Duración de la   partida: 25 minutos    \n  '
-                             '\t Tipo de casilleros  especiales: Suma y Resta   \n   '
-                             '\tCantidad de Cambios   computador: 1\n'
-                             '\tTipos de palabras  permitidas: sustantivos, adjetivos y verbos      \n'
-                             '\t la PC: Busca la primer  palabra posible y \nla inserta en el primer lugar disponible en el   tablero.\n',
-                             font=('Arial, 18'), text_color='black',autoscroll=True, disabled=True, size=(45,8),background_color='#afad71')]],
-
+            layout=[[sg.Multiline(' Tamaño tablero: 20*20.\n'
+                             '>Puntaje de Fichas:\n'
+                             '\tVocales y consonantes L, N, S, T, R = 5 pts\n' 
+                             '\tC, D, G = 2 pts \n'
+                             '\tM, B, P = 8 pts \n '
+                             '\tF, H, V, Y = 4 pts \n'
+                             '\tJ = 6 pts\n'
+                             '\tK, Ñ, Q, W, X = 9 pts\n' 
+                             '\tZ= 10 pts \n\n'
+                             '>Cantidad de fichas:  99\n\n'
+                             '>Duración de la partida: 25 minutos\n\n'
+                             '>Tipo de casilleros especiales: Suma y Resta\n\n'
+                             '>Cantidad de Cambios computador: 1\n\n'
+                             '>Tipos de palabras permitidas: sustantivos, adjetivos y verbos\n\n'
+                             '>Dificultad de la PC: Busca la primer palabra posible y la inserta en el primer lugar disponible en el tablero.\n',
+                             font=('Arial, 12'), text_color='black',autoscroll=True, disabled=True, size=(45,8),background_color='#afad71')]],
             title='Nivel Facil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
             element_justification='left',  key='contenedor_facil'),],
         [sg.Frame(
-            layout=[[sg.Multiline(' Tamaño tablero 15*15. Idem anterior   \n '
-                             '  Puntaje de Fichas:  Vocales y L, N, S, T, R = 1 pts; C, D, G = 2 pts; M, B,\n P = 3 pts; F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 8 pts; Z= 10 pts       \n'
-                             ' Cantidad de fichas: 95     \n    '
-                             ' Duración de la partida: 20 minutos     \n    '
-                             ' Tipo de casilleros especiales: Suma, resta, multiplica x 2, divide x2.      \n   '
-                             ' Cantidad de Cambios computador: 1         \n'
-                             ' Tipos de palabras   permitidas: sustantivos, adjetivos y verbos  \n       '
-                             'PC: Evalúa la   primer palabra que puede formar y analiza en el tablero cuál es la mejor posición.\n',
-                             font=('Arial, 18'), text_color='black',autoscroll=True, disabled=True, size=(45,8),background_color='#afad71')]],
+            layout=[[sg.Multiline('Tamaño tablero 15*15. \n'
+                             '>Puntaje de Fichas: \n'
+                             '\tVocales y L, N, S, T, R = 1 pts\n'
+                             '\tC, D, G = 2 pts\n'
+                             '\tM, B, P = 3 pts\n'
+                             '\tF, H, V, Y = 4 pts\n'
+                             '\tJ = 6 pts\n'
+                             '\tK, Ñ, Q, W, X = 8 pts\n'
+                             '\tZ= 10 pts\n\n'
+                             '>Cantidad de fichas: 95\n\n'
+                             '>Duración de la partida: 20 minutos\n\n'
+                             '>Tipo de casilleros especiales: Suma, resta, Multiplica x 2, Divide x2.\n\n'
+                             '>Cantidad de Cambios computador: 1\n\n'
+                             '>Tipos de palabras permitidas: sustantivos, adjetivos y verbos\n\n'
+                             '>Dificultad de la PC: Evalúa la primer palabra que puede formar y analiza en el tablero cuál es la mejor posición.\n',
+                             font=('Arial, 12'), text_color='black',autoscroll=True, disabled=True, size=(45,8),background_color='#afad71')]],
             title='Nivel Medio', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
             element_justification='center', key='contenedor_medio'), ],
         [sg.Frame(
-            layout=[[sg.Multiline('Tamaño tablero: 10*10Idem anterior\n'
-                             'Puntaje de Fichas: Vocales y L, N, S, T, R = 1 pts; C, D, G = 1 pts; \n'
-                             'M, B, P = 3 pts; F, H, V, Y = 4 pts; J = 6 pts; K, Ñ, Q, W, X = 8 pts; Z= 10 pts\n'
-                             'Cantidad de fichas: 95\n'
-                             'Duración de la partida: 15 minutos\n'
-                             'Tipo de casilleros especiales: Suma, resta, multiplica x 2, divide x2, multiplica palabra x 0\n'
-                             'Cantidad de Cambios computador: 1\n'
-                             'Tipos de palabras permitidas: adjetivos y verbos\n'
-                             'PC: Prueba todas las palabras posibles y cuáles puede \ninsertar en las mejores posiciones a fin de encontrar la mejor combinación palabra-espacio.\n',
-                             font=('Arial, 18'), text_color='black',autoscroll=True, disabled=True, size=(45,8),background_color='#afad71')]],
-            title='Dificil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
+            layout=[[sg.Multiline('Tamaño tablero: 10*10\n'
+                             '>Puntaje de Fichas: \n'
+                             '\tVocales y L, N, S, T, R = 1 pts\n'
+                             '\tC, D, G = 1 pts \n'
+                             '\tM, B, P = 3 pts\n'
+                             '\tF, H, V, Y = 4 pts\n'
+                             '\tJ = 6 pts\n'
+                             '\tK, Ñ, Q, W, X = 8 pts\n'
+                             '\tZ= 10 pts\n\n'
+                             '>Cantidad de fichas: 95\n\n'
+                             '>Duración de la partida: 15 minutos\n\n'
+                             '>Tipo de casilleros especiales: Suma, Resta, Multiplica x 2, Divide x2, Anula valor de la palabra\n\n'
+                             '>Cantidad de Cambios computador: 1\n\n'
+                             '>Tipos de palabras permitidas: adjetivos y verbos\n\n'
+                             '>Dificultad de la PC: Prueba todas las palabras posibles y cuáles puede insertar en las mejores posiciones a fin de encontrar la mejor combinación palabra-espacio.\n',
+                             font=('Arial, 12'), text_color='black',autoscroll=True, disabled=True, size=(45,8),background_color='#afad71')]],
+            title='Nivel Dificil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
             element_justification='center' , key='contenedor_dificil'), ],
-
         ]
-
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
-
     return layout
 
 
