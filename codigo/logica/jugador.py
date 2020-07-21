@@ -8,10 +8,9 @@ class Jugador():
 
 
     def __str__(self):
-        return 'Jugador: {} - Puntuación:  {}'.format(self.__nombre, self.__puntuacion)
-
+        return f"{self.__nombre} - {self.__puntuacion} - {self.__dificultad}"
     def infoJugador(self):
-        return f"Nombre: {self.__nombre}\nPuntuación: {self.__puntuacion}\nDificultad: {self.__dificultad}"
+        return f"{self.__nombre}   -   {self.__puntuacion}   -   {self.__dificultad}"
 
     def getNombre(self):
         return self.__nombre
