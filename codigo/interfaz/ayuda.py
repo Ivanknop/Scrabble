@@ -93,21 +93,32 @@ def iconCas(dirAyuda):
     return layout
 
 def otros(dirAyuda):
+    logo = os.path.join('media','media_ii','scrabbleArLogo.png')
+
     col = [
-        [sg.Image(filename=f'{dirAyuda}ayuda 3.png'), sg.Text(' Muestra la Ayuda', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 5.png'), sg.Text(' Comenzar a jugar', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 9.png'),
-         sg.Text('Muestra la Tabla de Puntajes', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 6.png'),
-         sg.Text('Iniciar una Nueva partida', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 4.png'),
-         sg.Text('Carga la ultima partida guardada. Si existe', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 10.png'),
-         sg.Text('Vuelve al Menu principal', font=('Arial, 18'), text_color='white')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 22.png'), sg.Text('',
-                                                            font=('Arial, 18'), text_color='white')],
-        ]
-    layout = [sg.Column(col,scrollable=True,background_color='#4f280a', vertical_scroll_only=True,size=(700,470))]
+        [sg.Image(logo,pad=(50,50))], [sg.Text('Sobre ScrabbleAR', font=('Arial, 18'), text_color='white',justification='center')],
+        [sg.Text('Este proyecto es el  rsultado de un trabajo final.'
+                      'Fue desarrollado en el marco académico de la materia '
+                      ' "Seminario de Lenguaje - Python" , Facultad de Informática UNLP'
+                      '' , font=('Arial, 14'), text_color='white',justification='center', size=(40, 8),
+                      background_color='#4f280a')],
+
+
+        [sg.Image(filename=f'{dirAyuda}team.png')],[sg.Text('\tDesarrollado por: ', font=('Arial, 18'), text_color='white',justification='center')],
+                                                    [sg.Text('\tDiego Vilardebó \n'
+                                                            '\tEnzo Diaz \n'
+                                                            '\tIvan Knopoff\n'
+
+                                                            , font=('Arial, 14'), text_color='white', size=(40, 8),
+                                                            background_color='#4f280a', justification='center', )],
+        [sg.Text('Repositorio en GitHub')],[sg.Text('https://github.com/enzodiaz25/Scrabble.git')]
+
+
+
+    ]
+    layout = [sg.Column(col,scrollable=True,background_color='#4f280a',justification='center',
+                        element_justification='center', vertical_scroll_only=True,size=(700,470))]
+
     return layout
 
 def reglas():
