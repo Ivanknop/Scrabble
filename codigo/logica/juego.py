@@ -316,13 +316,19 @@ def lazo_principal(jugador, cargar_partida=True):
                         archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
                         archivo_partida.crear_guardado()
                         partida_existente = True
+
                 instante = interfaz.paralizarTimer(instante)
 
             #-----EVENTO: Información sobre la partida-----
             if (event == 'infoPartida'):
                 infoConfiguracion(configuracion)
             if (event == 'ayuda'):
+                instante = time.time()
                 ayuda()
+                instante = interfaz.paralizarTimer(instante)
+
+
+
 
 
 
