@@ -64,5 +64,5 @@ class Atril():
         while i < self._cant_maxima:
             if list(lista[i].keys())[0] == letra:
                 return i
-            print(list(lista[i].keys())[0])
+
             i+=1

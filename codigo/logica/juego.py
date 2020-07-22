@@ -174,16 +174,25 @@ def lazo_principal(jugador, cargar_partida=True):
                         #si se clickea dicho boton retorna la ultima letra elegida la atril
                         #la quita de la palabra formaa
                         if palabra:
+                            interfaz.inhabilitarElemento('cambiar')
                             letra =palabra[len(palabra)-1]
                             palabra = palabra[:len(palabra)-1]
+                            #la borra de las letras a insertar
+                            letra_descartada=fichas_seleccionadas.pop()
 
                             #retorno la ficha al atril
                             interfaz.habilitarElemento(f'ficha {str(atril_jugador.buscar(letra))}')
                             interfaz.actualizarTexto(palabra)
 
+                    if palabra == '' :
+                        interfaz.habilitarElemento('cambiar')
+
+
                     #El timer debe actualizarse obligatoriamente dentro de cada evento
                     interfaz.actualizarTimer()
-
+                    
+                if palabra == '':
+                    interfaz.habilitarElemento('cambiar')
                 #Si clickeó validar (no se terminó el tiempo ni se cerró la ventana)...
                 if (click_validar):
                     #Valida la palabra y, si existe, permite que se decida la posición en el tablero
