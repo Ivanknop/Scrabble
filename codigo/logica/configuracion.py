@@ -5,7 +5,7 @@ from codigo.interfaz.tema import mi_tema
 def infoConfiguracion(conf):
     '''Crea una ventana que muestra la configuración
     de la partida que se está jugando.'''
-    layout = [
+    columna = [
                 [sg.Text('Nivel: '), sg.Text(f'{conf["nivel"].capitalize()}')],
                 [sg.Text('Filas: '), sg.Text(f'{conf["filas"]}')],
                 [sg.Text('Columnas: '), sg.Text(f'{conf["columnas"]}')],
@@ -19,24 +19,27 @@ def infoConfiguracion(conf):
         contador_salto = contador_salto - 1
         if (contador_salto == 0):
             contador_salto = 6
-            layout.append(letras)
+            columna.append(letras)
             letras = []
     #Si quedaron letras por insertar antes de que se completara una fila, las agrega
     if (len(letras) != 0):
-        layout.append(letras)
-    layout.append([sg.Text('Puntajes de las fichas: ')])
+        columna.append(letras)
+    columna.append([sg.Text('Puntajes de las fichas: ')])
     letras = []
     for clave in sorted(conf['puntaje_ficha'].keys()):
         letras.append(sg.Text(f'{clave}: '))
         for fichas in conf['puntaje_ficha'][clave]:
             letras.append(sg.Text(fichas))
-        layout.append(letras)
+        columna.append(letras)
         letras=[]
-    layout.extend([[sg.Text('Casilleros especiales: ')], [sg.Text('+: Obtienes 5 puntos adicionales')], [sg.Text('-: Pierdes 5 puntos del total conseguido')], [sg.Text('x2: Duplica el valor de la palabra')], [sg.Text('%2: Divide a la mitad el total de la palabra')], [sg.Text('0: Anula el valor de la palabra')]])
-    layout.append([sg.Button('Volver',button_color=('black', '#f75404'),key='volverConf')])
+    columna.extend([[sg.Text('Casilleros especiales: ')], [sg.Text('+: Obtienes 5 puntos adicionales')], [sg.Text('-: Pierdes 5 puntos del total conseguido')],
+                   [sg.Text('x2: Duplica el valor de la palabra')], [sg.Text('%2: Divide a la mitad el total de la palabra')], [sg.Text('0: Anula el valor de la palabra')]])
 
+    layout=[[sg.Column(columna,background_color='#4f280a')],[sg.Button('Volver',button_color=('black', '#f75404'),key='volverConf')]]
     mi_tema()
-    ventana = sg.Window('configuracion',layout=layout,size=(300,670),no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
+
+    ventana = sg.Window('configuracion',layout=layout,size=(300,670),background_color= '#f39c12',
+                        no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
 
     while True:
         event, value = ventana.read()
