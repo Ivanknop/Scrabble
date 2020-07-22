@@ -56,3 +56,13 @@ class Atril():
 
     def getCantMaxima(self):
         return self._cant_maxima
+
+    def buscar(self,letra):
+        '''busca una letrea en el atril y devuelve u posiscion en el mismo'''
+        lista = self.ver_atril()
+        i = 0
+        while i < self._cant_maxima:
+            if list(lista[i].keys())[0] == letra:
+                return i
+            print(list(lista[i].keys())[0])
+            i+=1

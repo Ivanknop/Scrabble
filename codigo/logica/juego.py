@@ -141,7 +141,7 @@ def lazo_principal(jugador, cargar_partida=True):
                 interfaz.actualizarTexto(palabra)
                 interfaz.inhabilitarElemento(event)
                 interfaz.inhabilitarElemento('cambiar')
-
+                interfaz.habilitarElemento('deshacer')
                 #-----EVENTO: Clickear en otra ficha o en el botón "Validar"-----
                 click_validar = False
                 while (not click_validar):
@@ -156,6 +156,7 @@ def lazo_principal(jugador, cargar_partida=True):
                         jugar = False
                         break
                     if (event == 'validar'):
+                        interfaz.inhabilitarElemento('deshacer')
                         click_validar = True
 
                     if ('ficha' in event):
@@ -164,9 +165,21 @@ def lazo_principal(jugador, cargar_partida=True):
                         #añade la letra a la palabra
                         fichas_seleccionadas.append(int(event.split(" ")[1]))
                         interfaz.inhabilitarElemento(event)
+
                         palabra += list(atril_jugador.get_ficha(int(event.split()[1])).keys())[0]
                         #Muestra la palabra que se está formando en la interfaz
                         interfaz.actualizarTexto(palabra)
+
+                    if (event == 'deshacer'):
+                        #si se clickea dicho boton retorna la ultima letra elegida la atril
+                        #la quita de la palabra formaa
+                        if palabra:
+                            letra =palabra[len(palabra)-1]
+                            palabra = palabra[:len(palabra)-1]
+
+                            #retorno la ficha al atril
+                            interfaz.habilitarElemento(f'ficha {str(atril_jugador.buscar(letra))}')
+                            interfaz.actualizarTexto(palabra)
 
                     #El timer debe actualizarse obligatoriamente dentro de cada evento
                     interfaz.actualizarTimer()
