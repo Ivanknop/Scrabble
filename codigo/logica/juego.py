@@ -318,27 +318,36 @@ def lazo_principal(jugador, cargar_partida=True):
 
             #-----EVENTO: Pausar juego-----
             if (event == 'pausar'):
-                 #Paraliza el timer y muestra un pop de confirmación
+                 #Se prepara para paralizar el timer
                 instante = time.time()
-                event = interfaz.ventanaPausa()
-                if (event == 'abandonar'):
-                    #Si abandonó la partida, muestra la lista completa de palabras usadas antes de salir
-                    terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
-                    jugar = False
+                while True:
+                    event = interfaz.ventanaPausa()
+                    if (event == 'retomar') or (event == None):
+                        break
+                    if (event == 'abandonar'):
+                        #Si abandonó la partida, muestra la lista completa de palabras usadas antes de salir
+                        terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
+                        jugar = False
+                        break
 
-                #-----EVENTO: Guardar partida-----
-                if (event == 'guardar'):
-                    eleccion = interfaz.popUpOkCancel('¿Estas seguro que deseas guardar la partida?')
-                    if eleccion == 'OK':
-                        jugador.setPuntaje(puntaje)
-                        usuarios = administrar_usuarios.cargar_usuarios()
-                        if (jugador.getNombre() not in usuarios):
-                            usuarios.append(jugador.getNombre())
-                            administrar_usuarios.guardar_usuarios(usuarios)
-                        archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
-                        archivo_partida.crear_guardado()
-                        partida_existente = True
-
+                    #-----EVENTO: Guardar partida-----
+                    if (event == 'guardar'):
+                        eleccion = interfaz.popUpOkCancel('¿Estas seguro que deseas guardar la partida?')
+                        if (eleccion == 'OK'):
+                            jugador.setPuntaje(puntaje)
+                            usuarios = administrar_usuarios.cargar_usuarios()
+                            if (jugador.getNombre() not in usuarios):
+                                usuarios.append(jugador.getNombre())
+                                administrar_usuarios.guardar_usuarios(usuarios)
+                            archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
+                            archivo_partida.crear_guardado()
+                            partida_existente = True
+                            eleccion = interfaz.popUpOkCancel('¡Partida guardada con éxito!\n¿Volver al menú principal?')
+                            if (eleccion == 'OK'):
+                                jugar = False
+                                break
+                            
+                #Cálcula el tiempo perdido durante el uso del menú de pausa
                 instante = interfaz.paralizarTimer(instante)
 
             #-----EVENTO: Información sobre la partida-----

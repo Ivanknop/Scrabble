@@ -283,7 +283,7 @@ class Dibujar():
 
     def popUp(self, cadena):
         '''Imprime una determinada cadena en una ventana simple.'''
-        sg.popup(cadena, keep_on_top=True)
+        sg.popup(cadena, keep_on_top=True, background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True)
 
     def popUpOkCancel(self, cadena):
         '''Ventana PopUp simple que imprime un string y
