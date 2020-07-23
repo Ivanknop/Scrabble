@@ -86,6 +86,8 @@ def crear_varios(varios,directorio):
         img = Image.new('RGBA',(100,100),(100,100,100,255))
     elif varios == 'ayuda':
         img = Image.new('RGBA',(64,80),(100,100,100,255))
+    elif varios == 'deshacer':
+        img = Image.new('RGBA',(100,107),(100,100,100,255))
     dibujo = ImageDraw.Draw(img)
     dibujo.line((0, 0) + img.size, fill=(255,0,0,255),width=3)
     dibujo.line((0, img.size[1], img.size[0], 0), fill=(255,0,0,255),width=3)
@@ -164,14 +166,14 @@ def check_avatares():
     return errores
 
 def check_varios ():
-    varios = ['botonlargo','botonMadera','logo','scrabbleArLogo','puntuaciones2','pausa','validar','bolsallenaP','bolsafichasvacia','AYUDA']
+    varios = ['botonlargo','botonMadera','logo','scrabbleArLogo','puntuaciones2','pausa','validar','bolsallenaP','bolsafichasvacia','AYUDA', 'deshacer']
     directorio = os.path.join('media', 'media_ii', '')
     errores = 0
     for i in range(len(varios)):
         try:
             img = Image.open (f'{directorio}{varios[i]}.png')
         except:
-            img = crear_varios(varios[i],directorio)
+            img = crear_varios(varios[i], directorio)
             errores += 1
     return errores
 
