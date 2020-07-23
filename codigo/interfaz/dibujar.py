@@ -31,7 +31,6 @@ class Dibujar():
         #Directorios con las imágenes necesarias
         self._directorio_media = os.path.join('media','media_ii', '')
         self._directorio_fichas = os.path.join('media', 'Fichas y espacios', '')
-        self._directorio_media_ii = os.path.join('media', 'media_ii','')
         self._directorio_avatars =  os.path.join('media', 'media_ii','avatars','')
         #Prepara y agrega a la columna izquierda de la interfaz todos los casilleros del tablero
         columna_izquierda = []
@@ -76,7 +75,7 @@ class Dibujar():
               sg.Column(tiempo),
                sg.Button(image_filename=f'{self._directorio_media}pausa.png',button_color=('black','#4f280a'), pad=self._padin, border_width=0,
                           key='pausar'),
-               sg.Button(image_filename=f'{self._directorio_media_ii}AYUDA.png', button_color=('black', '#4f280a'),
+               sg.Button(image_filename=f'{self._directorio_media}AYUDA.png', button_color=('black', '#4f280a'),
                          pad=self._padin, border_width=0, tooltip='Obtenga ayuda clickeando aquí',
                          key='ayuda')
                ]

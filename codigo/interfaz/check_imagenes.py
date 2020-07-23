@@ -164,7 +164,7 @@ def check_avatares():
     return errores
 
 def check_varios ():
-    varios = ['botonlargo','botonMadera','logo','scrabbleArLogo','puntuaciones2','pausa','validar','bolsallenaP','bolsafichasvacia','ayuda']
+    varios = ['botonlargo','botonMadera','logo','scrabbleArLogo','puntuaciones2','pausa','validar','bolsallenaP','bolsafichasvacia','AYUDA']
     directorio = os.path.join('media', 'media_ii', '')
     errores = 0
     for i in range(len(varios)):
@@ -205,7 +205,7 @@ def check_directorios():
 
 def loading():
     mi_tema()
-    img_logo = os.path.join('media', 'scrabbleArLogo.png')
+    img_logo = os.path.join('media', 'media_ii', 'scrabbleArLogo.png')
     contenido = [[sg.Image(img_logo)],
                 [sg.Text(font=('Arial',12),size=(20,12),justification='center',key='texto')],
                 [sg.Text(font=('Arial',12),size=(15,5),justification='center',key='ok')]
