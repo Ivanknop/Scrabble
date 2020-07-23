@@ -133,8 +133,9 @@ def check_compu(atril_pc, tablero, dificultad):
                     if list(ficha.keys())[0] == letra:
                         #Notar algo importante: A la primera aparición de una ficha que coincida con la letra que busca,
                         #agrega la ficha a la lista. Esto es correcto; sin embargo es conveniente no olvidar que,
-                        #si una letra se repitiese, estaría agregando dos veces la misma ficha a la lista
-                        #(el mismo diccionario). En usos futuros, si se modificase una, también cambiaría la otra.
+                        #si una letra se repitiese y la bolsa contuviese referencias repetidas, se estaría agregando dos veces
+                        #la misma ficha a la lista (el mismo diccionario).
+                        #En usos futuros, si se modificase una, también cambiaría la otra. No sucede en la implementación actual.
                         fichas_pal.append(ficha)
                         break
             busqueda = tablero.buscarEspacio(fichas_pal, dificultad)

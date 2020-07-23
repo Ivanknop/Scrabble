@@ -127,7 +127,7 @@ def lazo_principal(jugador, cargar_partida=True):
             #-----EVENTO: Clickear en una ficha del atril-----
             if ('ficha' in event):
                 #Se obtiene el índice de la ficha seleccionada a partir de la "key"
-                #del boton y se agrega a una lista
+                #del botón y se agrega a una lista
                 fichas_seleccionadas = []
                 fichas_seleccionadas.append(int(event.split(" ")[1]))
 
@@ -136,8 +136,8 @@ def lazo_principal(jugador, cargar_partida=True):
                 #Le pide al atril la ficha que se corresponde con el botón que se clickeó
                 palabra += list(atril_jugador.get_ficha(int(event.split(" ")[1])).keys())[0]
 
-                #Muestra la palabra que se va formando; inhabilita la ficha clickeada,
-                #el botón de guardado y el de cambiar
+                #Muestra la palabra que se va formando e inhabilita la ficha clickeada y
+                #el botón de cambiar. Luego, habilita el botón para deshacer
                 interfaz.actualizarTexto(palabra)
                 interfaz.inhabilitarElemento(event)
                 interfaz.inhabilitarElemento('cambiar')
@@ -171,29 +171,23 @@ def lazo_principal(jugador, cargar_partida=True):
                         interfaz.actualizarTexto(palabra)
 
                     if (event == 'deshacer'):
-                        #si se clickea dicho boton retorna la ultima letra elegida la atril
-                        #la quita de la palabra formaa
-                        if palabra:
-                            interfaz.inhabilitarElemento('cambiar')
-                            letra =palabra[len(palabra)-1]
-                            palabra = palabra[:len(palabra)-1]
-                            #la borra de las letras a insertar
-                            letra_descartada=fichas_seleccionadas.pop()
-
-                            #retorno la ficha al atril
-                            interfaz.habilitarElemento(f'ficha {str(atril_jugador.buscar(letra))}')
-                            interfaz.actualizarTexto(palabra)
-
-                    if palabra == '' :
-                        interfaz.habilitarElemento('cambiar')
-
+                        #Quita la última letra de la palabra que se está formando                 
+                        ficha_descartada = fichas_seleccionadas.pop()
+                        #Habilita nuevamente la ficha
+                        interfaz.habilitarElemento(f'ficha {ficha_descartada}')
+                        #Actualiza la palabra
+                        palabra = palabra[:-1]
+                        interfaz.actualizarTexto(palabra)
+                        #Si la palabra ya no tiene más letras, rompe el lazo y muestra el texto estándar.
+                        if len(palabra) == 0:
+                            interfaz.textoEstandar()
+                            #Como "click_validar" no se modifica, ignorará el resto de los eventos de validación.
+                            break
 
                     #El timer debe actualizarse obligatoriamente dentro de cada evento
                     interfaz.actualizarTimer()
                     
-                if palabra == '':
-                    interfaz.habilitarElemento('cambiar')
-                #Si clickeó validar (no se terminó el tiempo ni se cerró la ventana)...
+                #Si clickeó validar (no se terminó el tiempo, se cerró la ventana ni se borró toda la palabra)...
                 if (click_validar):
                     #Valida la palabra y, si existe, permite que se decida la posición en el tablero
                     if(cp.check_jugador(palabra, preferencias.getNivel())):
@@ -293,10 +287,10 @@ def lazo_principal(jugador, cargar_partida=True):
                         interfaz.actualizarTexto('PALABRA NO VÁLIDA ¡PRUEBA DE NUEVO!', tamaño=10, color='red', fondo='white')
                         interfaz.actualizarAtril(atril_jugador)
 
-                    #Antes de continuar esperando eventos y habilitar los botones,
-                    #se comprueba que no se haya cerrado la ventana
-                    if (event != None):
-                        interfaz.habilitarElemento('cambiar')
+                #Antes de continuar esperando eventos y habilitar los botones,
+                #se comprueba que no se haya cerrado la ventana
+                if (event != None):
+                    interfaz.habilitarElemento('cambiar')
 
             #-----EVENTO: Botón para cambiar fichas-----
             if (event == 'cambiar'):
