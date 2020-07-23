@@ -82,9 +82,9 @@ def generar_configuracion(ventana, conf):
             return conf
         if spin == 'tiempo':
             if (valor_spin > 60) or (valor_spin < 0):
-                conf['error'] = 'El tiempo no puede ser mayor a una hora'    
+                conf['error'] = 'El tiempo no puede ser superior a 60 minutos'    
         elif (valor_spin < 5) or (valor_spin > 20):
-            conf['error'] = 'Se asignó un valor menor a 5 o mayor a 20 a la cantidad de filas, columnas'
+            conf['error'] = 'Se asignó un valor menor a 5 o mayor a 20 a la cantidad de filas o columnas'
             return conf
         conf[spin] = valor_spin
 

@@ -3,7 +3,7 @@ from codigo.logica import juego
 from codigo.interfaz.check_imagenes import*
 
 def main():
-    '''Primero ejecuta control de imagenes; si alguna imagen está dañada
+    '''Primero ejecuta contról de imagenes; si alguna imagen está dañada
     la modifica por una genérica, así la aplicación no colapsa.
     Luego inicia la interfaza principal y, si se ingresaron datos
     para el jugador, inicia el juego. Respectivamente, si la primera
