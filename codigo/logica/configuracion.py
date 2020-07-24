@@ -21,33 +21,47 @@ def infoConfiguracion(conf):
             contador_salto = 6
             columna.append(letras)
             letras = []
-    #Si quedaron letras por insertar antes de que se completara una fila, las agrega
+    #Si quedaron letras por insertar luego de completar la última fila, las agrega
     if (len(letras) != 0):
         columna.append(letras)
+    #Inserta los puntajes de las fichas
     columna.append([sg.Text('Puntajes de las fichas: ')])
-    contador_salto = 10
     letras = []
-    for clave in sorted(conf['puntaje_ficha'].keys()):
-        letras.append(sg.Text(f'{clave}: '))
-        for fichas in conf['puntaje_ficha'][clave]:
-            letras.append(sg.Text(fichas))
+    contador_salto = 6
+    for puntaje, listado in sorted(conf['puntaje_ficha'].items()):
+        for letra in listado:
+            letras.append(sg.Text(f'{puntaje}: {letra}'))
             contador_salto = contador_salto - 1
             if (contador_salto == 0):
+                contador_salto = 6
                 columna.append(letras)
-                contador_salto = 10
                 letras = []
-        if (len(letras) != 0):
-            columna.append(letras)
-        contador_salto = 0
-        letras=[]
-    columna.extend([[sg.Text('Casilleros especiales: ')], [sg.Text('+: Obtienes 5 puntos adicionales')], [sg.Text('-: Pierdes 5 puntos del total conseguido')],
-                   [sg.Text('x2: Duplica el valor de la palabra')], [sg.Text('%2: Divide a la mitad el total de la palabra')], [sg.Text('0: Anula el valor de la palabra')]])
+    if (len(letras) != 0):
+        columna.append(letras)
+        letras = []
+    #Inserta los casilleros eseciales seleccionados
+    columna.append([sg.Text('Casilleros especiales: ')])
+    especiales = set(conf['especiales'].values())
+    if (len(especiales) > 0):
+        for especial in especiales:
+            if (especial == '*sum'):
+                columna.append([sg.Text('+: Obtienes 5 puntos adicionales.')])
+            elif (especial == '*rest'):
+                columna.append([sg.Text('-: Pierdes 5 puntos del total conseguido.')])
+            elif (especial == '*mult'):
+                columna.append([sg.Text('x2: Duplica el valor de la palabra')])
+            elif (especial == '*div'):
+                columna.append([sg.Text('%2: Divide a la mitad el total de la palabra')])
+            elif (especial == '*0'):
+                columna.append([sg.Text('0: Anula el valor de la palabra')])
+    else:
+        columna.append([sg.Text('No se seleccionaron casilleros especiales')])
 
-    layout=[[sg.Column(columna,background_color='#4f280a')],[sg.Button('Volver',button_color=('black', '#f75404'),key='volverConf')]]
+    layout=[[sg.Column(columna,background_color='#4f280a', key='informacion')],[sg.Button('Volver',button_color=('black', '#f75404'),key='volverConf')]]
     mi_tema()
 
-    ventana = sg.Window('configuracion',layout=layout,size=(300,670),background_color= '#f39c12',
-                        no_titlebar=True,grab_anywhere=True, keep_on_top=True).Finalize()
+    ventana = sg.Window('configuracion',layout=layout,background_color= '#f39c12',
+                        no_titlebar=True,grab_anywhere=True, keep_on_top=True)
 
     while True:
         event, value = ventana.read()

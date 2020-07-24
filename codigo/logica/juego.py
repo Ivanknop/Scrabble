@@ -188,6 +188,7 @@ def lazo_principal(jugador, cargar_partida=True):
                         #Si la palabra ya no tiene más letras, rompe el lazo y muestra el texto estándar.
                         if len(palabra) == 0:
                             interfaz.textoEstandar()
+                            interfaz.inhabilitarElemento('deshacer')
                             #Como "click_validar" no se modifica, ignorará el resto de los eventos de validación.
                             break
 
