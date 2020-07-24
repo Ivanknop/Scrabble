@@ -10,7 +10,7 @@ def main():
     para el jugador, inicia el juego. Respectivamente, si la primera
     retorna un jugador vacío (por ejemplo, si se cierra la ventana sin
     hacer nada), la segunda parte no se ejecuta.'''
-    #loading()
+    loading()
     while True:
         datos_jugador, cargar = interfaz_inicial.lazo_principal()
         if (datos_jugador.getNombre() != ''):
