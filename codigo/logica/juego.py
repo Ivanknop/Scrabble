@@ -414,5 +414,6 @@ def lazo_principal(jugador, cargar_partida=True):
     if (jugador.getDificultad() == 'personalizado') and (not partida_existente):
         configuracion_personalizada.eliminar_configuracion(jugador.getNombre())
 
+    interfaz.cerrar()
     #Retorna un string que indica si ocurrió algún error durante la ejecución del módulo 
     return error

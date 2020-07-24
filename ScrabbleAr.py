@@ -11,11 +11,14 @@ def main():
     retorna un jugador vacío (por ejemplo, si se cierra la ventana sin
     hacer nada), la segunda parte no se ejecuta.'''
     #loading()
-    datos_jugador, cargar = interfaz_inicial.lazo_principal()
-    if (datos_jugador.getNombre() != ''):
-        error = juego.lazo_principal(datos_jugador, cargar)
-        if (error != ''):
-            sg.popup(error, keep_on_top=True, background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True)
+    while True:
+        datos_jugador, cargar = interfaz_inicial.lazo_principal()
+        if (datos_jugador.getNombre() != ''):
+            error = juego.lazo_principal(datos_jugador, cargar)
+            if (error != ''):
+                sg.popup(error, keep_on_top=True, background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True)
+        else:
+            break
 
 if __name__ == '__main__':
     main()

@@ -302,6 +302,9 @@ class Dibujar():
     def ventanaPausa(self):
         event = menuPausa.menu_pausa()
         return event
+    
+    def cerrar(self):
+        self._getInterfaz().Close()
 
     def _getDirectorioFicha(self):
         return self._directorio_fichas
