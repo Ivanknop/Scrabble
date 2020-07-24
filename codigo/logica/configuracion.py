@@ -25,12 +25,20 @@ def infoConfiguracion(conf):
     if (len(letras) != 0):
         columna.append(letras)
     columna.append([sg.Text('Puntajes de las fichas: ')])
+    contador_salto = 10
     letras = []
     for clave in sorted(conf['puntaje_ficha'].keys()):
         letras.append(sg.Text(f'{clave}: '))
         for fichas in conf['puntaje_ficha'][clave]:
             letras.append(sg.Text(fichas))
-        columna.append(letras)
+            contador_salto = contador_salto - 1
+            if (contador_salto == 0):
+                columna.append(letras)
+                contador_salto = 10
+                letras = []
+        if (len(letras) != 0):
+            columna.append(letras)
+        contador_salto = 0
         letras=[]
     columna.extend([[sg.Text('Casilleros especiales: ')], [sg.Text('+: Obtienes 5 puntos adicionales')], [sg.Text('-: Pierdes 5 puntos del total conseguido')],
                    [sg.Text('x2: Duplica el valor de la palabra')], [sg.Text('%2: Divide a la mitad el total de la palabra')], [sg.Text('0: Anula el valor de la palabra')]])
