@@ -75,11 +75,12 @@ def es_palabra(palabra):
     return ok
 
 
-def check_jugador(palabra, dificultad ='facil'):
+def check_jugador(palabra, preferencias):
     """ recibe una palabra y verifica que sea un verbo, adjetivo o sustantivo,
     retorna True si es asi, o Fale en caso contrario.
     este modulo asignara por defecto la dificultad ne FACIL si no es indicada"""
-
+    
+    dificultad = preferencias.getNivel()
     if len(palabra) >= 2:
         global TIPO
         posibles = posibles_palabras(palabra)
@@ -88,35 +89,36 @@ def check_jugador(palabra, dificultad ='facil'):
         #en cuanto encunetre una opcion que de 'True' dejara de comprobar e insertara esa
         while not ok and cont < len(posibles):
             pal = ''
-            if es_palabra(posibles[cont]) and (dificultad == 'facil' or dificultad == 'personalizado'):
+            if es_palabra(posibles[cont]) and (dificultad == 'facil'):
                 pal = pes.parse(posibles[cont]).split('/')
-
                 if pal[1] in TIPO['adj']:
                     ok =True
                 elif pal[1] in TIPO['sus']:
                     ok= True
                 elif pal[1] in TIPO['verb']:
                    ok= True
-                else:
-                    ok= False
             elif es_palabra(posibles[cont]) and (dificultad == 'medio' or  dificultad == 'dificil'):
                 pal = pes.parse(posibles[cont]).split('/')
                 if pal[1] in TIPO['adj']:
                     ok =True
                 elif pal[1] in TIPO['verb']:
                    ok= True
-                else:
-                    ok= False
+            elif es_palabra(posibles[cont]) and (dificultad == 'personalizado'):
+                pal = pes.parse(posibles[cont]).split('/')
+                for tipo_palabra in preferencias.getCategoriasPersonalizadas():
+                    if pal[1] in TIPO[tipo_palabra]:
+                        ok =True
+                        break
             else:
                 ok = False
-
 #            print("se chequeo {} el contador es {} y ok esta en {}".format(pal,cont,ok))
             cont += 1
     else:
         return False
     return ok
 
-def check_compu(atril_pc, tablero, dificultad):
+def check_compu(atril_pc, tablero, preferencias):
+    dificultad = preferencias.getNivel()
     fichas_pc = atril_pc.ver_atril()
     letras = ''
     for ficha in fichas_pc:
@@ -126,7 +128,7 @@ def check_compu(atril_pc, tablero, dificultad):
         palabras.update(map(''.join, it.permutations(letras, i)))
     posibilidades = {}
     for pal in palabras:
-        if check_jugador(pal, dificultad):
+        if check_jugador(pal, preferencias):
             fichas_pal = []
             for letra in pal:
                 for ficha in fichas_pc:

@@ -44,7 +44,9 @@ def layout():
                                 [sg.Checkbox('+: Suma 5 puntos al valor de la palabra', default=True, key='*sum'), sg.Checkbox('-: Resta 5 puntos al valor de la palabra', default=True, key='*rest')],
                                 [sg.Checkbox('*: Duplica el valor de la palabra', default=False, key='*mult') ,sg.Checkbox('%: Divide a la mitad el valor de la palabra', default=False, key='*div')],
                                 [sg.Checkbox('0: Anula el valor total de la palabra', default=False, key='*0')]]
-    layout.extend(casilleros_especiales)
+    tipos_palabras = [[sg.Text('Seleccione los tipos de palabras válidos: ')], [sg.Checkbox('Sustantivos', default=True, key='sus')],
+                        [sg.Checkbox('Adjetivos', default=True, key='adj')], [sg.Checkbox('Verbos', default=True, key='verb')]]
+    layout.extend([[sg.Column(casilleros_especiales), sg.Column(tipos_palabras)]])
     layout.append([sg.Button('Guardar y jugar', key='guardar', button_color=('Black', 'White')), sg.Button('Cancelar', key='cancel', button_color=('Black','White'))])
     return layout
 
@@ -71,6 +73,17 @@ def generar_configuracion(ventana, conf):
     #Al inicio, se asume que no hay ningún error
     conf['error'] = ''
     conf['nivel'] = 'personalizado'
+
+    #Comprueba que se haya seleccionado al menos un tipo de palabra posible
+    tipos = []
+    for spin in ['sus', 'adj', 'verb']:
+        if (ventana[f'{spin}'].Get()):
+            tipos.append(spin)
+    if (len(tipos) == 0):
+        conf['error'] = 'Debe seleccionar al menos una categoría de palabra (sustantivos, adjetivos, verbos)'
+        return conf
+    #Si todo salió bien, guarda el/los tipos seleccionados en la configuración
+    conf['tipos_palabras'] = tipos
 
     #Evalúa si los datos en los spin de filas, columnas y tiempo son correctos
     for spin in ['filas', 'columnas', 'tiempo']:
