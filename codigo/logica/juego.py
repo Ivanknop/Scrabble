@@ -40,6 +40,8 @@ def lazo_principal(jugador, cargar_partida=True):
     :param cargar_partida: Booleano. Si es True, intentará cargar un archivo
     de partida.'''
 
+    #Al inicio del módulo, se asume que no ocurrirá ningún error
+    error = ''
     #Crea un string con el directorio donde se almacena la partida. El formato
     #de la ruta depende del sistema operativo en ejecución
     ruta_guardado = os.path.join('guardados', f'partida_{jugador.getNombre()}')
@@ -49,8 +51,12 @@ def lazo_principal(jugador, cargar_partida=True):
     if (cargar_partida):
         #Carga una partida. Es True si se cargó con éxito, False en caso contrario
         if (archivo_partida.cargar_guardado()):
+            #Al cargar una partida, la dificultad debe establecerse a partir del archivo
             jugador.setDificultad(archivo_partida.getDificultad())
             configuracion = determinar_dificultad(jugador)
+            #Si ocurrió algún error durante la carga de la configuración, lo retorna
+            if ('error' in configuracion) and (configuracion['error'] != ''):
+                return configuracion['error']
             #Instancia la información en diferentes objetos
             preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
             #Prepara la información extraída del archivo
@@ -82,6 +88,7 @@ def lazo_principal(jugador, cargar_partida=True):
             interfaz.actualizarPuntajePC(puntaje_pc)
             partida_existente = True
     else:
+        #Como es una nueva partida, la dificultad fue seteada para el jugador en el menú principal
         configuracion = determinar_dificultad(jugador)
         puntaje = jugador.getPuntaje()
         #Instancia la información en diferentes objetos
@@ -329,10 +336,14 @@ def lazo_principal(jugador, cargar_partida=True):
                         eleccion = interfaz.popUpOkCancel('¿Estas seguro que deseas guardar la partida?')
                         if (eleccion == 'OK'):
                             jugador.setPuntaje(puntaje)
+                            #Carga la lista de partidas guardadas
                             usuarios = administrar_usuarios.cargar_usuarios()
+                            #Si el jugador no está en el listado, lo agrega y sobreescribe el archivo
                             if (jugador.getNombre() not in usuarios):
                                 usuarios.append(jugador.getNombre())
                                 administrar_usuarios.guardar_usuarios(usuarios)
+                            #Como se va a guardar el tiempo restante real, se debe anular el tiempo perdido hasta este momento
+                            instante = interfaz.paralizarTimer(instante)
                             archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
                             archivo_partida.crear_guardado()
                             partida_existente = True
@@ -342,7 +353,7 @@ def lazo_principal(jugador, cargar_partida=True):
                                 break
                             
                 #Cálcula el tiempo perdido durante el uso del menú de pausa
-                instante = interfaz.paralizarTimer(instante)
+                interfaz.paralizarTimer(instante)
 
             #-----EVENTO: Información sobre la partida-----
             if (event == 'infoPartida'):
@@ -402,3 +413,6 @@ def lazo_principal(jugador, cargar_partida=True):
     #se borra el archivo con la configuración
     if (jugador.getDificultad() == 'personalizado') and (not partida_existente):
         configuracion_personalizada.eliminar_configuracion(jugador.getNombre())
+
+    #Retorna un string que indica si ocurrió algún error durante la ejecución del módulo 
+    return error

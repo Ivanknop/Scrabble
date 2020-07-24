@@ -1,6 +1,7 @@
 from codigo.interfaz import interfaz_inicial
 from codigo.logica import juego
 from codigo.interfaz.check_imagenes import*
+import PySimpleGUI as sg
 
 def main():
     '''Primero ejecuta contról de imagenes; si alguna imagen está dañada
@@ -12,7 +13,9 @@ def main():
     #loading()
     datos_jugador, cargar = interfaz_inicial.lazo_principal()
     if (datos_jugador.getNombre() != ''):
-        juego.lazo_principal(datos_jugador, cargar)
+        error = juego.lazo_principal(datos_jugador, cargar)
+        if (error != ''):
+            sg.popup(error, keep_on_top=True, background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True)
 
 if __name__ == '__main__':
     main()

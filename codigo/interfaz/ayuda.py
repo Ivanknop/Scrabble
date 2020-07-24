@@ -157,7 +157,7 @@ def popReglas():
     layout = [reglas(),
               [sg.Button('¡Comenzar!',size=(20,5), font=('Arial', 16), key='comenzar')],]
     ventana = sg.Window('Reglas', layout=layout,element_justification='center',
-                        no_titlebar=True,grab_anywhere=False, keep_on_top=True,background_color='#afad71',border_depth=50).Finalize()
+                        no_titlebar=True,grab_anywhere=True, keep_on_top=True,background_color='#afad71',border_depth=50).Finalize()
     while True:
         event, values = ventana.read()
         if event in ( None,'comenzar'):
@@ -257,7 +257,7 @@ def ayuda() :
               [sg.Button('Cerrar',button_color=('black','#f75404'), font=('Arial', 16),size=(20,10),key='cerrar')]]
 
     mi_tema()
-    ventana = sg.Window('Ayuda', layout=layout,element_justification='center',grab_anywhere=False,no_titlebar=True,
+    ventana = sg.Window('Ayuda', layout=layout,element_justification='center',grab_anywhere=True,no_titlebar=True,
                       keep_on_top=True,border_depth=5,background_color='#afad71',  size=(780,580)).Finalize()
     while True:
 

@@ -14,7 +14,7 @@ def layout():
     tamaño_letras = 10
     layout = [[sg.Text('Ajuste los valores de la configuración según lo desee', pad=((115, 0), (0, 0)), justification='center', font=('Italic', 16))],
                 [sg.Text('Cantidad de filas: ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 21)], initial_value=5, key='filas'), sg.Text('Cantidad de columnas: ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 21)], initial_value=5, key='columnas'),
-                sg.Text('Tiempo total (minutos): ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 41)], key='tiempo')]]
+                sg.Text('Tiempo total (minutos): ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(1, 61)], key='tiempo')]]
     #Prepara los dos frames donde se configurará la cantidad de fichas de la bolsa y sus puntajes
     for objetivo in ['cantidades', 'puntajes']:
         frame_resultante = []
@@ -81,8 +81,9 @@ def generar_configuracion(ventana, conf):
             conf['error'] = 'Se asignó un valor no numérico a la cantidad de filas, columnas o al tiempo'
             return conf
         if spin == 'tiempo':
-            if (valor_spin > 60) or (valor_spin < 0):
-                conf['error'] = 'El tiempo no puede ser superior a 60 minutos'    
+            if (valor_spin > 60) or (valor_spin < 1):
+                conf['error'] = 'El tiempo no puede ser menor a 1 minutos ni superior a 60'
+                return conf
         elif (valor_spin < 5) or (valor_spin > 20):
             conf['error'] = 'Se asignó un valor menor a 5 o mayor a 20 a la cantidad de filas o columnas'
             return conf
@@ -128,13 +129,14 @@ def generar_configuracion(ventana, conf):
     return conf
 
 def cargar_configuracion(usuario):
+    configuracion = {}
     directorio = os.path.join('guardados', f'configuracion_{usuario}.pckl')
     try:
         with open(directorio, 'rb') as archivo:
             configuracion = pickle.load(archivo)
         return configuracion
     except:
-        configuracion['error'] = 'No se encontró el archivo'
+        configuracion['error'] = 'No se encontró el archivo de configuración'
         return configuracion
 
 def guardar_configuracion(configuracion, usuario):

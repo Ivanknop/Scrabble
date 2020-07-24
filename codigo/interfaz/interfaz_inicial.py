@@ -141,7 +141,7 @@ def ventana_carga():
             else:
                 sg.popup('No ha seleccionado ninguna partida para cargar')
         if (event == 'eliminar'):
-            decision = sg.popup_yes_no('Realmente desea eliminar las partidas guardadas?',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
+            decision = sg.popup_yes_no('¿Realmente desea elimina la partida?',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
             if decision == 'Yes':
                 if (len(values['listado_partidas']) != 0):
                     partida = values['listado_partidas'][0]
@@ -212,7 +212,7 @@ def lazo_principal():
                         jugador = jugar(avatarSelec, value, ventana)
                         break
             else:
-                sg.popup_ok('Debe ingresar un Apodo (debe tener entre 3 y 10 caracteres,puede ser alfanumerico, pero no debe contener caracteres especiales)',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
+                sg.popup_ok('Ingrese un Apodo (debe tener entre 3 y 10 caracteres, puede ser alfanumerico y no debe contener caracteres especiales)',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
         elif event in ('<<<', '>>>'):
             avatarSelec = avatar.controles(event, ventana.FindElement('avatarVisor'))
         elif event == 'puntajes':
