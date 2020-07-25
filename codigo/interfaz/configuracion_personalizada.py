@@ -3,6 +3,7 @@ from codigo.interfaz.tema import mi_tema
 import os.path
 import pickle
 from codigo.logica import configuracion
+import random
 
 def layout():
     '''Diseña el layout de la ventana de configuración.
@@ -13,7 +14,7 @@ def layout():
     tamaño_fuente = 12
     tamaño_letras = 10
     layout = [[sg.Text('Ajuste los valores de la configuración según lo desee', pad=((115, 0), (0, 0)), justification='center', font=('Italic', 16))],
-                [sg.Text('Cantidad de filas: ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 21)], initial_value=5, key='filas'), sg.Text('Cantidad de columnas: ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 21)], initial_value=5, key='columnas'),
+                [sg.Text('Cantidad de filas: ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 21)], initial_value=8, key='filas'), sg.Text('Cantidad de columnas: ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(5, 21)], initial_value=8, key='columnas'),
                 sg.Text('Tiempo total (minutos): ', font=(fuente_texto, tamaño_fuente)), sg.Spin([i for i in range(1, 61)], key='tiempo')]]
     #Prepara los dos frames donde se configurará la cantidad de fichas de la bolsa y sus puntajes
     for objetivo in ['cantidades', 'puntajes']:
@@ -22,10 +23,10 @@ def layout():
         #Cantidad de elementos a mostrar por fila del frame
         contador_salto = 5
         for i in range(ord('A'), ord('Z')+1):
-            fila.extend([sg.Text(f'{chr(i)}: ', font=(fuente_texto, tamaño_letras)), sg.Spin([i for i in range(1, 31)], key=f'{objetivo}_{chr(i)}', size=(2, None))])
+            fila.extend([sg.Text(f'{chr(i)}: ', font=(fuente_texto, tamaño_letras)), sg.Spin([i for i in range(1, 31)], key=f'{objetivo}_{chr(i)}', size=(2, None), initial_value=random.randint(1, 10))])
             #Dado que la N no suele preceder a la Ñ en la tabla ASCII, si llegué a la primera inserto la segunda a continuación
             if (chr(i) == 'N'):
-                fila.extend([sg.Text('Ñ: ', font=(fuente_texto, tamaño_letras)), sg.Spin([i for i in range(1, 31)], key=f'{objetivo}_Ñ')])
+                fila.extend([sg.Text('Ñ: ', font=(fuente_texto, tamaño_letras)), sg.Spin([i for i in range(1, 31)], key=f'{objetivo}_Ñ', initial_value=random.randint(1, 10))])
                 contador_salto = contador_salto - 1
             contador_salto = contador_salto - 1
             if (contador_salto < 1):
@@ -48,7 +49,8 @@ def layout():
     #Columna de selección de tipos de palabras
     tipos_palabras = [[sg.Text('Tipos de palabras permitidos: ')], [sg.Checkbox('Sustantivos', default=True, key='sus')],
                         [sg.Checkbox('Adjetivos', default=True, key='adj')], [sg.Checkbox('Verbos', default=True, key='verb')]]
-    layout.extend([[sg.Column(casilleros_especiales), sg.Column(tipos_palabras)]])
+    #Agrega ambas columnas al layout
+    layout.extend([[sg.Column(casilleros_especiales), sg.VerticalSeparator(), sg.Column(tipos_palabras)]])
     #Columna de selección de comportamiento de la IA
     separador = [sg.Text('_______________________________________________________________________________________________________')]
     frame_IA = [[sg.Checkbox('Búsqueda de espacio inteligente', default=True, key='espacio_inteligente')], [sg.Checkbox('Búsqueda de palabra inteligente', default=False, key='palabra_inteligente')]]
