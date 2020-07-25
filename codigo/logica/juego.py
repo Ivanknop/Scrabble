@@ -57,12 +57,12 @@ def lazo_principal(jugador, cargar_partida=True):
             #Si ocurrió algún error durante la carga de la configuración, lo retorna
             if ('error' in configuracion) and (configuracion['error'] != ''):
                 return configuracion['error']
-            #Si se está jugando en modo personalizado, se guardan los tipos seleccionados
-            tipos_personalizados = []
-            if ('tipos_palabras' in configuracion):
-                tipos_personalizados = configuracion['tipos_palabras']
-            #Instancia la información en un objeto
-            preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'], tipos_personalizados)
+            #Si se está jugando en modo personalizado, se guardan algunas características seleccionadas
+            if (configuracion['nivel'] == 'personalizado'):
+                preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'], configuracion['tipos_palabras'], configuracion['IA'])
+            else:
+                #Si no, se conserva sólo la información predeterminada
+                preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
             #Prepara la información extraída del archivo
             jugador.setAvatar(archivo_partida.getAvatar())
             jugador.setNombre(archivo_partida.getJugadorUser())
@@ -95,10 +95,10 @@ def lazo_principal(jugador, cargar_partida=True):
         #Como es una nueva partida, la dificultad fue seteada para el jugador en el menú principal
         configuracion = determinar_dificultad(jugador)
         puntaje = jugador.getPuntaje()
-        tipos_personalizados = []
-        if ('tipos_palabras' in configuracion):
-            tipos_personalizados = configuracion['tipos_palabras']
-        preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'], tipos_personalizados)
+        if (configuracion['nivel'] == 'personalizado'):
+            preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'], configuracion['tipos_palabras'], configuracion['IA'])
+        else:
+            preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
         unTablero = Tablero(preferencias)
         #Si no se clickeó "Cargar" en la interfaz inicial, crea una bolsa y nuevos atriles
         bolsa_fichas = crear_bolsa(configuracion['cant_fichas'],configuracion['puntaje_ficha'])

@@ -35,18 +35,26 @@ def layout():
         if (len(fila) != 0):
             frame_resultante.append(fila)
         if (objetivo == 'cantidades'):
-            layout.append([sg.Frame(layout=frame_resultante, font=('Italic 12'), title='Cantidad de fichas', element_justification='left')])
+            layout.append([sg.Frame(layout=frame_resultante, font=('Italic', 12), title='Cantidad de fichas', element_justification='left')])
         else:
             #En el layout, toma la última lista que se insertó (la que contiene el primer frame) y le agrega el frame recién creado.
             #Esto causa que el espacio con los puntajes se vea a la derecha del de la bolsa, en lugar de debajo.
-            layout[-1].extend([sg.Frame(layout=frame_resultante, font=('Italic 12'), title='Puntajes de las fichas', element_justification='right')])
+            layout[-1].extend([sg.Frame(layout=frame_resultante, font=('Italic', 12), title='Puntajes de las fichas', element_justification='right')])
+    #Columna de selección de casilleros especiales
     casilleros_especiales = [[sg.Text('Seleccione los casilleros especiales que le gustaría que apareciesen: ')],
                                 [sg.Checkbox('+: Suma 5 puntos al valor de la palabra', default=True, key='*sum'), sg.Checkbox('-: Resta 5 puntos al valor de la palabra', default=True, key='*rest')],
                                 [sg.Checkbox('*: Duplica el valor de la palabra', default=False, key='*mult') ,sg.Checkbox('%: Divide a la mitad el valor de la palabra', default=False, key='*div')],
                                 [sg.Checkbox('0: Anula el valor total de la palabra', default=False, key='*0')]]
-    tipos_palabras = [[sg.Text('Seleccione los tipos de palabras válidos: ')], [sg.Checkbox('Sustantivos', default=True, key='sus')],
+    #Columna de selección de tipos de palabras
+    tipos_palabras = [[sg.Text('Tipos de palabras permitidos: ')], [sg.Checkbox('Sustantivos', default=True, key='sus')],
                         [sg.Checkbox('Adjetivos', default=True, key='adj')], [sg.Checkbox('Verbos', default=True, key='verb')]]
     layout.extend([[sg.Column(casilleros_especiales), sg.Column(tipos_palabras)]])
+    #Columna de selección de comportamiento de la IA
+    separador = [sg.Text('_______________________________________________________________________________________________________')]
+    frame_IA = [[sg.Checkbox('Búsqueda de espacio inteligente', default=True, key='espacio_inteligente')], [sg.Checkbox('Búsqueda de palabra inteligente', default=False, key='palabra_inteligente')]]
+    explicacion_IA = [[sg.Text('Búsqueda de espacio inteligente: Permite al oponente localizar y utilizar el\nmejor espacio disponible del tablero. Si la opción se desmarca, el adversario\nrealizará sus jugadas en la primer ubicación libre que encuentre.')],
+                        [sg.Text('Búsqueda de palabra inteligente: Permite al ordenador realizar un análisis de\ntodas sus opciones y elegir la palabra que más puntaje le otorga. Si\nla opción se desmarca el oponente jugará, en cada turno, con la primer\npalabra que pueda validar.')]]
+    layout.extend([separador, [sg.Frame('Configuración de la IA', frame_IA, font=('Italic', 12)), sg.Column(explicacion_IA)]])
     layout.append([sg.Button('Guardar y jugar', key='guardar', button_color=('Black', 'White')), sg.Button('Cancelar', key='cancel', button_color=('Black','White'))])
     return layout
 
@@ -76,9 +84,9 @@ def generar_configuracion(ventana, conf):
 
     #Comprueba que se haya seleccionado al menos un tipo de palabra posible
     tipos = []
-    for spin in ['sus', 'adj', 'verb']:
-        if (ventana[f'{spin}'].Get()):
-            tipos.append(spin)
+    for checkbox in ['sus', 'adj', 'verb']:
+        if (ventana[f'{checkbox}'].Get()):
+            tipos.append(checkbox)
     if (len(tipos) == 0):
         conf['error'] = 'Debe seleccionar al menos una categoría de palabra (sustantivos, adjetivos, verbos)'
         return conf
@@ -95,7 +103,7 @@ def generar_configuracion(ventana, conf):
             return conf
         if spin == 'tiempo':
             if (valor_spin > 60) or (valor_spin < 1):
-                conf['error'] = 'El tiempo no puede ser menor a 1 minutos ni superior a 60'
+                conf['error'] = 'El tiempo no puede ser menor a 1 minuto ni superior a 60'
                 return conf
         elif (valor_spin < 5) or (valor_spin > 20):
             conf['error'] = 'Se asignó un valor menor a 5 o mayor a 20 a la cantidad de filas o columnas'
@@ -123,6 +131,9 @@ def generar_configuracion(ventana, conf):
             if (valor_spin < 1):
                 conf['error'] = f'La letra {letra} posee valor nulo o negativo en el espacio de {frame}'
                 return conf
+            elif (valor_spin > 30):
+                conf['error'] = f'La letra {letra} no puede poseer un valor mayor a 30 en el espacio de {frame}'
+                return conf
             cant_fichas[f'{letra}'] = valor_spin
             #Si el frame actual es el de puntajes...
             if (frame == 'puntajes'):
@@ -130,15 +141,19 @@ def generar_configuracion(ventana, conf):
                 if (valor_spin not in puntaje_ficha):
                     puntaje_ficha[valor_spin] = [letra]
                 else:
-                    #Si no, agrega una nueva letra en ese espacio
+                    #Si no, agrega una nueva letra a la lista
                     puntaje_ficha[valor_spin].append(letra)
 
     #Asigna los diccionarios resultantes (cantidades y puntuación) a la configuración global
     conf['cant_fichas'] = cant_fichas
     conf['puntaje_ficha'] = puntaje_ficha
+
     #Agrega casilleros especiales al tablero
     especiales_seleccionados = obtener_especiales(ventana)
     conf['especiales'] = configuracion.especial(conf['filas'], conf['columnas'], conf['nivel'], especiales_seleccionados)
+
+    #Guarda la configuración de la IA
+    conf['IA'] = {'espacio_inteligente': ventana['espacio_inteligente'].Get(), 'palabra_inteligente': ventana['palabra_inteligente'].Get()}
     return conf
 
 def cargar_configuracion(usuario):

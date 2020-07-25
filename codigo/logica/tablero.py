@@ -128,7 +128,7 @@ class Tablero ():
                         print(dato[0:2].upper(), end='  ')
             print()
 
-    def buscarEspacio(self, fichas, dificultad):
+    def buscarEspacio(self, fichas, preferencias):
         '''Recibe una lista de fichas y localiza una coordenada en la que quepa
         la palabra. Si existiese más de un espacio disponible, evalúa cada camino
         y selecciona el que aporte el máximo interés (mayor puntaje).
@@ -136,6 +136,7 @@ class Tablero ():
         debería ser insertada, además del interés que generó.
         Si no se encontró ningún espacio, devuelve "-1" como coordenada.'''
 
+        dificultad = preferencias.getNivel()
         tablero = self.getCasilleros()
         longitud_palabra = len(fichas)
         cant_columnas = len(tablero[0])
@@ -178,7 +179,7 @@ class Tablero ():
                             espacio_optimo['interes'] = puntaje_final
                             espacio_optimo['coordenada'] = (f, c)
                             espacio_optimo['sentido'] = sentido
-                            if (dificultad == 'facil'):
+                            if (dificultad == 'facil') or ((dificultad == 'personalizado') and not (preferencias.getIA()['espacio_inteligente'])):
                                 return espacio_optimo
         return espacio_optimo
 

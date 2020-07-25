@@ -4,10 +4,10 @@ from codigo.interfaz.check_imagenes import*
 import PySimpleGUI as sg
 
 def main():
-    '''Primero ejecuta contról de imagenes; si alguna imagen está dañada
+    '''Primero realiza un contról de imagenes; si alguna imagen está dañada
     la modifica por una genérica, así la aplicación no colapsa.
     Luego inicia la interfaza principal y, si se ingresaron datos
-    para el jugador, inicia el juego. Respectivamente, si la primera
+    para el jugador, inicia el juego. Respectivamente, si la primera parte
     retorna un jugador vacío (por ejemplo, si se cierra la ventana sin
     hacer nada), la segunda parte no se ejecuta.'''
     loading()

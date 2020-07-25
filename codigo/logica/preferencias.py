@@ -1,37 +1,44 @@
 class Preferencias():
-    def __init__ (self, cant_filas=5, cant_columnas=5, especiales={}, nivel='', categorias=[]):
-        self.__filas = cant_filas
-        self.__columnas = cant_columnas
-        self.__especiales = especiales
-        self.__nivel = nivel
-        self.__categorias_personalizadas = categorias
+    def __init__ (self, cant_filas=5, cant_columnas=5, especiales={}, nivel='', categorias=[], IA={}):
+        self._filas = cant_filas
+        self._columnas = cant_columnas
+        self._especiales = especiales
+        self._nivel = nivel
+        self._categorias_personalizadas = categorias
+        self._IA = IA
 
     def getFilas(self):
-        return self.__filas
+        return self._filas
 
     def getColumnas(self):
-        return self.__columnas
+        return self._columnas
 
     def getEspeciales(self):
-        return self.__especiales
+        return self._especiales
 
     def getNivel(self):
-        return self.__nivel
+        return self._nivel
     
     def getCategoriasPersonalizadas(self):
-        return self.__categorias_personalizadas
+        return self._categorias_personalizadas
+
+    def getIA(self):
+        return self._IA
+
+    def setIA(self, IA):
+        self._IA = IA
     
     def setCategoriasPersonalizadas(self, categorias):
-        self.__categorias_personalizadas = categorias
+        self._categorias_personalizadas = categorias
 
     def setNivel(self, nivel):
-        self.__nivel = nivel
+        self._nivel = nivel
 
     def setFilas(self, filas):
-        self.__filas = filas
+        self._filas = filas
 
     def setColumnas(self, columnas):
-        self.__columnas = columnas
+        self._columnas = columnas
 
     def setEspeciales(self, especiales):
-        self.__especiales = especiales
+        self._especiales = especiales

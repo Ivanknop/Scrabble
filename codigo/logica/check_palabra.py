@@ -16,7 +16,7 @@ def posibles_palabras (palabra):
     en su diccionario de palabras'''
 
     lisPal = []
-    #siempre la primer palabra sera la ingresada por le ugador
+    #siempre la primer palabra será la ingresada por el jugador
     lisPal.append(palabra)
     vocales = {'a':'á', 'e':'é', 'i':'í', 'o':'ó', 'u':'ú'}
 
@@ -50,12 +50,11 @@ def posibles_palabras (palabra):
 
 def clasificar(palabra):
     print(tag(palabra, tokenize=True, encoding='utf-8', tagset='UNIVERSAL'))
-    print(tag(palabra, tokenize=True, encoding='utf-8'))
     print()
 
 
 def es_palabra(palabra):
-    ''' este modulo evalua si la palabra recibida existe en los diccionarios de PATTERN.ES'''
+    '''este modulo evalua si la palabra recibida existe en los diccionarios de PATTERN.ES'''
     ok = True
     if palabra:
         if not palabra.lower() in verbs:
@@ -76,9 +75,9 @@ def es_palabra(palabra):
 
 
 def check_jugador(palabra, preferencias):
-    """ recibe una palabra y verifica que sea un verbo, adjetivo o sustantivo,
-    retorna True si es asi, o Fale en caso contrario.
-    este modulo asignara por defecto la dificultad ne FACIL si no es indicada"""
+    """Recibe una palabra y verifica que sea un verbo, adjetivo o sustantivo,
+    retorna True si es asi, o False en caso contrario.
+    Este módulo asignará por defecto la dificultad en FÁCIL si no es indicada"""
     
     dificultad = preferencias.getNivel()
     if len(palabra) >= 2:
@@ -86,10 +85,12 @@ def check_jugador(palabra, preferencias):
         posibles = posibles_palabras(palabra)
         ok = False
         cont = 0
-        #en cuanto encunetre una opcion que de 'True' dejara de comprobar e insertara esa
-        while not ok and cont < len(posibles):
+        #en cuanto encuentre una opcion que de 'True' dejara de comprobar e insertará esa
+        while (not ok) and (cont < len(posibles)):
             pal = ''
-            if es_palabra(posibles[cont]) and (dificultad == 'facil'):
+            #La condición debe mantener este orden porque, de otro modo, es_palabra podría ejecutarse
+            #en el nivel incorrecto. Si el nivel es difícil, es_palabra imprimirá la misma información 3 veces
+            if (dificultad == 'facil') and es_palabra(posibles[cont]):
                 pal = pes.parse(posibles[cont]).split('/')
                 if pal[1] in TIPO['adj']:
                     ok =True
@@ -97,13 +98,13 @@ def check_jugador(palabra, preferencias):
                     ok= True
                 elif pal[1] in TIPO['verb']:
                    ok= True
-            elif es_palabra(posibles[cont]) and (dificultad == 'medio' or  dificultad == 'dificil'):
+            elif (dificultad == 'medio' or  dificultad == 'dificil') and es_palabra(posibles[cont]):
                 pal = pes.parse(posibles[cont]).split('/')
                 if pal[1] in TIPO['adj']:
                     ok =True
                 elif pal[1] in TIPO['verb']:
                    ok= True
-            elif es_palabra(posibles[cont]) and (dificultad == 'personalizado'):
+            elif (dificultad == 'personalizado') and es_palabra(posibles[cont]):
                 pal = pes.parse(posibles[cont]).split('/')
                 for tipo_palabra in preferencias.getCategoriasPersonalizadas():
                     if pal[1] in TIPO[tipo_palabra]:
@@ -136,17 +137,17 @@ def check_compu(atril_pc, tablero, preferencias):
                         #Notar algo importante: A la primera aparición de una ficha que coincida con la letra que busca,
                         #agrega la ficha a la lista. Esto es correcto; sin embargo es conveniente no olvidar que,
                         #si una letra se repitiese y la bolsa contuviese referencias repetidas, se estaría agregando dos veces
-                        #la misma ficha a la lista (el mismo diccionario).
-                        #En usos futuros, si se modificase una, también cambiaría la otra. No sucede en la implementación actual.
+                        #la misma ficha a la lista (el mismo diccionario). En usos futuros, si se modificase una, también cambiaría la otra. 
+                        #No sucede en la implementación actual, pero es importante tenerlo en cuenta.
                         fichas_pal.append(ficha)
                         break
-            busqueda = tablero.buscarEspacio(fichas_pal, dificultad)
+            busqueda = tablero.buscarEspacio(fichas_pal, preferencias)
             if busqueda['coordenada'] != -1:
                 busqueda['fichas'] = fichas_pal
                 posibilidades[pal] = busqueda
-                #En el modo "facil" y "medio", retorna la primer palabra que pueda
-                #validar y encontrarle un espacio
-                if (dificultad == 'facil') or (dificultad == 'medio'):
+                #En el modo "facil" y "medio", retorna la primer palabra que pueda validar y encontrarle un espacio.
+                #En el modo "personalizado", dependerá de la configuración seleccionada por el usuario.
+                if (dificultad == 'facil') or (dificultad == 'medio') or ((dificultad == 'personalizado') and not (preferencias.getIA()['palabra_inteligente'])):
                     return posibilidades[pal], pal
     for clave, valor in posibilidades.items():
         print(clave, ':', valor['interes'])
@@ -157,16 +158,6 @@ def check_compu(atril_pc, tablero, preferencias):
         return posibilidades[mejor_opcion], mejor_opcion
     return posibilidades, letras
 
-
-
-    #Iterar "palabras" por check_palabra. Si es válida, guardar en un diccionario
-    #la palabra y la coordenada (si hubiese espacio) en la que obtendría mayor
-    #puntaje. Luego, quedarse con la palabra que haya arrojado mayor puntaje.
-    #Observar que una palabra de 2 letras puede dar mayor puntaje si, por ejemplo,
-    #cabe en una parte del tablero muy beneficiosa en la que una de 4 letras no.
-
-
-
 '''TIPO sera una varible global que nos permite chequiar que la palabra a ingresar, este dentor
 de las clasificaciones permitidas en el juego  adj = adjetivos, sus= sustantivo, verb = verbos
 las clasificiaciones estan tomadas dle modulo pattern, pero la construccio nde este modulo
@@ -176,6 +167,3 @@ TIPO= {'adj':["AO", "JJ","AQ","DI","DT"],
          'sus':["NC", "NN", "NCS","NCP", "NNS","NP", "NNP","W"],
           'verb':[ "VAG", "VBG", "VAI","VAN", "MD", "VAS" , "VMG" , "VMI", "VB", "VMM" ,"VMN" , "VMP", "VBN","VMS","VSG",  "VSI","VSN", "VSP","VSS"  ]
           }
-
-
-#print(check_jugador('abaco'))
