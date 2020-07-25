@@ -34,10 +34,15 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
     mi_tema()
     ven = sg.Window ('Ganador',layout=contenido,size= (400,400), no_titlebar=False,keep_on_top=True)
     ven.finalize()
-
+    
+    nuevo_pje = True
     while True:         
         #Abre la ventana donde se ve quién ganó
         ver_ganador (punt_jug,punt_pc,ven)
+        puntaje = Puntuacion_Maxima()
+        if nuevo_pje:
+            puntaje.agregar(Jugador(nombre,punt_jug,nivel))
+            nuevo_pje = False
         event, values = ven.read()
         if event in (None,'salir'):
             break
@@ -45,10 +50,9 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
             #Abre la ventana de las palabras utilizadas
             listado_palabras(pal_jug,pal_pc)
         if event == 'puntajes':
-            #Crea un puntaje, actualiza las puntuaciones máximas y abre la ventana de puntuaciones máximas
-            puntaje = Puntuacion_Maxima()
-            puntaje.agregar(Jugador(nombre,punt_jug,nivel))
-            puntajes()  
+            #Abre la ventana de puntuaciones máximas
+            puntajes()             
     ven.close()
+    
 if __name__ == '__main__':
     terminar()
