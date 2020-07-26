@@ -47,6 +47,15 @@ def juego(dirAyuda):
                   'Notas: Al seleccionar una ficha no se puede presionar la bolsa para cambiarlas.\n'
                  'Además, si se deja quieto el mouse sobre una ficha se mostrará una etiqueta con su puntaje.\n'
                  'En el botón de preferencias pueden verse todos los puntajes para esa partida.', font=('Arial, 12'), text_color='white',disabled=True, size=(20,8),background_color='#4f280a')],
+
+        [sg.Image(filename=f'{dirAyuda}ayuda 40.png')],  # atril validado
+        [sg.Multiline('Al momento de clickear en una ficha se habilitará el botón Deshacer.'
+                      'Este le permite  corregir errores al momento de formar una palabra '
+                      'o si simplemente se arrepintió. Puede hacer uso dle mismo hasta eliminar todas las fichas '
+                      'seleccionadas o simplemente una',
+                      font=('Arial, 12'), text_color='white', disabled=True, size=(40, 8),
+                      background_color='#4f280a')],
+
         [sg.Image(filename=f'{dirAyuda}ayuda 2.png')], #atril validado
          [sg.Multiline('Una vez que se formó una palabra, se debe dar click en el boton de validar. Si ésta es válida, '
                   'ScrabbleAR le indicará que seleccione dónde insertarla.\n'
