@@ -131,8 +131,9 @@ def lazo_principal(jugador, cargar_partida=True):
             event, value = interfaz.leer()
 
             #Si se acabo el tiempo o se cerró la ventana, se termina el jueg
-            if (event == None):
+            if (event ==  None):
                 break
+
             if (interfaz.terminoTimer()):
                 terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                 break
@@ -161,9 +162,11 @@ def lazo_principal(jugador, cargar_partida=True):
                     event, value = interfaz.leer()
 
                     #Circunstancias que cierran el lazo}
-                    if (event == None):
+                    if (event ==  None):
                         jugar = False
                         break
+
+
                     if (interfaz.terminoTimer()):
                         terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad())
                         jugar = False

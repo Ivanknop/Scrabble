@@ -104,6 +104,10 @@ class Dibujar():
         self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=False, no_titlebar=False)
         self._interfaz.Finalize()
 
+        # ------------llamada a tkinter para contorlar el evento sobre el boton X------------------
+        self._interfaz.TKroot.protocol("WM_DELETE_WINDOW", self.click_X)
+
+        #--------------------------------------------------------------------
     def tema_tablero(self):
         '''Define un tema para la interfaz de PySimpleGUI y lo actualiza.'''
         sg.LOOK_AND_FEEL_TABLE['Tablero'] = {'BACKGROUND': '#4f280a',  ##133d51',
@@ -305,6 +309,17 @@ class Dibujar():
     
     def cerrar(self):
         self._getInterfaz().Close()
+
+
+     #-------metodo para controlar el clic sobre la X de la ventana--------
+    def click_X(self):
+        mensaje ="Esta seguro/a que desea salir?\nATENCION: ESTA PARTIDA SE PERDERA POR COMPLETO\nSi usted desea guardar salga mediante el BOTON DE PAUSAR"
+
+        if sg.popup_yes_no(mensaje,background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True) == 'Yes':
+
+            self._interfaz.Close()
+
+    #----------------------------------------------------------------------
 
     def _getDirectorioFicha(self):
         return self._directorio_fichas
