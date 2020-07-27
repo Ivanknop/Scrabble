@@ -19,6 +19,10 @@ def ver_ganador (jug,pc,ven):
         ven['ganador'].update(value='EMPATE SOBRE EL FINAL')
 
 def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
+    '''
+    Construye una interfaz para determinar qué jugador salió vencedor. Permite acceder a las palabras que cada uno utilizó y
+    a las puntuaciones máximas
+    '''
     contenido = [
         [sg.Text('TU PUNTAJE FINAL',size=(40,1),font=('Impact',14),justification='center',text_color=('#D09F61'),key='_jug')],
         [sg.Text(key='pje_jug',size=(50,1),justification='center',font=('Arial',50),background_color='Black',text_color='white')],
@@ -40,7 +44,7 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
         #Abre la ventana donde se ve quién ganó
         ver_ganador (punt_jug,punt_pc,ven)
         puntaje = Puntuacion_Maxima()
-        if nuevo_pje:
+        if nuevo_pje: #Controla no agregar más de una vez un puntaje a las puntuaciones máximas
             puntaje.agregar(Jugador(nombre,punt_jug,nivel))
             nuevo_pje = False
         event, values = ven.read()
