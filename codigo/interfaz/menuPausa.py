@@ -4,7 +4,9 @@ import os
 #evaluar si es un objeto menu
 
 def menu_pausa():
-
+    '''
+    Menú pausa que permite acceder a guardar la partida o abandonar la misma. También volver a la pantalla del juego
+    '''
     img_boton_largo = os.path.join('media', 'media_ii', 'botonlargo.png')
     img_logo = os.path.join('media','media_ii', 'scrabbleArLogo.png')
     layout = [[sg.Image(img_logo, background_color='#4f280a')],
