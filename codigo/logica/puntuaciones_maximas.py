@@ -24,13 +24,21 @@ class Puntuacion_Maxima():
         self.puntajes.pop()
         self.guardar()
 
+    def crear(self):
+        fichero = open (self.ruta_guardado, 'wb')
+        self._vaciar_puntajes()
+        fichero.close()
+
     def cargar(self):
+        '''
+        Controla si existe algún archivo 'puntuación máxima' y si no lo crea
+        '''
         try:
             fichero = open(self.ruta_guardado, 'rb')
             self.puntajes = pickle.load(fichero)
             fichero.close()
         except:
-            print("El fichero no existe")
+            self.crear()
 
     def ver_puntaje(self,pos):
         '''
