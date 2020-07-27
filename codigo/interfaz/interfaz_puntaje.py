@@ -3,12 +3,18 @@ from codigo.logica.puntuaciones_maximas import *
 from codigo.interfaz.tema import *
 import os
 def actualizar_puntaje (puntaje,ventana):
+    '''
+    Lista en pantalla los puntajes almacenados
+    '''
     listado_puntos =''
     for p in range(len(puntaje.puntajes)):
         listado_puntos = listado_puntos + str(puntaje.puntajes[p].infoJugador().upper() ) + '\n'
         ventana['puntos'].update(value=listado_puntos)
 
 def blanquear (puntaje):
+    '''
+    Vuelve a 0 todos los puntajes, nombres y dificultades
+    '''
     puntaje._vaciar_puntajes()
     puntaje.guardar()
     actualizar_puntaje(puntaje)
