@@ -9,11 +9,10 @@ from pattern.es import verbs, tag, spelling, lexicon
 import itertools as it
 
 def posibles_palabras (palabra):
-    '''por cada vocal, que tenga la palabra, genera una posibilidad con Tilde
-    debido a que nuestro programa solo contiene letras sin tilde
-    pero pattern tiene palabras ocn tilde, por ejemplo el juego logicamente ingresa pajaro, sin tilde pero en
-    pattern esta se encuentra ocn tilde. aqui generamos esa lista con posible opciones onc tilde para que pattern las encunetre
-    en su diccionario de palabras'''
+    '''Por cada vocal que tenga la palabra seleccionada se genera una posibilidad con Tilde.
+    Nuestra aplicación solo contiene letras sin tilde, pero pattern sí las tiene a disposición. 
+    Aqui generamos esa lista con posible opciones con tilde para que pattern las encuentre en sus diccionario de palabras
+    '''
 
     lisPal = []
     #siempre la primer palabra será la ingresada por el jugador
@@ -54,7 +53,9 @@ def clasificar(palabra):
 
 
 def es_palabra(palabra):
-    '''este modulo evalua si la palabra recibida existe en los diccionarios de PATTERN.ES'''
+    '''
+    Este modulo evalua si la palabra recibida existe en los diccionarios de PATTERN.ES
+    '''
     ok = True
     if palabra:
         if not palabra.lower() in verbs:
@@ -75,9 +76,11 @@ def es_palabra(palabra):
 
 
 def check_jugador(palabra, preferencias):
-    """Recibe una palabra y verifica que sea un verbo, adjetivo o sustantivo,
+    '''
+    Recibe una palabra y verifica que sea un verbo, adjetivo o sustantivo,
     retorna True si es asi, o False en caso contrario.
-    Este módulo asignará por defecto la dificultad en FÁCIL si no es indicada"""
+    Este módulo asignará por defecto la dificultad en FÁCIL si no es indicada
+    '''
     
     dificultad = preferencias.getNivel()
     if len(palabra) >= 2:
@@ -158,10 +161,9 @@ def check_compu(atril_pc, tablero, preferencias):
         return posibilidades[mejor_opcion], mejor_opcion
     return posibilidades, letras
 
-'''TIPO sera una varible global que nos permite chequiar que la palabra a ingresar, este dentor
-de las clasificaciones permitidas en el juego  adj = adjetivos, sus= sustantivo, verb = verbos
-las clasificiaciones estan tomadas dle modulo pattern, pero la construccio nde este modulo
-facilita su comprovacion
+'''TIPO sera una varible global que nos permite chequear que la palabra a ingresar, este dentro
+de las clasificaciones permitidas en el juego adj = adjetivo, sus= sustantivo, verb = verbos.
+Las clasificiaciones estan tomadas del modulo pattern, pero la construcción de este modulo facilita su comprobación.
 '''
 TIPO= {'adj':["AO", "JJ","AQ","DI","DT"],
          'sus':["NC", "NN", "NCS","NCP", "NNS","NP", "NNP","W"],
