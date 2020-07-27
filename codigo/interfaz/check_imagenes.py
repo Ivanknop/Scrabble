@@ -7,8 +7,7 @@ import errno
 
 def crear_ficha (ficha,directorio):
     '''
-    Recibe una ficha y el directorio donde debe estar almacenada.
-    Avalúa si es así. En caso contrario, crea una imagen nueva
+    Recibe una ficha y el directorio donde debe estar almacenada y crea la imagen de reemplazo
     '''
     font = ImageFont.truetype("impact.ttf", 20)
     img = Image.new('RGBA', (29,31), (128,64,0,255))
@@ -19,8 +18,7 @@ def crear_ficha (ficha,directorio):
 
 def crear_especial(esp,directorio):
     '''
-    Recibe un casillero y el directorio donde debe estar almacenado.
-    Avalúa si es así. En caso contrario, crea una imagen nueva
+    Recibe un casillero y el directorio donde debe estar almacenado y crea la imagen de reemplazo
     '''
     font = ImageFont.truetype("impact.ttf", 20)
     img = Image.new('RGBA', (29,31), (255,128,0,255))
@@ -55,8 +53,7 @@ def crear_especial(esp,directorio):
 
 def crear_avatar(av,directorio):
     '''
-    Recibe un avatar y el directorio donde debe estar almacenado.
-    Avalúa si es así. En caso contrario, crea una imagen nueva
+    Recibe un avatar y el directorio donde debe estar almacenado y crea la imagen de reemplazo
     '''
     img = Image.new('RGBA',(200,200),(100,100,100,255))
     dibujo = ImageDraw.Draw(img)
@@ -66,6 +63,9 @@ def crear_avatar(av,directorio):
     return img
 
 def crear_varios(varios,directorio):
+    '''
+    Recibe una imagen y el directorio donde debe estar almacenado y crea el reemplazo
+    '''
     if varios == 'botonlargo':
         img = Image.new('RGBA',(300,100),(100,100,100,255))
     elif varios == 'botonMadera':
@@ -106,6 +106,9 @@ def crear_ayuda (ay,directorio):
     return img
 
 def crear_error ():
+    '''
+    Es invocado si alguna imagen falta para crear una señal que permita saber que hubo problemas en la carga
+    '''
     directorio = os.path.join('media', 'media_ii','')
     try:
         img = Image.open(f'{directorio}imagenError.png')
@@ -178,6 +181,9 @@ def check_varios ():
     return errores
 
 def check_directorios():
+    '''
+    Controla que los directorios de las imágenes sean correctos. En caso negativo, los crea
+    '''
     ok = 4
     try:
         os.mkdir('media')
@@ -206,6 +212,10 @@ def check_directorios():
     return ok
 
 def loading():
+    '''
+    Este módulo verifica que todas las imágenes, y sus directorios correspondientes, sean correctos.
+    En caso negativo, construye reemplazos para evitar el fallo de la app.
+    '''
     mi_tema()
     img_logo = os.path.join('media', 'media_ii', 'scrabbleArLogo.png')
     contenido = [[sg.Image(img_logo)],
