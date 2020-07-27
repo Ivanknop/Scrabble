@@ -4,8 +4,9 @@ from codigo.logica.configuracion import*
 
 class Juego_Guardado:
     '''
-    Recibe el tablero, el usuario, la PC y la bolsa de fichas y los almacena.
-    Está construído para utilizar un botón para guardar y otro para cargar
+    Recibe tablero los datos del usuario, los atriles de juego, bolsa de ficha, ambos puntajes, tiempo restante,
+    configuración de la partida, palabras utilizadas por ambos jugadores y los almacena en un archivo .pckl
+    Permite múltiples usuarios.
     '''
     juego = []
     def __init__(self, ruta_guardado, tablero=None, jugador_user=None, atril=None, atril_pc=None, b_fichas=None,
@@ -60,7 +61,7 @@ class Juego_Guardado:
 
     def crear_guardado(self):
         '''
-        Cada vez que se lo invoca sobreescribe el archivo. Guarda una única partida
+        Cada vez que se lo invoca sobreescribe el archivo. Guarda una única partida con el nombre del usuario
         '''
         fichero = open(f'{self.getRutaGuardado()}', 'wb')
         self.juego = [self.tablero, self.jugador_user, self.atril, self.bolsa_fichas, self.puntaje,
@@ -92,25 +93,3 @@ class Juego_Guardado:
         except:
             print ('No hay partidas guardadas')
             return False
-
-
-#A modo de prueba
-
-# confi = nivel_dificil()
-#
-# configuracion = Preferencias(confi['filas'],confi['columnas'],confi['especiales'], confi['nivel'])
-#
-# unTablero = Tablero(configuracion)
-#
-# lista_fichas = [{'h': 4}, {'o': 5}, {'l': 9}, {'a': 3}]
-# nuevas_fichas = [{'y': 4}, {'i': 5}]
-# unTablero.insertarPalabra(lista_fichas, (2,4), "v")
-# unTablero.insertarPalabra(nuevas_fichas, (2,1), "h")
-#
-# copiaTablero = unTablero
-# jugador_user = 'Pepe'
-# pc = 'Linux'
-# bolsa_fichas = 'nada'
-# juego = Juego_Guardado (copiaTablero,jugador_user,pc,bolsa_fichas, 66)
-# #juego.crear_guardado()
-# juego.mostrar()
