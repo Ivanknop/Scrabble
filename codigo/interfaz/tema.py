@@ -1,6 +1,10 @@
 import PySimpleGUI as sg
 
 def mi_tema():
+    '''
+    Configuración genérica del diseño de las interfaces que facilita el diseño. 
+    Después se adapta a la especificidad de cada pestaña.
+    '''
     sg.LOOK_AND_FEEL_TABLE['scrabble'] = {'BACKGROUND': '#4f280a', ##133d51',
                                             'TEXT': '#fff4c9',
                                             'INPUT': '#c7e78b',
