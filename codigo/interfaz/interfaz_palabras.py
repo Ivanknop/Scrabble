@@ -2,6 +2,9 @@ import PySimpleGUI as sg
 from codigo.interfaz.tema import *
 
 def listado_palabras (jugador,pc):
+    '''
+    Lista en pantalla las palabras que se utilizaron en la partida. Cada 4 palabras hace un salto de línea.
+    '''
 
     def listar (jugador,pc):
         #Lista con las palabras del jugador
