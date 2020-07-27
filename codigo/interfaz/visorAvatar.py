@@ -18,7 +18,7 @@ class Visor():
         self._i=0
 
     def  _ruta_imagenes(self, directorio):
-         '''
+        '''
         Controla la ruta del directorio a utilizar
         '''
         #Si el directorio no existe, la advierte y cierra el programa
