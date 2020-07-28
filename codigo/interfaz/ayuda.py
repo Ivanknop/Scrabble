@@ -189,6 +189,7 @@ def niveles(dirAyuda):
                              '>Tipos de casilleros especiales: Suma y resta\n\n'
                              '>Oportunidades para cambiar las fichas de la PC: 1\n\n'
                              '>Tipos de palabras permitidas: Sustantivos, adjetivos y verbos\n\n'
+                             '>Tras el cambio de fichas: Continúa el turno del JUGADOR\n\n'
                              '>Dificultad de la PC: Busca la primer palabra posible y la inserta en el primer lugar disponible\n',
                              font=('Arial, 12'), text_color='black',disabled=True, size=(45,8),background_color='#afad71')]],
             title='Nivel Facil', title_color='white' , relief=sg.RELIEF_SUNKEN, font=('Impact 24'),
@@ -207,6 +208,7 @@ def niveles(dirAyuda):
                              '>Duración de la partida: 20 minutos\n\n'
                              '>Tipos de casilleros especiales: Suma, resta, multiplica x 2, divide x2.\n\n'
                              '>Oportunidades para cambiar las fichas de la PC: 1\n\n'
+                             '>Tras el cambio de fichas: Le toca el turno a la COMPUTADORA\n\n'
                              '>Tipos de palabras permitidas: Adjetivos y verbos\n\n'
                              '>Dificultad de la PC: Evalúa la primer palabra que puede formar y analiza en el tablero cuál es la mejor posición\n',
                              font=('Arial, 12'), text_color='black',disabled=True, size=(45,8),background_color='#afad71')]],
@@ -226,6 +228,7 @@ def niveles(dirAyuda):
                              '>Duración de la partida: 15 minutos\n\n'
                              '>Tipo de casilleros especiales: Suma, resta, multiplica x 2, divide x2, anula valor de la palabra\n\n'
                              '>Oportunidades para cambiar las fichas de la PC: 1\n\n'
+                             '>Tras el cambio de fichas: Le toca el turno a la COMPUTADORA\n\n'
                              '>Tipos de palabras permitidas: Adejtivos y verbos\n\n'
                              '>Dificultad de la PC: Prueba todas las palabras posibles a fin de encontrar la mejor combinación palabra-espacio\n',
                              font=('Arial, 12'), text_color='black', disabled=True, size=(45,8),background_color='#afad71')]],
