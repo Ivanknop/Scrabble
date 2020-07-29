@@ -46,7 +46,7 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
     Construye una interfaz para determinar qué jugador salió vencedor. Permite acceder a las palabras que cada uno utilizó y
     a las puntuaciones máximas
     '''
-   contenido = [
+    contenido = [
         [sg.Text('TU PUNTAJE FINAL',size=(40,1),font=('Impact',14),justification='center',text_color=('#D09F61'),key='_jug')],
         [sg.Text(key='pje_jug',size=(50,1),justification='center',font=('Arial',50),background_color='Black',text_color='white')],
         [sg.Text('Tus fichas sobrantes: ',size=(20,2),font=('Impact',12),text_color=('#D09F61'),key='_jug'),
@@ -63,27 +63,28 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
 
         ]
     mi_tema()
-    ven = sg.Window ('Ganador',layout=contenido,size= (400,400), no_titlebar=False,keep_on_top=True)
+    ven = sg.Window('Ganador', layout=contenido, size=(400, 400), no_titlebar=False, keep_on_top=True)
     ven.finalize()
-    
+
     nuevo_pje = True
-    while True:         
-        #Abre la ventana donde se ve quién ganó
-        ver_ganador (punt_jug,punt_pc,ven,atril_jug,atril_pc)
+    while True:
+        # Abre la ventana donde se ve quién ganó
+        ver_ganador(punt_jug, punt_pc, ven, atril_jug, atril_pc)
         puntaje = Puntuacion_Maxima()
-        if nuevo_pje: #Controla no agregar más de una vez un puntaje a las puntuaciones máximas
-            puntaje.agregar(Jugador(nombre,punt_jug,nivel))
+        if nuevo_pje:  # Controla no agregar más de una vez un puntaje a las puntuaciones máximas
+            puntaje.agregar(Jugador(nombre, punt_jug, nivel))
             nuevo_pje = False
         event, values = ven.read()
-        if event in (None,'salir'):
+        if event in (None, 'salir'):
             break
         if event == 'list_pal':
-            #Abre la ventana de las palabras utilizadas
-            listado_palabras(pal_jug,pal_pc)
+            # Abre la ventana de las palabras utilizadas
+            listado_palabras(pal_jug, pal_pc)
         if event == 'puntajes':
-            #Abre la ventana de puntuaciones máximas
-            puntajes()             
+            # Abre la ventana de puntuaciones máximas
+            puntajes()
     ven.close()
-    
+
+
 if __name__ == '__main__':
     terminar()

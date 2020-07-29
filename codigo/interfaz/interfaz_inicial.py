@@ -118,7 +118,9 @@ def ventana_carga():
     #Si canceló la carga o cerró la ventana, retorna un nombre de jugador vacío
     jugador_seleccionado = ''
     if (len(usuarios) == 0):
-        sg.Popup('¡No hay ninguna partida guardada!')
+        clic = aviso('¡No hay ninguna partida guardada!')
+
+
         return jugador_seleccionado
     layout = [[sg.Text('Por favor, seleccione la partida que desea cargar: ')],
                 [sg.Listbox(usuarios, size=(40, 14), key='listado_partidas')],
@@ -139,7 +141,7 @@ def ventana_carga():
                     jugador_seleccionado = ''
                     sg.Popup('¡La partida ya no existe!')
             else:
-                sg.popup('No ha seleccionado ninguna partida para cargar')
+                sg.popup('No ha seleccionado ninguna partida para cargar',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
         if (event == 'eliminar'):
             decision = sg.popup_yes_no('¿Realmente desea elimina la partida?',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
             if decision == 'Yes':

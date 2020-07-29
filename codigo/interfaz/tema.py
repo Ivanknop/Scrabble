@@ -15,3 +15,36 @@ def mi_tema():
                                             'BORDER': 1, 'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0,
                                             }
     sg.theme('scrabble')
+
+
+
+
+def aviso(mensaje = 'Este es un mensaje estandar',botones = ['entendido']):
+
+    '''Esta funcion se encarga de generar un PopUp personalizao
+    recibe ods parametros
+    :mensaje : es la informacion que se imprimira en la ventana
+    :botones: una lista con las etiqueteas para los botones en formato string su KEY esta formada por un '_' y el nombre pasado por parametro
+
+    la funcion retorna el evento (boton cliceado) '''
+    layout = [[sg.Text(mensaje,font= ('Arial', 12),text_color='black',background_color='white')],]
+
+    for b in botones:
+        layout.extend([[sg.Button(button_text=b,border_width=1, button_color=('black', '#f75404'),key=f'_{b}')],])
+
+    popup = sg.Window('AVISO',layout, background_color='white', no_titlebar=True, keep_on_top=True).Finalize()
+
+
+    while True:
+        evento, valor = popup.read()
+        if evento:
+            break
+
+    popup.Close()
+    return evento
+
+
+
+if __name__ == '__main__':
+   evento =  aviso()
+   print(evento)
