@@ -27,12 +27,14 @@ def aviso(mensaje = 'Este es un mensaje estandar',botones = ['entendido']):
     :botones: una lista con las etiqueteas para los botones en formato string su KEY esta formada por un '_' y el nombre pasado por parametro
 
     la funcion retorna el evento (boton cliceado) '''
-    layout = [[sg.Text(mensaje,font= ('Arial', 12),text_color='black',background_color='white')],]
+    layout = [[sg.Text(mensaje,font=('Arial', 12),text_color='black',background_color='white')],]
 
+    botonLIs = []
     for b in botones:
-        layout.extend([[sg.Button(button_text=b,border_width=1, button_color=('black', '#f75404'),key=f'_{b}')],])
+        botonLIs.extend([sg.Button(button_text=b, border_width=1, button_color=('black', '#f75404'), key=f'_{b}')])
 
-    popup = sg.Window('AVISO',layout, background_color='white', no_titlebar=True, keep_on_top=True).Finalize()
+    layout.append(botonLIs)
+    popup = sg.Window('AVISO',layout, background_color='white', no_titlebar=True, keep_on_top=True,grab_anywhere=True).Finalize()
 
 
     while True:
@@ -46,5 +48,5 @@ def aviso(mensaje = 'Este es un mensaje estandar',botones = ['entendido']):
 
 
 if __name__ == '__main__':
-   evento =  aviso()
+   evento =  aviso('Hola mundo' , ['Salir', 'OK', 'Jugar'])
    print(evento)
