@@ -41,19 +41,19 @@ def ver_ganador (jug,pc,ven,atril_jug,atril_pc):
     else:
         ven['ganador'].update(value='EMPATE SOBRE EL FINAL')
 
-def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
+def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel,atril_jug,atril_pc):
     '''
     Construye una interfaz para determinar qué jugador salió vencedor. Permite acceder a las palabras que cada uno utilizó y
     a las puntuaciones máximas
     '''
     contenido = [
-        [sg.Text('TU PUNTAJE FINAL',size=(40,1),font=('Impact',14),justification='center',text_color=('#D09F61'),key='_jug')],
+        [sg.Text('TU PUNTAJE FINAL',size=(40,1),font=('Impact',14),justification='center',text_color=('#D09F61'))],
         [sg.Text(key='pje_jug',size=(50,1),justification='center',font=('Arial',50),background_color='Black',text_color='white')],
-        [sg.Text('Tus fichas sobrantes: ',size=(20,2),font=('Impact',12),text_color=('#D09F61'),key='_jug'),
+        [sg.Text('Tus fichas sobrantes: ',size=(20,2),font=('Impact',12),text_color=('#D09F61')),
         sg.Text(key='fichas_jug',size=(20,1),justification='center',font=('Arial',10),background_color='Black',text_color='white')],
         [sg.Text('PUNTAJE DE LA PC',size=(40,1),font=('Impact',14),justification='center',text_color=('#D09F61'),key='_pc')],
         [sg.Text(key='pje_pc',size=(50,1),justification='center',font=('Arial',50),background_color='Black',text_color='white')],
-        [sg.Text('Fichas sobrantes de la COMPUTADORA: ',size=(20,2),font=('Impact',12),text_color=('#D09F61'),key='_jug'),
+        [sg.Text('Fichas sobrantes de la COMPUTADORA: ',size=(20,2),font=('Impact',12),text_color=('#D09F61')),
         sg.Text(key='fichas_pc',size=(20,1),justification='center',font=('Arial',10),background_color='Black',text_color='white')],
         [sg.Text(key='ganador',size=(50,1),justification='center',font=('Arial',20),background_color='Black',text_color='white')],
         [sg.Text('',size=(5,1)),
@@ -63,7 +63,7 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel):
 
         ]
     mi_tema()
-    ven = sg.Window('Ganador', layout=contenido, size=(400, 400), no_titlebar=False, keep_on_top=True)
+    ven = sg.Window('Ganador', layout=contenido, size=(400, 450), no_titlebar=False, keep_on_top=True)
     ven.finalize()
 
     nuevo_pje = True

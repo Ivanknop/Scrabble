@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from codigo.interfaz.tema import mi_tema
+from codigo.interfaz.tema import *
 import os.path
 import pickle
 from codigo.logica import configuracion
@@ -205,7 +205,7 @@ def interfaz_personalizacion(usuario):
                 guardar_configuracion(configuracion, usuario)
                 break
             else:
-                sg.popup(configuracion['error'])
+                aviso(configuracion['error'])
     ventana.close()
     return conf
 

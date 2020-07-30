@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import os
+from codigo.interfaz.tema import aviso
 
 class Visor():
     '''El objeto Visor es un widget implementado con el fin de generar un selector de AVATAR para el
@@ -23,7 +24,7 @@ class Visor():
         '''
         #Si el directorio no existe, la advierte y cierra el programa
         if not directorio:
-            sg.popup_cancel('Cancelando')
+            aviso('Cancelando')
             raise SystemExit()
 
         #Lista todos los archivos del directorio
@@ -37,7 +38,7 @@ class Visor():
         cant_imagenes = len(imagenes)
         #Si no encontró ninguna imágen, termina la ejecución del juego
         if cant_imagenes == 0:
-            sg.popup('no hay avatares')
+            aviso('No hay avatares en el directorio')
             raise SystemExit()
 
         return {'imagenes': imagenes, 'cant_imagenes': cant_imagenes}

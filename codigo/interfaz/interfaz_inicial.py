@@ -4,18 +4,17 @@ import codigo.interfaz.visorAvatar as va
 from codigo.logica.jugador import Jugador
 import codigo.interfaz.interfaz_puntaje as pun
 from codigo.interfaz.tema import *
-from  codigo.interfaz.ayuda import ayuda
+from codigo.interfaz.ayuda import ayuda
 from codigo.interfaz import configuracion_personalizada
 from codigo.logica import administrar_usuarios
 
 def check_apodo(apodo):
-    '''Esta función se encarga de evaluar el campo del APODO al momento
-    de crear una partida. Los apodos deben tener mas de 3 caracteres, no poseer
-    espacios en blanco, caracteres especiales ni no ser solo números'''
+    '''Evalúa el campo APODO al momento de crear una partida. Los apodos deben tener
+    mas de 3 caracteres, no poseer espacios en blanco, caracteres especiales ni
+    ser solo números'''
 
     carEspecial = '!@#$%^&*()[]{};:,./<>?\|`~-=_+'
     if len(apodo) < 3 or len(apodo) > 10:
-        print('longitud')
         return False
     elif (apodo == '') or  (apodo.isspace()== True) or (' ' in apodo):
         return False
@@ -27,7 +26,7 @@ def check_apodo(apodo):
     return True
 
 def nivel(ventana):
-    '''Esta función devolvera el nivel elegido por el usuario según el
+    '''Devuelve el nivel elegido por el usuario según el
     el estado de los elementos "Radio", que se usan en el layout de nueva partida'''
     if ventana.FindElement('rFacil').Get() == True:
         n = "facil"
@@ -40,14 +39,14 @@ def nivel(ventana):
     return n
 
 def jugar (avatar, value, ventana):
-    '''Esta función crea una instancia del objeto jugador y lo retorna'''
+    '''Crea una instancia del objeto jugador y lo retorna'''
     jugador = Jugador(nombre=value['apodo'], dificultad=nivel(ventana), avatar=avatar)
     return jugador
 
 def actualizar_columnas(ventana, *columna):
-    '''Esta función hará visible la columna que recibe como parámetro
-    e invisible el resto de las columnas.
-    Sirve para actualizar la interfaz principal según la opción elegida'''
+    '''Vuelve visible la columna que recibe como parámetro e invisible
+    el resto de las columnas. Se utiliza para actualizar la interfaz principal
+    según la opción elegida'''
     #Busca en la lista de elementos hasta encontrar una columna
     for e in ventana.element_list():
         if e.Type == 'column':
@@ -79,7 +78,7 @@ def nueva_partida(avatar):
                   title='Dificultad' ,title_color='black', relief=sg.RELIEF_SUNKEN,font=('Italic 24'),
                         element_justification='left',key='contenedor'),
          sg.Column(avatar.getAvatarLayout(), visible=False,key='colAvatar')],
-        [sg.Button('Jugar', size=(10, 2),button_color=('black','#afad71'),font=('Arial', 18),border_width=1, key='confirmar'),sg.Button('cancelar', size=(10, 2),font=('Arial', 18),border_width=1,button_color=('black','#afad71'), key='cancelar')],
+        [sg.Button('Jugar', size=(10, 2),button_color=('black','#afad71'),font=('Arial', 18),border_width=1, key='confirmar'),sg.Button('Cancelar', size=(10, 2),font=('Arial', 18),border_width=1,button_color=('black','#afad71'), key='cancelar')],
     ]
     return layout
 
@@ -118,13 +117,11 @@ def ventana_carga():
     #Si canceló la carga o cerró la ventana, retorna un nombre de jugador vacío
     jugador_seleccionado = ''
     if (len(usuarios) == 0):
-        clic = aviso('¡No hay ninguna partida guardada!')
-
-
+        aviso('¡No hay ninguna partida guardada!')
         return jugador_seleccionado
     layout = [[sg.Text('Por favor, seleccione la partida que desea cargar: ')],
                 [sg.Listbox(usuarios, size=(40, 14), key='listado_partidas')],
-                [sg.Button('Confirmar', key='confirmar'), sg.Button('Cancelar', key='cancelar'), sg.Button('Eliminar', key='eliminar')]]
+                [sg.Button('Confirmar', button_color=('black', '#f75404'), key='confirmar'), sg.Button('Cancelar', button_color=('black', '#f75404'), key='cancelar'), sg.Button('Eliminar', button_color=('black', '#f75404'), key='eliminar')]]
     ventana_carga = sg.Window('Cargar partida', layout)
     ventana_carga.Finalize()
     while True:
@@ -139,28 +136,26 @@ def ventana_carga():
                     break
                 else:
                     jugador_seleccionado = ''
-                    sg.Popup('¡La partida ya no existe!')
+                    aviso('¡La partida ya no existe!')
             else:
-                sg.popup('No ha seleccionado ninguna partida para cargar',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
+                aviso('No ha seleccionado ninguna partida para cargar')
         if (event == 'eliminar'):
-            decision = sg.popup_yes_no('¿Realmente desea elimina la partida?',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
-            if decision == 'Yes':
-                if (len(values['listado_partidas']) != 0):
+            if (len(values['listado_partidas']) != 0):
+                decision = aviso('¿Realmente desea eliminar la partida?', ['Sí', 'No'])
+                if decision == '_Sí':
                     partida = values['listado_partidas'][0]
                     administrar_usuarios.eliminar_partida(partida, usuarios)
                     ventana_carga['listado_partidas'].Update(usuarios)
                     if ((len(usuarios) == 0)):
-                        sg.Popup('El registro de partidas está vacío')
+                        aviso('El registro de partidas está vacío')
                         break
     ventana_carga.Close()
     return jugador_seleccionado
 
 def lazo_principal():
     #Asigno las rutas de las imagenes a usar.
-    #La idea es tener un modulo que cargue al iniciar el programa todas las imagenes necesarias
-    #y usar excepciones si no encuentra los archivos
     #-----------------------------------------------
-    directorio_avatares = os.path.join('media','media_ii','avatars', '')  #  sg.popup_get_folder('Image folder to open', default_path='')
+    directorio_avatares = os.path.join('media','media_ii','avatars', '')
     img_boton_largo =  os.path.join('media','media_ii','botonlargo.png')
     img_boton_madera = os.path.join('media','media_ii','botonMadera.png')
     img_logo = os.path.join('media','media_ii','logo.png')
@@ -200,8 +195,8 @@ def lazo_principal():
         elif event == 'confirmar':
             if  check_apodo(ventana.FindElement('apodo').Get()):
                 avatarSelec = avatar.getActualRuta()
-                decision = sg.popup_yes_no(f'¿Confirmar los datos?\nNombre: {value["apodo"]}\nDificultad: {nivel(ventana)}',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
-                if decision == 'Yes':
+                decision = aviso(f'¿Confirmar los datos?\nNombre: {value["apodo"]}\nDificultad: {nivel(ventana)}', ['Sí', 'No'])
+                if decision == '_Sí':
                     jugador = jugar(avatarSelec, value, ventana)
                     if (jugador.getDificultad() == 'personalizado'):
                         configuracion = configuracion_personalizada.interfaz_personalizacion(jugador.getNombre())
@@ -214,7 +209,7 @@ def lazo_principal():
                         jugador = jugar(avatarSelec, value, ventana)
                         break
             else:
-                sg.popup_ok('Ingrese un Apodo (debe tener entre 3 y 10 caracteres, puede ser alfanumerico y no debe contener caracteres especiales)',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
+                aviso('Ingrese un apodo válido (debe tener entre 3 y 10 caracteres, puede\nser alfanumerico y no debe contener caracteres especiales)')
         elif event in ('<<<', '>>>'):
             avatarSelec = avatar.controles(event, ventana.FindElement('avatarVisor'))
         elif event == 'puntajes':

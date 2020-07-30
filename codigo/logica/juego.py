@@ -128,12 +128,14 @@ def lazo_principal(jugador, cargar_partida=True):
 
         #Turno del jugador
         if (turno_jugador):
-            event, value = interfaz.leer()
-
-            #Si se acabo el tiempo o se cerró la ventana, se termina el jueg
-            if (event ==  None):
+            #Controla las excepciones de PySimpleGUI luego de modificar el evento del botón "X"
+            try:
+                event, value = interfaz.leer()
+            except:
+                event = None
+            
+            if (event == None):
                 break
-
             if (interfaz.terminoTimer()):
                 terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
                 break
@@ -159,7 +161,10 @@ def lazo_principal(jugador, cargar_partida=True):
                 #-----EVENTO: Clickear en otra ficha o en el botón "Validar"-----
                 click_validar = False
                 while (not click_validar):
-                    event, value = interfaz.leer()
+                    try:
+                        event, value = interfaz.leer()
+                    except:
+                        event = None
 
                     #Circunstancias que cierran el lazo}
                     if (event ==  None):
@@ -216,7 +221,11 @@ def lazo_principal(jugador, cargar_partida=True):
                         while elegir_posicion:
                             #La primera vez, se esperará que decida donde insertarla
                             if not (cambio_posicion):
-                                event, value = interfaz.leer()
+                                try:
+                                    event, value = interfaz.leer()
+                                except:
+                                    event = None
+
                             if (event == None):
                                 jugar = False
                                 break
@@ -240,7 +249,11 @@ def lazo_principal(jugador, cargar_partida=True):
 
                                 #-----EVENTO: Decidir sentido-----
                                 while True:
-                                    event, value = interfaz.leer()
+                                    try:
+                                        event, value = interfaz.leer()
+                                    except:
+                                        event = None
+
                                     if (event == None):
                                         jugar = False
                                         break
@@ -343,8 +356,8 @@ def lazo_principal(jugador, cargar_partida=True):
 
                     #-----EVENTO: Guardar partida-----
                     if (event == 'guardar'):
-                        eleccion = interfaz.popUpOkCancel('¿Estas seguro que deseas guardar la partida?')
-                        if (eleccion == 'OK'):
+                        eleccion = aviso('¿Estas seguro que deseas guardar la partida?', ['Confirmar', 'Cancelar'])
+                        if (eleccion == '_Confirmar'):
                             jugador.setPuntaje(puntaje)
                             #Carga la lista de partidas guardadas
                             usuarios = administrar_usuarios.cargar_usuarios()
@@ -357,8 +370,8 @@ def lazo_principal(jugador, cargar_partida=True):
                             archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
                             archivo_partida.crear_guardado()
                             partida_existente = True
-                            eleccion = interfaz.popUpOkCancel('¡Partida guardada con éxito!\n¿Volver al menú principal?')
-                            if (eleccion == 'OK'):
+                            eleccion = aviso('¡Partida guardada con éxito!\n¿Volver al menú principal?', ['Sí', 'No'])
+                            if (eleccion == '_Sí'):
                                 jugar = False
                                 break
                             
@@ -379,7 +392,14 @@ def lazo_principal(jugador, cargar_partida=True):
         #Turno de la PC
         else:
             interfaz.turnoJugador(False)
-            interfaz.leer()
+            try:
+                event, value = interfaz.leer()
+            except:
+                event = None
+                
+            if (event == None):
+                break
+
             if (interfaz.terminoTimer()):
                 terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
                 break

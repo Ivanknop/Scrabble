@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import time
 import os.path
 from codigo.interfaz import menuPausa
+from codigo.interfaz.tema import aviso
 
 class Dibujar():
     '''Clase que construye y actualiza una interfaz gráfica
@@ -18,6 +19,7 @@ class Dibujar():
         :param atril: Objeto con datos sobre las fichas del atril y la cantidad máxima
         de espacios que posee.
         :param jugador: Objeto que guarda el nombre del jugador, su puntaje y su avatar.'''
+
         self.tema_tablero()
         self._jugador = jugador
         #Algunos valores por defecto para construir la interfaz del tablero
@@ -103,11 +105,9 @@ class Dibujar():
         diseño = [top,[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='right',size=(450,600), pad=(10, 0))]]
         self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=False, no_titlebar=False)
         self._interfaz.Finalize()
-
-        # ------------llamada a tkinter para contorlar el evento sobre el boton X------------------
+        #Llamada a tkinter para contorlar el evento sobre el boton X
         self._interfaz.TKroot.protocol("WM_DELETE_WINDOW", self.click_X)
 
-        #--------------------------------------------------------------------
     def tema_tablero(self):
         '''Define un tema para la interfaz de PySimpleGUI y lo actualiza.'''
         sg.LOOK_AND_FEEL_TABLE['Tablero'] = {'BACKGROUND': '#4f280a',  ##133d51',
@@ -286,14 +286,17 @@ class Dibujar():
         self._getInterfaz()['cambiar'].Update(image_filename=f'{self._directorio_media}bolsafichasvacia.png')
 
     def popUp(self, cadena):
-        '''Imprime una determinada cadena en una ventana simple.'''
-        sg.popup(cadena, keep_on_top=True, background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True)
+        '''Imprime una determinada cadena en una ventana simple.
+        Su implementación fue realizada en el módulo "tema", dada su utilidad general
+        y que también se utiliza en el resto de las interfaces del programa.'''
+        aviso(cadena)
 
-    def popUpOkCancel(self, cadena):
-        '''Ventana PopUp simple que imprime un string y
-        posee botones de OK y CANCEL.'''
-        pestaña = sg.popup_ok_cancel(cadena, keep_on_top=True,background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True)
-        return pestaña
+    def popUpOkCancel(self, cadena, botones):
+        '''Ventana PopUp simple que imprime un string y posee uno o más botones.
+        Su implementación fue realizada en el módulo "tema", dada su utilidad general
+        y que también se utiliza en el resto de las interfaces del programa.'''
+        evento = aviso(cadena, botones)
+        return evento
 
     def turnoJugador(self, turno_jugador):
         if (turno_jugador):
@@ -310,16 +313,12 @@ class Dibujar():
     def cerrar(self):
         self._getInterfaz().Close()
 
-
-     #-------metodo para controlar el clic sobre la X de la ventana--------
     def click_X(self):
-        mensaje ="Esta seguro/a que desea salir?\nATENCION: ESTA PARTIDA SE PERDERA POR COMPLETO\nSi usted desea guardar salga mediante el BOTON DE PAUSAR"
+        '''Controla lo que ocurre al intentar cerrar la ventana desde el botón "X"'''
+        mensaje ="ATENCIÓN: ESTA PARTIDA SE PERDERÁ POR COMPLETO.\nPara guardar, diríjase al menú de pausa.\n¿Está seguro/a que desea salir?"
 
-        if sg.popup_yes_no(mensaje,background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True) == 'Yes':
-
-            self._interfaz.Close()
-
-    #----------------------------------------------------------------------
+        if aviso(mensaje, ['Confirmar', 'Cancelar']) == '_Confirmar':
+            self.cerrar()
 
     def _getDirectorioFicha(self):
         return self._directorio_fichas

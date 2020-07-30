@@ -42,8 +42,8 @@ def puntajes():
         if event in ( None,'volver'):
             break
         elif event == 'reestablecer':
-            decision = sg.popup_yes_no('Realmente desea borrar los puntajes?',background_color='#ece6eb',text_color='black', button_color=('black','#f75404'),font=('Arial',14), no_titlebar=True, keep_on_top=True)
-            if decision == 'Yes':
+            decision = aviso('Realmente desea borrar los puntajes?', ['Sí', 'No'])
+            if decision == '_Sí':
                 puntuaciones._vaciar_puntajes()
                 actualizar_puntaje(puntuaciones,ventana)
     ventana.close()
