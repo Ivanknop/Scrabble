@@ -128,11 +128,14 @@ def lazo_principal(jugador, cargar_partida=True):
 
         #Turno del jugador
         if (turno_jugador):
-            #Controla las excepciones de PySimpleGUI luego de modificar el evento del botón "X"
             event, value = interfaz.leer()
             
             if (event == None):
                 break
+
+            if (event == 'pantallaCompleta'):
+                interfaz.pantallaCompleta()
+                
             if (interfaz.terminoTimer()):
                 terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
                 break
@@ -164,8 +167,6 @@ def lazo_principal(jugador, cargar_partida=True):
                     if (event ==  None):
                         jugar = False
                         break
-
-
                     if (interfaz.terminoTimer()):
                         terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
                         jugar = False
@@ -174,6 +175,8 @@ def lazo_principal(jugador, cargar_partida=True):
                         interfaz.inhabilitarElemento('deshacer')
                         click_validar = True
 
+                    if (event == 'pantallaCompleta'):
+                        interfaz.pantallaCompleta()
                     if ('ficha' in event):
                         #Cada vez que se clickea en una ficha, agrega el índice (la key) a
                         #"fichas_seleccionadas", inhabilita el botón correspondiente y
@@ -225,6 +228,8 @@ def lazo_principal(jugador, cargar_partida=True):
                                 jugar = False
                                 break
 
+                            if (event == 'pantallaCompleta'):
+                                interfaz.pantallaCompleta()
                             if 'tablero' in event:
                                 #Muestra los botones de selección de orientación
                                 interfaz.seleccionarOrientacion(event.split()[1], preferencias)
@@ -250,10 +255,11 @@ def lazo_principal(jugador, cargar_partida=True):
                                         jugar = False
                                         break
 
+                                    if (event == 'pantallaCompleta'):
+                                        interfaz.pantallaCompleta()
                                     #Si seleccionó la coordenada que está a la derecha (insertar horizontal)
                                     #o la que está debajo (insertar vertical)...
                                     if (event == f'tablero {coord_derecha}') or (event == f'tablero {coord_inferior}'):
-
                                         #Las fichas se guardarán en esta lista
                                         lista_insercion = []
                                         for f in fichas_seleccionadas:

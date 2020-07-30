@@ -64,13 +64,13 @@ class Dibujar():
             punto = atril.get_ficha(i)[letra]
             fichas.append(sg.Button(image_filename=f'{self._directorio_fichas}ficha {letra}.png', key=f'ficha {str(i)}', pad=(0, None), image_size=self._ficha_tamano, button_color=('white','#4f280a'),tooltip= f'{punto} puntos'))
 
-        temporizador = [[sg.Text('Jugado:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'), sg.Text('00:00', size=(7, 1), font=('Impact', 26), justification='center', text_color='white',
-                        key='timer', background_color='black'), sg.VerticalSeparator(), sg.Text('00:00', size=(7, 1), font=('Impact', 26), justification='center', text_color='white', key='tiempo_total', background_color='black')],
-                        [sg.Text('Restante:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'),sg.ProgressBar(max_value=0, orientation='horizontal', size=(20, 30), key='progreso'),]]
+        temporizador = [[sg.Text('Jugado:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'), sg.Text('00:00', size=(7, 1), font=('Impact', 20), justification='center', text_color='white',
+                        key='timer', background_color='black'), sg.VerticalSeparator(), sg.Text('00:00', size=(7, 1), font=('Impact', 20), justification='center', text_color='white', key='tiempo_total', background_color='black')],
+                        [sg.Text('Restante:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'),sg.ProgressBar(max_value=0, orientation='horizontal', size=(20, 25), key='progreso'),]]
 
-        tiempo = [[sg.Frame(layout= temporizador, title='Tiempo de Juego', title_color='#ece6eb', relief=sg.RELIEF_SUNKEN, font=('Italic 14'), element_justification='center', key='contTiempo')]]
+        tiempo = [[sg.Frame(layout= temporizador, title='Tiempo de Juego', title_color='#ece6eb', relief=sg.RELIEF_SUNKEN, font=('Italic', 14), element_justification='center', key='contTiempo')]]
 
-        top = [sg.Image(f'{self._directorio_media}scrabbleArLogo.png'),
+        top = [[sg.Image(f'{self._directorio_media}scrabbleArLogo.png'),
               sg.Column(tiempo),
                sg.Button(image_filename=f'{self._directorio_media}pausa.png',button_color=('black','#4f280a'), pad=self._padin, border_width=0,
                           key='pausar'),
@@ -78,7 +78,7 @@ class Dibujar():
                          pad=self._padin, border_width=0, tooltip='Obtenga ayuda clickeando aquí',
                          key='ayuda'),
                 sg.Button(image_filename=f'{self._directorio_media}fullscreen.png', font=('Arial', 14), border_width=0, tooltip='Cambiar a pantalla completa',key='pantallaCompleta')
-               ]
+               ]]
 
         #Contenedores para los avatares, el nombre y el puntaje
         avatarJ = [[sg.Image(filename=self._jugador.getAvatar(), size=(200, 200), background_color='#4f280a', key='avatar_j')],
@@ -100,8 +100,9 @@ class Dibujar():
                             sg.Button(image_filename=f'{self._directorio_media}bolsallenaP.png', border_width=0, key='cambiar'),
                             sg.Button(image_filename=f'{self._directorio_media}deshacer.png', border_width=0,disabled=True, key='deshacer'),]]
         #Crea la ventana y la muestra
-        diseño = [top,[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='right',size=(450,600), pad=(10, 0))]]
+        diseño = [[sg.Column(top, justification='center')],[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='center',size=(450,600), pad=(10, 0))]]
         self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=False, no_titlebar=False)
+        self._pantallaCompleta = False
         self._interfaz.Finalize()
         #Llamada a tkinter para contorlar el evento sobre el boton X
         self._interfaz.TKroot.protocol("WM_DELETE_WINDOW", self.click_X)
@@ -324,6 +325,14 @@ class Dibujar():
             #el juego se cierre en el lazo principal.
             self._getInterfaz().TKrootDestroyed = True
 
+    def pantallaCompleta(self):
+        if not (self._esPantallaCompleta()):
+            self._getInterfaz().Maximize()
+            self._setPantallaCompleta(True)
+        else:
+            self._getInterfaz().Normal()
+            self._setPantallaCompleta(False)
+
     def _getDirectorioFicha(self):
         return self._directorio_fichas
     def _getDirectorioMedia(self):
@@ -344,3 +353,7 @@ class Dibujar():
         return self._tiempo_fin
     def _setTiempoFin(self, segundos):
         self._tiempo_fin = segundos
+    def _esPantallaCompleta(self):
+        return self._pantallaCompleta
+    def _setPantallaCompleta(self, valor):
+        self._pantallaCompleta = valor
