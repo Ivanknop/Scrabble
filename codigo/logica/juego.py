@@ -445,7 +445,7 @@ def lazo_principal(jugador, cargar_partida=True):
             #Si la bolsa de fichas se vació, advierte al jugador
             if len(bolsa_fichas) == 0:
                 interfaz.textoEstandar(pc=True)
-                mostrar_dialogo('PC: La bolsa de fichas se vació', interfaz, 14, '#EBDEB6', '#A9084F')
+                mostrar_dialogo('La bolsa de fichas se vació', interfaz, 14, '#EBDEB6', '#A9084F')
                 cant_cambiar = 0
                 interfaz.habilitarFinalizacion()
             interfaz.turnoJugador(True)
