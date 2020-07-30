@@ -64,14 +64,11 @@ class Dibujar():
             punto = atril.get_ficha(i)[letra]
             fichas.append(sg.Button(image_filename=f'{self._directorio_fichas}ficha {letra}.png', key=f'ficha {str(i)}', pad=(0, None), image_size=self._ficha_tamano, button_color=('white','#4f280a'),tooltip= f'{punto} puntos'))
 
-        temporizador = [[sg.Text('Jugado:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'),sg.Text('00:00', size=(10, 1), font=('Impact', 26), justification='center', text_color='white',
-                        key='timer', background_color='black'),],
+        temporizador = [[sg.Text('Jugado:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'), sg.Text('00:00', size=(7, 1), font=('Impact', 26), justification='center', text_color='white',
+                        key='timer', background_color='black'), sg.VerticalSeparator(), sg.Text('00:00', size=(7, 1), font=('Impact', 26), justification='center', text_color='white', key='tiempo_total', background_color='black')],
                         [sg.Text('Restante:', size=(10, 1), font=('Impact', 14), justification='center', text_color='white'),sg.ProgressBar(max_value=0, orientation='horizontal', size=(20, 30), key='progreso'),]]
 
-        tiempo = [[sg.Frame(
-                  layout= temporizador,
-                  title='Tiempo de Juego' ,title_color='#ece6eb', relief=sg.RELIEF_SUNKEN,font=('Italic 14'),
-                        element_justification='center', key='contTiempo'),]]
+        tiempo = [[sg.Frame(layout= temporizador, title='Tiempo de Juego', title_color='#ece6eb', relief=sg.RELIEF_SUNKEN, font=('Italic 14'), element_justification='center', key='contTiempo')]]
 
         top = [sg.Image(f'{self._directorio_media}scrabbleArLogo.png'),
               sg.Column(tiempo),
@@ -79,7 +76,8 @@ class Dibujar():
                           key='pausar'),
                sg.Button(image_filename=f'{self._directorio_media}AYUDA.png', button_color=('black', '#4f280a'),
                          pad=self._padin, border_width=0, tooltip='Obtenga ayuda clickeando aquí',
-                         key='ayuda')
+                         key='ayuda'),
+                sg.Button(image_filename=f'{self._directorio_media}fullscreen.png', font=('Arial', 14), border_width=0, tooltip='Cambiar a pantalla completa',key='pantallaCompleta')
                ]
 
         #Contenedores para los avatares, el nombre y el puntaje
@@ -131,6 +129,9 @@ class Dibujar():
         #Y el tiempo de finalización
         self._setTiempoFin(self._getTiempoInicio() + (minutos * 60))
         self._getInterfaz()['progreso'].UpdateBar(0, max=(self._getTiempoFin() - self._getTiempoInicio()))
+        #Actualiza el tiempo total en la interfaz
+        restante = self.getTiempoRestante()
+        self._getInterfaz()['tiempo_total'].Update('{:02d}:{:02d}'.format(int(restante // 60), int(restante % 60)))
 
     def actualizarTimer(self):
         '''Actualiza el timer en la interfaz.'''

@@ -27,11 +27,12 @@ def general(dirAyuda):
 def juego(dirAyuda):
     col = [     #Ayuda 14 = tablero, ayuda 0 = timer
         [sg.Image(filename=f'{dirAyuda}ayuda 14.png'), sg.Multiline('Vista general del tablero. A continuación se encuentra detallada la información sobre cómo jugar:', font=('Arial, 16'), text_color='white', disabled=True, size=(25,10),background_color='#4f280a')],
-        [sg.Image(filename=f'{dirAyuda}ayuda 0.png')], [sg.Multiline('En el area superior se encuentra el indicador de tiempo y los botones de pausa y ayuda.\n'
-                                                                     '\n1) TEMPORIZADOR: A la derecha de "Jugado" se puede visualizar el tiempo transcurrido. '
+        [sg.Image(filename=f'{dirAyuda}ayuda 0.png')], [sg.Multiline('En el area superior se encuentra el indicador de tiempo, el botón de pausa, ayuda y pantalla completa.\n'
+                                                                     '\n1) TEMPORIZADOR: A la derecha de "Jugado" se puede visualizar el tiempo transcurrido y el tiempo total. '
                                                                      'La barra de color naranja indica el tiempo restante, que se reduce a medida que progresa la partida.\n'
-                                                                     '2) Si se oprime el boton de pausa, la partida queda detenida y se despliega un menú de opciones (abajo explicadas).\n'
-                                                                     '3) El simbolo \"?\" abre esta misma ayuda.\n ', font=('Arial, 12'), text_color='white', disabled=True, size=(40,8),background_color='#4f280a')],
+                                                                     '2) PAUSA: Si se oprime, la partida queda detenida y se despliega un menú de opciones (abajo explicadas).\n'
+                                                                     '3) Botón "?": Abre esta misma ayuda.\n'
+                                                                     '4) Botón "[ ]" (el último en la fila): Cambia a pantalla completa.', font=('Arial, 12'), text_color='white', disabled=True, size=(40,8),background_color='#4f280a')],
         [sg.Image(filename=f'{dirAyuda}ayuda 8.png'), #Botón para ver configuración de nivel
          sg.Multiline('Sobre los avatares de los jugadores se encuentra un botón que, al presionarlo, '
                  'mostrará la configuración elegida para la partida.', font=('Arial, 12'), text_color='white', disabled=True, size=(30,6),background_color='#4f280a')],
@@ -49,10 +50,10 @@ def juego(dirAyuda):
                  'En el botón de preferencias pueden verse todos los puntajes para esa partida.', font=('Arial, 12'), text_color='white',disabled=True, size=(20,8),background_color='#4f280a')],
 
         [sg.Image(filename=f'{dirAyuda}ayuda 40.png')],  # atril validado
-        [sg.Multiline('Al momento de clickear en una ficha se habilitará el botón Deshacer.'
-                      'Este le permite  corregir errores al momento de formar una palabra '
-                      'o si simplemente se arrepintió. Puede hacer uso dle mismo hasta eliminar todas las fichas '
-                      'seleccionadas o simplemente una',
+        [sg.Multiline('Al clickear en una o más fichas se habilitará el botón Deshacer, que '
+                      'permite corregir errores al momento de formar una palabra '
+                      'o deshacerla completamente si se arrepintió. Puede volver atrás con cada ficha '
+                      'que necesite.',
                       font=('Arial, 12'), text_color='white', disabled=True, size=(40, 8),
                       background_color='#4f280a')],
 
