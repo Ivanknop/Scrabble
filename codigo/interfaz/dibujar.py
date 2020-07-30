@@ -315,10 +315,13 @@ class Dibujar():
 
     def click_X(self):
         '''Controla lo que ocurre al intentar cerrar la ventana desde el botón "X"'''
-        mensaje ="ATENCIÓN: ESTA PARTIDA SE PERDERÁ POR COMPLETO.\nPara guardar, diríjase al menú de pausa.\n¿Está seguro/a que desea salir?"
 
+        mensaje ="ATENCIÓN: ESTA PARTIDA SE PERDERÁ POR COMPLETO.\nPara guardar, diríjase al menú de pausa.\n¿Está seguro/a que desea salir?"
         if aviso(mensaje, ['Confirmar', 'Cancelar']) == '_Confirmar':
-            self.cerrar()
+            #TKrootDestroyed es una variable de clase que indica si la ventana se destruyó.
+            #Si es True, en el próximo read() de PySimpleGUI se retornará None, provocando que
+            #el juego se cierre en el lazo principal.
+            self._getInterfaz().TKrootDestroyed = True
 
     def _getDirectorioFicha(self):
         return self._directorio_fichas

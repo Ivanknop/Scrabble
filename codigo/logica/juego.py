@@ -129,10 +129,7 @@ def lazo_principal(jugador, cargar_partida=True):
         #Turno del jugador
         if (turno_jugador):
             #Controla las excepciones de PySimpleGUI luego de modificar el evento del botón "X"
-            try:
-                event, value = interfaz.leer()
-            except:
-                event = None
+            event, value = interfaz.leer()
             
             if (event == None):
                 break
@@ -161,10 +158,7 @@ def lazo_principal(jugador, cargar_partida=True):
                 #-----EVENTO: Clickear en otra ficha o en el botón "Validar"-----
                 click_validar = False
                 while (not click_validar):
-                    try:
-                        event, value = interfaz.leer()
-                    except:
-                        event = None
+                    event, value = interfaz.leer()
 
                     #Circunstancias que cierran el lazo}
                     if (event ==  None):
@@ -221,11 +215,8 @@ def lazo_principal(jugador, cargar_partida=True):
                         while elegir_posicion:
                             #La primera vez, se esperará que decida donde insertarla
                             if not (cambio_posicion):
-                                try:
-                                    event, value = interfaz.leer()
-                                except:
-                                    event = None
-
+                                event, value = interfaz.leer()
+                                
                             if (event == None):
                                 jugar = False
                                 break
@@ -249,10 +240,7 @@ def lazo_principal(jugador, cargar_partida=True):
 
                                 #-----EVENTO: Decidir sentido-----
                                 while True:
-                                    try:
-                                        event, value = interfaz.leer()
-                                    except:
-                                        event = None
+                                    event, value = interfaz.leer()
 
                                     if (event == None):
                                         jugar = False
@@ -392,10 +380,7 @@ def lazo_principal(jugador, cargar_partida=True):
         #Turno de la PC
         else:
             interfaz.turnoJugador(False)
-            try:
-                event, value = interfaz.leer()
-            except:
-                event = None
+            event, value = interfaz.leer()
                 
             if (event == None):
                 break
