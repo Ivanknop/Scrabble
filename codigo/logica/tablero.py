@@ -182,23 +182,3 @@ class Tablero ():
                             if (dificultad == 'facil') or ((dificultad == 'personalizado') and not (preferencias.getIA()['espacio_inteligente'])):
                                 return espacio_optimo
         return espacio_optimo
-
-# confi = nivel_medio()
-
-# pref = Preferencias(confi['filas'],confi['columnas'],confi['especiales'], confi['nivel'])
-
-# unTablero = Tablero(pref)
-
-
-# lista_fichas = [{'h': 4}, {'o': 5}, {'l': 9}, {'a': 3}]
-# nuevas_fichas = [{'a': 4}, {'g': 5}]
-# unTablero.imprimirCasilleros()
-# puntaje1 = unTablero.insertarPalabra(lista_fichas, (2,4), "v")
-# puntaje2 = unTablero.insertarPalabra(nuevas_fichas, (2,1), "h")
-# print(puntaje1)
-# print(puntaje2)
-# mejor_espacio = unTablero.buscarEspacio(lista_fichas, pref.getNivel())
-# if (mejor_espacio['coordenada'] != -1):
-#     unTablero.insertarPalabra(lista_fichas, mejor_espacio['coordenada'], mejor_espacio['sentido'])
-# print('_________Nueva inserción_________')
-# unTablero.imprimirCasilleros()

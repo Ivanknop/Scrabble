@@ -73,6 +73,7 @@ def lazo_principal(jugador, cargar_partida=True):
             atril_pc = archivo_partida.getAtrilPC()
             bolsa_fichas = archivo_partida.getBolsaFichas()
             preferencias = archivo_partida.getPreferencias()
+            pc_puede_cambiar = archivo_partida.getCambiosPC()
             cant_cambiar = archivo_partida.getCantCambiar()
             puntaje_pc = archivo_partida.getPuntajePC()
             palabras_jugador = archivo_partida.getPalabrasJugador()
@@ -108,6 +109,7 @@ def lazo_principal(jugador, cargar_partida=True):
         turno_jugador = random.choice([True, False])
         #Asigna la cantidad de veces que se pueden cambiar las fichas
         cant_cambiar = 3
+        pc_puede_cambiar = True
         puntaje = 0
         puntaje_pc = 0
         interfaz = Dibujar(unTablero, preferencias, atril_jugador, jugador)
@@ -361,7 +363,7 @@ def lazo_principal(jugador, cargar_partida=True):
                                 administrar_usuarios.guardar_usuarios(usuarios)
                             #Como se va a guardar el tiempo restante real, se debe anular el tiempo perdido hasta este momento
                             instante = interfaz.paralizarTimer(instante)
-                            archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad())
+                            archivo_partida = Juego_Guardado(ruta_guardado, unTablero, jugador.getNombre(), atril_jugador, atril_pc, bolsa_fichas, jugador.getPuntaje(), puntaje_pc, interfaz.getTiempoRestante(), preferencias, cant_cambiar, jugador.getAvatar(), palabras_jugador, palabras_pc, jugador.getDificultad(), pc_puede_cambiar)
                             archivo_partida.crear_guardado()
                             partida_existente = True
                             eleccion = aviso('¡Partida guardada con éxito!\n¿Volver al menú principal?', ['Sí', 'No'])
@@ -421,12 +423,17 @@ def lazo_principal(jugador, cargar_partida=True):
                                                             'PC: Hoy estas con poca imaginación.', 'PC: Quizás deberías volver al buscaminas.', 'PC: Mis núcleos son más rápidos que tu cerebro.',
                                                             'PC: 100101110, que en binario es "perdedor."', 'PC: El código fuente no está de tu lado :(', 'PC: ¿Mala? ¿Yo?',
                                                             f'PC: Tu turno, {jugador.getNombre()}', 'PC: *bosteza*']), tamaño=12, color='#EBDEB6', fondo=random.choice(['#D10E49', '#12870D', '#80870D']), pc=True)
-                #Si la bolsa de fichas se vació, advierte al jugador
-                if len(bolsa_fichas) == 0:
-                    interfaz.textoEstandar(pc=True)
-                    interfaz.actualizarTexto('PC: La bolsa de fichas se vació', tamaño=14, color='#EBDEB6', fondo='#A9084F')
-                    cant_cambiar = 0
-                    interfaz.habilitarFinalizacion()
+            else:
+                if (pc_puede_cambiar):
+                    interfaz.actualizarTexto('PC: Voy a cambiar mis fichas. Tu turno.', tamaño=12, color='#EBDEB6', fondo=random.choice(['#D10E49', '#12870D', '#80870D']), pc=True)
+                    atril_pc.cambiar_fichas(bolsa_fichas)
+                    pc_puede_cambiar = False
+            #Si la bolsa de fichas se vació, advierte al jugador
+            if len(bolsa_fichas) == 0:
+                interfaz.textoEstandar(pc=True)
+                interfaz.actualizarTexto('PC: La bolsa de fichas se vació', tamaño=14, color='#EBDEB6', fondo='#A9084F')
+                cant_cambiar = 0
+                interfaz.habilitarFinalizacion()
             interfaz.turnoJugador(True)
             turno_jugador = True
 

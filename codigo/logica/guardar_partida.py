@@ -11,7 +11,7 @@ class Juego_Guardado:
     juego = []
     def __init__(self, ruta_guardado, tablero=None, jugador_user=None, atril=None, atril_pc=None, b_fichas=None,
                 puntaje=None, puntaje_pc=None, tiempo_restante=None, pref=None, cant_cambiar=None, avatar=None,
-                palabras_jugador=None, palabras_pc=None, dificultad=None):
+                palabras_jugador=None, palabras_pc=None, dificultad=None, pc_puede_cambiar=None):
         self.tablero = tablero
         self.jugador_user = jugador_user
         self.atril = atril
@@ -27,6 +27,7 @@ class Juego_Guardado:
         self.palabras_jugador = palabras_jugador
         self.palabras_pc = palabras_pc
         self.dificultad = dificultad
+        self.pc_puede_cambiar = pc_puede_cambiar
 
     def getTablero (self):
         return self.tablero
@@ -58,6 +59,8 @@ class Juego_Guardado:
         return self.palabras_pc
     def getDificultad(self):
         return self.dificultad
+    def getCambiosPC(self):
+        return self.pc_puede_cambiar
 
     def crear_guardado(self):
         '''
@@ -66,7 +69,7 @@ class Juego_Guardado:
         fichero = open(f'{self.getRutaGuardado()}', 'wb')
         self.juego = [self.tablero, self.jugador_user, self.atril, self.bolsa_fichas, self.puntaje,
                     self.tiempo_restante, self.preferencias, self.cant_cambiar, self.puntaje_pc, self.atril_pc,
-                    self.avatar, self.palabras_jugador, self.palabras_pc, self.dificultad]
+                    self.avatar, self.palabras_jugador, self.palabras_pc, self.dificultad, self.pc_puede_cambiar]
         pickle.dump(self.juego, fichero)
         fichero.close()
 
@@ -89,6 +92,7 @@ class Juego_Guardado:
             self.palabras_jugador = self.juego[11]
             self.palabras_pc = self.juego[12]
             self.dificultad = self.juego[13]
+            self.pc_puede_cambiar = self.juego[14]
             return True
         except:
             print ('No hay partidas guardadas')
