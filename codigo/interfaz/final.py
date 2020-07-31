@@ -40,6 +40,8 @@ def ver_ganador (jug,pc,ven,atril_jug,atril_pc):
         ven['ganador'].update(value='QUÉ LÁSTIMA.. PERDISTE')
     else:
         ven['ganador'].update(value='EMPATE SOBRE EL FINAL')
+    #Retorna el puntaje del jugador actualizado
+    return jug
 
 def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel,atril_jug,atril_pc):
     '''
@@ -65,15 +67,12 @@ def terminar(nombre, punt_jug,punt_pc,pal_jug,pal_pc,nivel,atril_jug,atril_pc):
     mi_tema()
     ven = sg.Window('Ganador', layout=contenido, size=(400, 450), no_titlebar=False, keep_on_top=True)
     ven.finalize()
+    #Actualiza la ventana para mostrar quién ganó
+    punt_jug = ver_ganador(punt_jug, punt_pc, ven, atril_jug, atril_pc)
+    puntaje = Puntuacion_Maxima()
+    puntaje.agregar(Jugador(nombre, punt_jug, nivel))
 
-    nuevo_pje = True
     while True:
-        # Abre la ventana donde se ve quién ganó
-        ver_ganador(punt_jug, punt_pc, ven, atril_jug, atril_pc)
-        puntaje = Puntuacion_Maxima()
-        if nuevo_pje:  # Controla no agregar más de una vez un puntaje a las puntuaciones máximas
-            puntaje.agregar(Jugador(nombre, punt_jug, nivel))
-            nuevo_pje = False
         event, values = ven.read()
         if event in (None, 'salir'):
             break

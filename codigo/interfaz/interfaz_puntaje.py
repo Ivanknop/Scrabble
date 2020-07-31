@@ -35,9 +35,9 @@ def puntajes():
     ventana.finalize()
 
     puntuaciones = Puntuacion_Maxima()
+    puntuaciones.cargar()
+    actualizar_puntaje(puntuaciones,ventana)
     while True:
-        puntuaciones.cargar()
-        actualizar_puntaje(puntuaciones,ventana)
         event, values = ventana.read()
         if event in ( None,'volver'):
             break

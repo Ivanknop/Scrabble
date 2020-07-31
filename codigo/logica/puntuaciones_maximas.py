@@ -53,7 +53,7 @@ class Puntuacion_Maxima():
         '''
         self.puntajes = []
         for p in range (10):
-            self.puntajes.append(Jugador('Vacío',0))
+            self.puntajes.append(Jugador('Vacío',0, ''))
         self.puntajes = self.puntajes[0:self.MAXIMOS]
         self.guardar()
 
