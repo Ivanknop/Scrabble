@@ -259,6 +259,18 @@ class Dibujar():
             Por defecto es False.'''
         self._getInterfaz()['textoJugador' if not pc else 'textoPC'].Update(texto, font=('Arial', tamaño), text_color=color, background_color=fondo)
 
+    def actualizarTextoProgresivo(self, dialogo, tamaño, color, fondo, pc=False, velocidad=0.02):
+        '''Muestra progresivamente el diálogo recibido como parámetro en el cuadro de
+        texto de la PC o en el del jugador. El tamaño, color y fondo del texto
+        son ajustables, así como también la velocidad y su destino.'''
+        frase = ''
+        for letra in range(0, len(dialogo)):
+            frase += dialogo[letra]
+            self.actualizarTexto(frase, tamaño=tamaño, color=color, fondo=fondo, pc=pc)
+            self._getInterfaz().Refresh()
+            #A menor número, mayor velocidad
+            time.sleep(velocidad)
+
     def textoEstandar(self, pc=False):
         '''Actualiza con su texto por defecto el elemento que muestra información relativa
         a las interacciones del jugador. Si :param: pc=True, muestra el díalogo de la PC que

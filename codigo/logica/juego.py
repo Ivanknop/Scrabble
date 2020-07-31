@@ -17,19 +17,6 @@ import os.path
 import time
 import random
 
-def mostrar_dialogo(dialogo, interfaz, tamaño, color, fondo, pc=False, velocidad=0.02):
-    '''Muestra progresivamente el diálogo recibido como parámetro en el cuadro de
-    texto de la PC o en el del jugador. El tamaño, color y fondo del texto
-    son ajustables, así como también la velocidad del mensaje y su destino.'''
-    frase = ''
-    for letra in range(0, len(dialogo)):
-        frase += dialogo[letra]
-        interfaz.actualizarTexto(frase, tamaño=tamaño, color=color, fondo=fondo, pc=pc)
-        interfaz._getInterfaz().Refresh()
-        #A menor número, mayor velocidad
-        time.sleep(velocidad)
-
-
 def determinar_dificultad(jugador):
     '''Retorna un diccionario que contiene toda la información necesaria
     para configurar la partida (puntajes de las fichas, cantidad de filas
@@ -225,7 +212,7 @@ def lazo_principal(jugador, cargar_partida=True):
                 if (click_validar):
                     #Valida la palabra y, si existe, permite que se decida la posición en el tablero
                     if(cp.check_jugador(palabra, preferencias)):
-                        mostrar_dialogo('SELECCIONE DÓNDE INSERTAR', interfaz, 12, 'green', 'white')
+                        interfaz.actualizarTextoProgresivo('SELECCIONE DÓNDE INSERTAR', 12, 'green', 'white')
 
                         #-----EVENTO: Clickear en el tablero para elegir la posición-----
                         elegir_posicion = True
@@ -286,7 +273,7 @@ def lazo_principal(jugador, cargar_partida=True):
 
                                         #Si el tablero devuelve puntaje negativo, significa que no hubo espacio
                                         if puntaje_palabra == -1:
-                                            mostrar_dialogo('NO HAY ESPACIO', interfaz, 12, 'red', 'white')
+                                            interfaz.actualizarTextoProgresivo('NO HAY ESPACIO', 12, 'red', 'white')
                                         else:
                                             #Las fichas se eliminan del atril en orden descendente, para evitar excepciones
                                             fichas_seleccionadas.sort(reverse=True)
@@ -436,16 +423,16 @@ def lazo_principal(jugador, cargar_partida=True):
                                                             'PC: Hoy estas con poca imaginación.', 'PC: Quizás deberías volver al buscaminas.', 'PC: Mis núcleos son más rápidos que tu cerebro.',
                                                             'PC: 100101110, que en binario es "perdedor."', 'PC: El código fuente no está de tu lado :(', 'PC: ¿Mala? ¿Yo?',
                                                             f'PC: Tu turno, {jugador.getNombre()}', 'PC: *bosteza*'])
-                mostrar_dialogo(dialogo, interfaz, 12, '#EBDEB6', random.choice(['#D10E49', '#12870D', '#80870D']), True)
+                interfaz.actualizarTextoProgresivo(dialogo, 12, '#EBDEB6', random.choice(['#D10E49', '#12870D', '#80870D']), True)
             else:
                 if (pc_puede_cambiar):
-                    mostrar_dialogo('PC: Voy a cambiar mis fichas. Tu turno.', interfaz, 12, '#EBDEB6', fondo=random.choice(['#D10E49', '#12870D', '#80870D']), pc=True)
+                    interfaz.actualizarTextoProgresivo('PC: Voy a cambiar mis fichas. Tu turno.', 12, '#EBDEB6', fondo=random.choice(['#D10E49', '#12870D', '#80870D']), pc=True)
                     atril_pc.cambiar_fichas(bolsa_fichas)
                     pc_puede_cambiar = False
             #Si la bolsa de fichas se vació, advierte al jugador
             if len(bolsa_fichas) == 0:
                 interfaz.textoEstandar(pc=True)
-                mostrar_dialogo('La bolsa de fichas se vació', interfaz, 14, '#EBDEB6', '#A9084F')
+                interfaz.actualizarTextoProgresivo('La bolsa de fichas se vació', 14, '#EBDEB6', '#A9084F')
                 cant_cambiar = 0
                 interfaz.habilitarFinalizacion()
             interfaz.turnoJugador(True)
