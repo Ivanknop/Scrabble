@@ -92,7 +92,7 @@ class Dibujar():
 
         columna_derecha = [[sg.Button(button_text=f'Nivel: {preferencias.getNivel().capitalize()}', font=('Arial', 14),border_width=1,tooltip='Configuración de la partida',key='infoPartida')],
                             [sg.Column(avatarJ, element_justification='center'),sg.Column(avatarPC, element_justification='center')],
-                            [sg.Text(f'               ¡Comencemos, {jugador.getNombre()}!                ', background_color='black', font=('Arial', 14), text_color='White', key='textoPC')],
+                            [sg.Text(f'                 ¡Comencemos el juego!                  ', background_color='black', font=('Arial', 14), text_color='White', key='textoPC')],
                             [sg.Text('                ---TUS FICHAS---              ', font=('Arial', 14), background_color='Black', text_color='White', key='textoJugador')],
                             fichas,
                             [sg.Text('_'*30)],
@@ -271,15 +271,11 @@ class Dibujar():
             #A menor número, mayor velocidad
             time.sleep(velocidad)
 
-    def textoEstandar(self, pc=False):
+    def textoEstandar(self):
         '''Actualiza con su texto por defecto el elemento que muestra información relativa
-        a las interacciones del jugador. Si :param: pc=True, muestra el díalogo de la PC que
-        indica que la bolsa de fichas se vació.'''
-        if pc == False:
-            self._getInterfaz()['textoJugador'].Update('                ---TUS FICHAS---              ', font=('Arial', 14), background_color='black', text_color='White')
-        else:
-            self._getInterfaz()['textoPC'].Update('                  :(                  ', background_color='black', font=('Arial', 14), text_color='White')
-
+        a las interacciones del jugador.'''
+        self._getInterfaz()['textoJugador'].Update('                ---TUS FICHAS---              ', font=('Arial', 14), background_color='black', text_color='White')
+    
     def inhabilitarElemento(self, clave):
         '''Inhabilita un elemento de la interfaz.
         :param clave: String con el nombre del elemento.'''

@@ -179,6 +179,7 @@ class Tablero ():
                             espacio_optimo['interes'] = puntaje_final
                             espacio_optimo['coordenada'] = (f, c)
                             espacio_optimo['sentido'] = sentido
-                            if (dificultad == 'facil') or ((dificultad == 'personalizado') and not (preferencias.getIA()['espacio_inteligente'])):
-                                return espacio_optimo
+                if (espacio_optimo['interes'] != -1):
+                    if (dificultad == 'facil') or ((dificultad == 'personalizado') and not (preferencias.getIA()['espacio_inteligente'])):
+                        return espacio_optimo
         return espacio_optimo

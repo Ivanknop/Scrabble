@@ -334,7 +334,7 @@ def lazo_principal(jugador, cargar_partida=True):
                 else:
                     #Si se clickea "Finalizar juego", se termina la ronda
                     terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
-                    jugar = False
+                    break
 
             #-----EVENTO: Pausar juego-----
             if (event == 'pausar'):
@@ -429,9 +429,14 @@ def lazo_principal(jugador, cargar_partida=True):
                     interfaz.actualizarTextoProgresivo('PC: Voy a cambiar mis fichas. Tu turno.', 12, '#EBDEB6', fondo=random.choice(['#D10E49', '#12870D', '#80870D']), pc=True)
                     atril_pc.cambiar_fichas(bolsa_fichas)
                     pc_puede_cambiar = False
+                else:
+                    interfaz.actualizarTextoProgresivo('PC: No tengo más palabras, ¡llegamos al final!', 12, '#EBDEB6', fondo=random.choice(['#D10E49', '#12870D', '#80870D']), pc=True)
+                    interfaz.actualizarTextoProgresivo('Finalizando...', 14, '#EBDEB6', '#A9084F')
+                    time.sleep(3)
+                    terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
+                    break
             #Si la bolsa de fichas se vació, advierte al jugador
             if len(bolsa_fichas) == 0:
-                interfaz.textoEstandar(pc=True)
                 interfaz.actualizarTextoProgresivo('La bolsa de fichas se vació', 14, '#EBDEB6', '#A9084F')
                 cant_cambiar = 0
                 interfaz.habilitarFinalizacion()
