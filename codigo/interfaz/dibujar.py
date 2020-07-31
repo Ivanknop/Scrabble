@@ -101,7 +101,7 @@ class Dibujar():
                             sg.Button(image_filename=f'{self._directorio_media}deshacer.png', border_width=0,disabled=True, key='deshacer'),]]
         #Crea la ventana y la muestra
         diseño = [[sg.Column(top, justification='center')],[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='center',size=(450,600), pad=(10, 0))]]
-        self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=False, no_titlebar=False)
+        self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=True, no_titlebar=False)
         self._pantallaCompleta = False
         self._interfaz.Finalize()
         #Llamada a tkinter para contorlar el evento sobre el boton X
