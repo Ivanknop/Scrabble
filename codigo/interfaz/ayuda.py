@@ -105,7 +105,9 @@ def iconCas(dirAyuda):
 
 def otros(dirAyuda):
     logo = os.path.join('media','media_ii','scrabbleArLogo.png')
-
+    licencia = open(os.path.join('licencia.txt'), 'r')
+    texto = licencia.read()
+    licencia.close()
     col = [
         [sg.Image(logo,pad=(50,50))], [sg.Text('Sobre ScrabbleAR', font=('Arial, 18'), text_color='white',justification='center')],
         [sg.Text('Este proyecto es el resultado de un trabajo final.'
@@ -122,7 +124,11 @@ def otros(dirAyuda):
 
                                                             , font=('Arial, 14'), text_color='white', size=(40, 8),
                                                             background_color='#4f280a', justification='center', )],
-        [sg.Text('Github: ')],[sg.Text('https://github.com/enzodiaz25/Scrabble.git')]
+        [sg.Text('Github: ')],[sg.Text('https://github.com/enzodiaz25/Scrabble.git')],
+
+        [sg.Multiline(texto,
+                      font=('Arial', 12), text_color='white', size=(53, 20),
+                      pad=((10, 10), 10), disabled=True, background_color='#4f280a')],
 
 
 
@@ -185,7 +191,7 @@ def niveles(dirAyuda):
                              '\tJ = 6 pts\n'
                              '\tK, Ñ, Q, W, X = 9 pts\n' 
                              '\tZ= 10 pts \n\n'
-                             '>Cantidad de fichas: 99\n\n'
+                             '>Cantidad de fichas: 122\n\n'
                              '>Duración de la partida: 25 minutos\n\n'
                              '>Tipos de casilleros especiales: Suma y resta\n\n'
                              '>Oportunidades para cambiar las fichas de la PC: 1\n\n'
@@ -205,7 +211,7 @@ def niveles(dirAyuda):
                              '\tJ = 6 pts\n'
                              '\tK, Ñ, Q, W, X = 8 pts\n'
                              '\tZ= 10 pts\n\n'
-                             '>Cantidad de fichas: 95\n\n'
+                             '>Cantidad de fichas: 122\n\n'
                              '>Duración de la partida: 20 minutos\n\n'
                              '>Tipos de casilleros especiales: Suma, resta, multiplica x 2, divide x2.\n\n'
                              '>Oportunidades para cambiar las fichas de la PC: 1\n\n'
@@ -225,7 +231,7 @@ def niveles(dirAyuda):
                              '\tJ = 6 pts\n'
                              '\tK, Ñ, Q, W, X = 8 pts\n'
                              '\tZ= 10 pts\n\n'
-                             '>Cantidad de fichas: 95\n\n'
+                             '>Cantidad de fichas: 122\n\n'
                              '>Duración de la partida: 15 minutos\n\n'
                              '>Tipo de casilleros especiales: Suma, resta, multiplica x 2, divide x2, anula valor de la palabra\n\n'
                              '>Oportunidades para cambiar las fichas de la PC: 1\n\n'
