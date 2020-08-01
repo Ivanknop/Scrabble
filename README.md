@@ -1,3 +1,5 @@
+![Logo](https://raw.githubusercontent.com/enzodiaz25/Scrabble/master/media/media_ii/logo.png)
+
 ScrabbleAR es un proyecto realizado para el Seminario de Lenguaje Python.
 
 Fue realizado por:
@@ -9,7 +11,7 @@ Enzo Diaz - https://github.com/enzodiaz25 -
 Ivan Knopoff - https://github.com/Ivanknop - ivan.knopoff@gmail.com
 
 --------------------------------
-Sobre la Licencia  de ScrabbleAR (Open Source)
+:video_game: Sobre la Licencia  de ScrabbleAR (Open Source)
 
 Para el proyecto hemos analizado los tipos de licencia que ofrecen la Free Sofware Foundation (FSF) y la Open Source Initiative (OSI). Hemos erradicado la idea de licencias con copyright ya que estamos en un contexto académico, por lo tanto consideramos que en dicho contexto toda investigación y desarrollo de proyectos debería ser de libre acceso y distribución, para fomentar y aportar dicho conocimiento a la comunidad por más infimo que este sea.
 
@@ -31,7 +33,9 @@ Creatives Commons  en calidad : Reconocimiento – NoComercial – CompartirIgua
 Reconocimiento – NoComercial – CompartirIgual (by-nc-sa): No se permite el uso comercial de la obra original ni obras derivadas. Estas obras derivadas deben distribuirse con una licencia igual que la que tiene la original.
 --------------------------------
 
-ScrabbleAR simula una aplicación donde el usuario/jugador debe enfrentarse a la computadora. El objetivo del juego es obtener la mayor cantidad de puntos posibles colocando las palabras en horizontal o vertical; pero sin cruzarse ninguna palabra entre sí. Pueden escogerse entre tres dificultades -Fácil, Medio, Difícil- o configurar directamente la partida y la dificultad.
+![Intefaz de juego - Modo fácil](https://raw.githubusercontent.com/enzodiaz25/Scrabble/master/media/ayuda/ayuda%2014.png)
+
+:video_game: ScrabbleAR simula una aplicación donde el usuario/jugador debe enfrentarse a la computadora. El objetivo del juego es obtener la mayor cantidad de puntos posibles colocando las palabras en horizontal o vertical; pero sin cruzarse ninguna palabra entre sí. Pueden escogerse entre tres dificultades -Fácil, Medio, Difícil- o configurar directamente la partida y la dificultad.
 
 Se requiere de las librerías:
 
