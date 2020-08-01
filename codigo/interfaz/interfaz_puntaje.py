@@ -42,7 +42,7 @@ def puntajes():
         if event in ( None,'volver'):
             break
         elif event == 'reestablecer':
-            decision = aviso('Realmente desea borrar los puntajes?', ['Sí', 'No'])
+            decision = aviso('¿Realmente desea borrar los puntajes?', ['Sí', 'No'])
             if decision == '_Sí':
                 puntuaciones._vaciar_puntajes()
                 actualizar_puntaje(puntuaciones,ventana)

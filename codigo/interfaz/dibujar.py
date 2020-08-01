@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import time
-import os.path
+import os
+import platform
 from codigo.interfaz import menuPausa
 from codigo.interfaz.tema import aviso
 
@@ -101,7 +102,7 @@ class Dibujar():
                             sg.Button(image_filename=f'{self._directorio_media}deshacer.png', border_width=0,disabled=True, key='deshacer'),]]
         #Crea la ventana y la muestra
         diseño = [[sg.Column(top, justification='center')],[sg.Column(columna_izquierda,background_color='#ece6eb',justification='left'), sg.Column(columna_derecha, element_justification='center',justification='center',size=(450,600), pad=(10, 0))]]
-        self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=True, no_titlebar=False)
+        self._interfaz = sg.Window('ScrabbleAR', diseño, resizable=(True if platform.system() == 'Linux' else False), no_titlebar=False)
         self._pantallaCompleta = False
         self._interfaz.Finalize()
         #Llamada a tkinter para contorlar el evento sobre el boton X
@@ -172,7 +173,7 @@ class Dibujar():
         return self._getInterfaz().Read(timeout=0)
 
     def actualizarTablero(self, tablero):
-        '''Analiza la matriz y la proyecta en la GUI. Si durante el proceso
+        '''Analiza toda la matriz y la proyecta en la GUI. Si durante el proceso
         se topa con una ficha, busca la imagen PNG que le corresponde.'''
         #Filas
         f = 0
@@ -193,6 +194,39 @@ class Dibujar():
                 c += 1
             c = 0
             f += 1
+
+    def actualizarTableroCoordenada(self, tablero, coordenada, sentido, longitud_palabra, velocidad=0.2):
+        '''Actualiza, a partir de una coordenada, sentido y longitud, un espacio
+        específico del tablero.
+        :param tablero: Matriz que contiene los datos del tablero.
+        :param coordenada: Tupla de enteros con formato (x, y) que indica la coordenada.
+        :param sentido: "h" para horizontal o "v" para vertical.
+        :param longitud_palabra: entero que indica la cantidad de espacios a moverse por
+        el tablero.
+        :param velocidad: Velocidad a la que se refrescan los casilleros. A menor número,
+        mayor velocidad.'''
+        f = coordenada[0]
+        c = coordenada[1]
+        casilleros = tablero.getCasilleros()
+        for largo in range(0, longitud_palabra):
+            dato = casilleros[f][c]
+            if (tablero.esFicha(ficha = dato)):
+                if (dato['propietario'] == 'jugador'):
+                        self._getInterfaz()[f'tablero {f},{c}'].Update(image_filename=f'{self._getDirectorioFicha()}ficha {list(dato.keys())[0]}.png', image_size=self._getCasilleroTamano(), button_color=(None, '#06FF64'))
+                else:
+                    self._getInterfaz()[f'tablero {f},{c}'].Update(image_filename=f'{self._getDirectorioFicha()}ficha {list(dato.keys())[0]}.png', image_size=self._getCasilleroTamano(), button_color=(None, '#FF0606'))
+            else:
+                if (dato == ''):
+                    self._getInterfaz()[f'tablero {f},{c}'].Update(image_filename=f'{self._getDirectorioFicha()}azul.png' , image_size=self._getCasilleroTamano())
+                else:
+                    self._getInterfaz()[f'tablero {f},{c}'].Update(image_filename=f'{self._getDirectorioFicha()}{dato[1:]}.png' , image_size=self._getCasilleroTamano())
+            if (sentido == 'h'):
+                c += 1
+            else:
+                f += 1
+            self._getInterfaz().Refresh()
+            time.sleep(velocidad)
+
 
     def actualizarAtril(self, atril):
         '''Actualiza el atril en la interfaz gráfica.'''

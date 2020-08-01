@@ -54,11 +54,11 @@ def lazo_principal(jugador, cargar_partida=True):
             #Al cargar una partida, la dificultad debe establecerse a partir del archivo
             jugador.setDificultad(archivo_partida.getDificultad())
             configuracion = determinar_dificultad(jugador)
-            #Si ocurrió algún error durante la carga de la configuración, lo retorna
-            if ('error' in configuracion) and (configuracion['error'] != ''):
-                return configuracion['error']
             #Si se está jugando en modo personalizado, se guardan algunas características seleccionadas
             if (configuracion['nivel'] == 'personalizado'):
+                #Si ocurrió algún error durante la carga de la configuración, lo retorna
+                if (configuracion['error'] != ''):
+                    return configuracion['error']
                 preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'], configuracion['tipos_palabras'], configuracion['IA'])
             else:
                 #Si no, se conserva sólo la información predeterminada
@@ -97,6 +97,9 @@ def lazo_principal(jugador, cargar_partida=True):
         configuracion = determinar_dificultad(jugador)
         puntaje = jugador.getPuntaje()
         if (configuracion['nivel'] == 'personalizado'):
+            #Si ocurrió algún error durante la carga de la configuración, lo retorna
+            if (configuracion['error'] != ''):
+                return configuracion['error']
             preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'], configuracion['tipos_palabras'], configuracion['IA'])
         else:
             preferencias = Preferencias(configuracion['filas'],configuracion['columnas'],configuracion['especiales'], configuracion['nivel'])
@@ -262,6 +265,9 @@ def lazo_principal(jugador, cargar_partida=True):
                                     #Si seleccionó la coordenada que está a la derecha (insertar horizontal)
                                     #o la que está debajo (insertar vertical)...
                                     if (event == f'tablero {coord_derecha}') or (event == f'tablero {coord_inferior}'):
+                                        #Desvanece los botones de selección de orientación
+                                        interfaz.reestablecerOrientacion(fila+','+columna, unTablero, preferencias)
+
                                         #Las fichas se guardarán en esta lista
                                         lista_insercion = []
                                         for f in fichas_seleccionadas:
@@ -290,11 +296,12 @@ def lazo_principal(jugador, cargar_partida=True):
 
                                             #Se guarda la palabra elegida por el jugador en la lista "palabras_jugador"
                                             palabras_jugador.append({palabra: puntaje_palabra})
+                                            
+                                            interfaz.actualizarTableroCoordenada(unTablero, (int(fila),int(columna)), 'h' if event == f'tablero {coord_derecha}' else 'v', len(palabra))
 
                                             turno_jugador = False
 
                                         interfaz.actualizarAtril(atril_jugador)
-                                        interfaz.actualizarTablero(unTablero)
 
                                         elegir_posicion = False
                                         break
@@ -416,7 +423,7 @@ def lazo_principal(jugador, cargar_partida=True):
                 #Realiza la inserción
                 puntaje_pc += unTablero.insertarPalabra(mejor_opcion['fichas'], mejor_opcion['coordenada'], mejor_opcion['sentido'])
                 atril_pc.llenar_atril(bolsa_fichas)
-                interfaz.actualizarTablero(unTablero)
+                interfaz.actualizarTableroCoordenada(unTablero, mejor_opcion['coordenada'], mejor_opcion['sentido'], len(pal_pc))
                 interfaz.actualizarPuntajePC(puntaje_pc)
                 dialogo = random.choice(['PC: ¡A ver cómo contrarrestas eso!', 'PC: ¿Te quedaste sin ideas?', 'PC: Podés hacerlo mejor...',
                                                             'PC: ¡Tu turno!', 'PC: He tenido retos más difíciles.', 'PC: El tiempo se acaba, amiguito.', 'PC: Jamás me han derrotado.',

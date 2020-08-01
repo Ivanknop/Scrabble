@@ -1,3 +1,14 @@
+'''
+< SCRABBLE AR >
+
+Este proyecto fue realizado por:
+Diego Vilardebó - https://github.com/elrecursante -
+Enzo Diaz - https://github.com/enzodiaz25 -
+Ivan Knopoff - https://github.com/Ivanknop - ivan.knopoff@gmail.com
+
+Las imagenes del programa fueron diseñadas por Diego Vilardebó.
+'''
+
 from codigo.interfaz import interfaz_inicial
 from codigo.logica import juego
 from codigo.interfaz.check_imagenes import*

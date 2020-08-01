@@ -166,6 +166,7 @@ def cargar_configuracion(usuario):
             configuracion = pickle.load(archivo)
         return configuracion
     except:
+        configuracion['nivel'] = 'personalizado'
         configuracion['error'] = 'No se encontró el archivo de configuración'
         return configuracion
 
