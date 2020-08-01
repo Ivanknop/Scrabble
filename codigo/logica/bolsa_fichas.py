@@ -26,3 +26,12 @@ def crear_bolsa(cant, puntos, propietario='jugador'):
             #La ficha posee un puntaje y un indicador de a quién pertenece
             bolsa.append({l.lower(): puntaje, 'propietario': propietario})
     return bolsa
+
+
+if __name__ == '__main__' :
+    nivel = nivel_facil()
+    bolsa= crear_bolsa(nivel['cant_fichas'],nivel['puntaje_ficha'])
+    n=nivel['nivel']
+    print(f'bolsa ocnfiurada en nivel: {n}')
+    print(f'la bolsa contiene: {len(bolsa)} fichas.\n El contenid oes el siguiente:')
+    print(bolsa)
