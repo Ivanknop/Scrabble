@@ -105,7 +105,7 @@ def iconCas(dirAyuda):
 
 def otros(dirAyuda):
     logo = os.path.join('media','media_ii','scrabbleArLogo.png')
-    licencia = open(os.path.join('licencia.txt'), 'r')
+    licencia = open(os.path.join('licencia.txt'), 'r', encoding="utf8")
     texto = licencia.read()
     licencia.close()
     col = [
@@ -121,18 +121,13 @@ def otros(dirAyuda):
                                                     [sg.Text('\tDiego Vilardebó \n'
                                                             '\tEnzo Diaz \n'
                                                             '\tIvan Knopoff\n'
-
-                                                            , font=('Arial, 14'), text_color='white', size=(40, 8),
+                                                            ,font=('Arial, 14'), text_color='white', size=(40, 8),
                                                             background_color='#4f280a', justification='center', )],
         [sg.Text('Github: ')],[sg.Text('https://github.com/enzodiaz25/Scrabble.git')],
-
         [sg.Multiline(texto,
                       font=('Arial', 12), text_color='white', size=(53, 20),
-                      pad=((10, 10), 10), disabled=True, background_color='#4f280a')],
-
-
-
-    ]
+                      pad=((10, 10), 10), disabled=True, background_color='#4f280a')]
+        ]
     layout = [sg.Column(col,scrollable=True,background_color='#4f280a',justification='center',
                         element_justification='center', vertical_scroll_only=True,size=(700,470))]
 
