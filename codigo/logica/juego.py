@@ -179,9 +179,20 @@ def lazo_principal(jugador, cargar_partida=True):
                     if (event == 'validar'):
                         interfaz.inhabilitarElemento('deshacer')
                         click_validar = True
+                    
+                    #Información sobre la partida
+                    if (event == 'infoPartida'):
+                        instante =  time.time()
+                        infoConfiguracion(configuracion)
+                        interfaz.paralizarTimer(instante)
+                    if (event == 'ayuda'):
+                        instante = time.time()
+                        ayuda()
+                        interfaz.paralizarTimer(instante)
 
                     if (event == 'pantallaCompleta'):
                         interfaz.pantallaCompleta()
+
                     if ('ficha' in event):
                         #Cada vez que se clickea en una ficha, agrega el índice (la key) a
                         #"fichas_seleccionadas", inhabilita el botón correspondiente y
@@ -232,9 +243,20 @@ def lazo_principal(jugador, cargar_partida=True):
                                 terminar(jugador.getNombre(),puntaje,puntaje_pc,palabras_jugador,palabras_pc,jugador.getDificultad(),atril_jugador,atril_pc)
                                 jugar = False
                                 break
+                            
+                            #Información sobre la partida
+                            if (event == 'infoPartida'):
+                                instante =  time.time()
+                                infoConfiguracion(configuracion)
+                                interfaz.paralizarTimer(instante)
+                            if (event == 'ayuda'):
+                                instante = time.time()
+                                ayuda()
+                                interfaz.paralizarTimer(instante)
 
                             if (event == 'pantallaCompleta'):
                                 interfaz.pantallaCompleta()
+
                             if 'tablero' in event:
                                 #Muestra los botones de selección de orientación
                                 interfaz.seleccionarOrientacion(event.split()[1], preferencias)
