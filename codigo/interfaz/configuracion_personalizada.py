@@ -205,7 +205,7 @@ def interfaz_personalizacion(usuario):
             if (len(configuracion['error']) == 0):
                 #Si la cantidad de filas es superior a 15, lo advierte
                 if (configuracion['filas'] > 15):
-                    continuar = aviso('Advertencia:\nEn algunas resoluciones de pantalla, una configuración de tablero\nsuperior a 15 filas podría no visualizarse correctamente,\n¿Está seguro que desea continuar?', ['Continuar', 'Cancelar'])
+                    continuar = aviso('Advertencia:\nEn algunas resoluciones de pantalla, una configuración de tablero\nsuperior a 15 filas podría no visualizarse correctamente,\n¿está seguro que desea continuar?', ['Continuar', 'Cancelar'])
                     if (continuar == '_Continuar'):
                         guardar_configuracion(configuracion, usuario)
                         break
