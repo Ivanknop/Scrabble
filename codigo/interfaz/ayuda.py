@@ -177,7 +177,7 @@ def popReglas():
 
 def niveles(dirAyuda):
     col = [[sg.Frame(
-            layout=[[sg.Multiline(' Tamaño del tablero: 20*20.\n'
+            layout=[[sg.Multiline(' Tamaño del tablero: 15*15.\n'
                              '>Puntajes de las fichas:\n'
                              '\tVocales y consonantes L, N, S, T, R = 5 pts\n' 
                              '\tC, D, G = 2 pts \n'
