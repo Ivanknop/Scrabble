@@ -12,6 +12,10 @@ class Atril():
         devolver la cantidad de fichas disponibles
     '''
     def __init__ (self, bolsa_fichas, cant_fichas):
+        '''
+        El atributo cant_maxima es recibido al crearse el atril, de esta forma se lo puede utilizar en cualquier
+        otra aplicación que utilice atriles
+        '''
         random.shuffle(bolsa_fichas)
         self._cant_maxima = cant_fichas
         self._cant_Fichas = cant_fichas
@@ -24,10 +28,14 @@ class Atril():
         return self._lista_Fichas[pos]
 
     def cambiar_fichas (self, bolsa_fichas):
+        '''
+        Utiliza la cantidad de fichas configuradas para este juego como control.
+        '''
         for i in range(self._cant_Fichas):
             bolsa_fichas.append(self._lista_Fichas[i])
         self._cant_Fichas = 0
         self._lista_Fichas = []
+        #Vuelve a mezclar la bolsa para evitar que se entreguen las mismas fichas recién descartadas
         random.shuffle(bolsa_fichas)
         while bolsa_fichas and self._cant_Fichas < self._cant_maxima:
             self._lista_Fichas.append(bolsa_fichas[0])
@@ -56,13 +64,3 @@ class Atril():
 
     def getCantMaxima(self):
         return self._cant_maxima
-
-    # def buscar(self,letra):
-    #     '''Busca una letra en el atril y devuelve su posisción.
-    #     Si hubiese letras repetidas, devolverá sólo la primera ocurrencia.'''
-    #     lista = self.ver_atril()
-    #     i = 0
-    #     while i < self._cant_maxima:
-    #         if list(lista[i].keys())[0] == letra:
-    #             return i
-    #         i+=1
