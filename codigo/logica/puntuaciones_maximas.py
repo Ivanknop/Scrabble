@@ -7,6 +7,9 @@ class Puntuacion_Maxima():
     MAXIMOS = 10
 
     def __init__ (self):
+        '''
+        Crea una lista vacía de puntajes y luego carga los puntajes almacenados, si los hay
+        '''        
         self.puntajes = []
         self.cargar()
 
@@ -25,6 +28,9 @@ class Puntuacion_Maxima():
         self.guardar()
 
     def crear(self):
+        '''
+        Al crear invoca a vaciar_puntajes() para setear todos en '0'
+        '''        
         fichero = open (self.ruta_guardado, 'wb')
         self._vaciar_puntajes()
         fichero.close()
