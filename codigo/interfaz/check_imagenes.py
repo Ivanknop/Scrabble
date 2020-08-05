@@ -217,6 +217,8 @@ def loading():
     '''
     Este módulo verifica que todas las imágenes, y sus directorios correspondientes, sean correctos.
     En caso negativo, construye reemplazos para evitar el fallo de la app.
+    Invoca a los modulos de control (checks) que verifican imagen por imagen si estáne en el directorio
+    correspondiente. Retornan o 0 o > 0. Si es 0, no hay errores, si es mayor hay errores.
     '''
     mi_tema()
     img_logo = os.path.join('media', 'media_ii', 'scrabbleArLogo.png')
@@ -227,6 +229,7 @@ def loading():
     v = sg.Window('Loading',layout=contenido,size=(400,400), background_color='#4f280a',element_justification='center', keep_on_top=True, grab_anywhere=True)
     texto = ['Chequeando directorios de imágenes','Chequeando imágenes de fichas','Chequeando imágenes de casilleros especiales',
     'Chequeando imágenes de avatares','Chequeando la ayuda','Chequeando logos y botones','LISTO PARA JUGAR']
+    #arma una lista con todos los resultados de los controles para construir los textos que se visualizaran en la interfaz
     chequeos=[]
     dirs, fichas, especiales, avatares,ayuda, varios = check_directorios(), check_fichas(), check_especiales(),check_avatares(),check_ayuda(),check_varios()
     chequeos.append(dirs)
