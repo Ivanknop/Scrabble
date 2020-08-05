@@ -18,9 +18,11 @@ import time
 import random
 
 def determinar_dificultad(jugador):
-    '''Retorna un diccionario que contiene toda la información necesaria
+    '''
+    Retorna un diccionario que contiene toda la información necesaria
     para configurar la partida (puntajes de las fichas, cantidad de filas
-    y columnas, coordenadas de casilleros especiales, etc.)'''
+    y columnas, coordenadas de casilleros especiales, etc.)
+    '''
     dificultad = jugador.getDificultad()
     if (dificultad == 'facil'):
         configuracion = nivel_facil()
@@ -33,12 +35,14 @@ def determinar_dificultad(jugador):
     return configuracion
 
 def lazo_principal(jugador, cargar_partida=True):
-    '''Lazo que controla el flujo normal de la partida. Determina qué
+    '''
+    Lazo que controla el flujo normal de la partida. Determina qué
     sucede ante cada evento que ocurre en el juego.
     :param jugador: Objeto que contiene los datos del jugador, lo
     utiliza al crear una nueva partida o cargar una anterior.
     :param cargar_partida: Booleano. Si es True, intentará cargar un archivo
-    de partida.'''
+    de partida.
+    '''
 
     #Al inicio del módulo, se asume que no ocurrirá ningún error
     error = ''
@@ -129,6 +133,8 @@ def lazo_principal(jugador, cargar_partida=True):
     #Lazo principal del juego
     interfaz.turnoJugador(turno_jugador)
     jugar = True
+    #jugar controla el juego. Si es 'False', corta.
+    #turno_jugador determina quien continua la partida. Si es 'True' el jugador, si es 'False' la PC
     while jugar:
 
         #Turno del jugador
