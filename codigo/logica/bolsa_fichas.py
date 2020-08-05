@@ -1,9 +1,11 @@
 from codigo.logica.configuracion import *
 
 def crear_bolsa(cant, puntos, propietario='jugador'):
-    '''Esta funcion returna una bolsa de fichas (una lista, donde cada ficha
+    '''
+    Esta funcion returna una bolsa de fichas (una lista, donde cada ficha
     es un diccionario' donde la clave es la letra y el valor su puntaje)
-    recibe la cantidad y los puntos segun el nivel, el nivel no se determina en este modulo'''
+    recibe la cantidad y los puntos segun el nivel, el nivel no se determina en este modulo
+    '''
     bolsa = []
 
     #l = cantidad de veces que aparece una ficha
