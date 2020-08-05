@@ -165,6 +165,9 @@ def reglas():
     return layout
 
 def popReglas():
+    '''
+    Crea la ventana que se invoca antes de cada partida explicando las reglas generales del juego
+    '''    
     layout = [reglas(),
               [sg.Button('¡Comenzar!',size=(20,5), font=('Arial', 16), key='comenzar')],]
     ventana = sg.Window('Reglas', layout=layout,element_justification='center',
