@@ -39,9 +39,9 @@ Reconocimiento – NoComercial – CompartirIgual (by-nc-sa): No se permite el u
 
 Se requiere de las librerías:
 
-PySIMPLEGUI
+PySIMPLEGUI 4.18.2
 
-PIL
+Pillow 7.1.2
 
 Pattern 3.6
 
