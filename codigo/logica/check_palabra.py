@@ -1,60 +1,44 @@
-'''ESTA VERSION DEL CODIGO ESTA BASADA EN LA ULTIMA MODIFICACION DE LA ENTREGA,
-EN LA CUAL SE ESTABLECIERON PAUTAS DISTINTAS POR PARTE DE LA CATEDRA PARA LAS DIFERENTE DIFICULTADES.
-SEGUIREMOS PEMRITIENDO PALABRAS CON ACENTOS YA QUE ESTABA SOLUCIONADO ESE PROBLEMA,
-PERO ESTA VEZ CHEQUEARÁ LA PALABRA (EN EL MODULO check_jugador()) TENIENDO ENCUENTA LA DIFICULTAD EN
-LA QUE SE ESTE JUGANDO'''
+'''
+Versión de check_palabra según última modificación propuesta por la Cátedra.
+Se mantiene la valuación de palabras con tilde, puesto que es una mejora en las posibilidades del usuario.
+'''
 
 import pattern.es as pes
 from pattern.es import verbs, tag, spelling, lexicon
 import itertools as it
 
 def posibles_palabras (palabra):
-    '''Por cada vocal que tenga la palabra seleccionada se genera una posibilidad con Tilde.
-    Nuestra aplicación solo contiene letras sin tilde, pero pattern sí las tiene a disposición. 
-    Aqui generamos esa lista con posible opciones con tilde para que pattern las encuentre en sus diccionario de palabras
+    '''
+    Por cada vocal que tenga la palabra seleccionada se genera una posibilidad con Tilde.
+    Esto permite resolver el problema que, mientras pattern posee palabras con tilde,
+    nuestra aplicación utiliza todas letras sin acentuación. 
+    Se genera una lista con posible opciones con tilde para que pattern 
+    las encuentre en sus diccionario de palabras.
     '''
 
     lisPal = []
     #siempre la primer palabra será la ingresada por el jugador
     lisPal.append(palabra)
     vocales = {'a':'á', 'e':'é', 'i':'í', 'o':'ó', 'u':'ú'}
-
-    #encontre una forma pythonica de obtener los indices
     pos = [idx for idx, x in enumerate(palabra) if x in vocales.keys()]
-
-    # for i in range(len(palabra)):
-    #     if palabra[i] in vocales.keys():
-    #
-    #         pos.append(palabra.index(palabra[i]))
-
-
      #le pongo tilde a esas vocales, y agrego la palabra
     for it in range(len(pos)):
         pal_temp = ''
-
         for it2 in range(len(palabra)):
-
             if it2 != pos[it]:
-
                 pal_temp += palabra[it2]
             else:
-
                 pal_temp += vocales[palabra[pos[it]]]
-
         lisPal.append(pal_temp)
-
-
     return lisPal
-
 
 def clasificar(palabra):
     print(tag(palabra, tokenize=True, encoding='utf-8', tagset='UNIVERSAL'))
     print()
 
-
 def es_palabra(palabra):
     '''
-    Este modulo evalua si la palabra recibida existe en los diccionarios de PATTERN.ES
+    Evalua si la palabra recibida existe en los diccionarios de PATTERN.ES
     '''
     ok = True
     if palabra:
