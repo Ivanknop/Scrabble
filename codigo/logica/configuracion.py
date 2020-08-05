@@ -3,8 +3,10 @@ import PySimpleGUI as sg
 from codigo.interfaz.tema import mi_tema
 
 def infoConfiguracion(conf):
-    '''Crea una ventana que muestra la configuración
-    de la partida que se está jugando.'''
+    '''
+    Crea una ventana que muestra la configuración
+    de la partida que se está jugando.
+    '''
     columna = [
                 [sg.Text('Nivel: '), sg.Text(f'{conf["nivel"].capitalize()}')],
                 [sg.Text('Filas: '), sg.Text(f'{conf["filas"]}')],
@@ -72,9 +74,11 @@ def infoConfiguracion(conf):
     ventana.close()
 
 def especial(filas, columnas, nivel, esp_personalizados=[]):
-    '''Genera casilleros especiales según el nivel,
+    '''
+    Genera casilleros especiales según el nivel,
     teniendo en cuenta la cantidad de columnas, filas y la dificultad.
-    Además, controla que exista cierta cantidad de casilleros especiales'''
+    Además, controla que exista cierta cantidad de casilleros especiales
+    '''
     especiales = {}
     if nivel == 'facil':
         esp = ['*rest', '*sum']
@@ -100,6 +104,10 @@ def especial(filas, columnas, nivel, esp_personalizados=[]):
     return especiales
 
 def nivel_facil():
+    '''
+    Mayor tiempo de juego y puntaje más alto en vocales y consonantes de mayor uso.
+    Retorna una configuracion
+    '''                                             
     conf = {
         'nivel':'facil',
         'filas':15,
@@ -112,7 +120,6 @@ def nivel_facil():
                         'V': 2, 'Y': 1,'J': 2, 'K': 1, 'Ñ': 1, 'Q': 1, 'W': 1, 'X': 1, 'Z': 1 },
 
          #  dic el indice indica le puntaje y lo valores son las letras que itenen ese puntaje
-        # tienen mayor puntaje que otros niveles
          'puntaje_ficha' : {
         5: ['A', 'E', 'O', 'S', 'I', 'U', 'N', 'L', 'R', 'T'],
         2: ['C', 'D', 'G'],
@@ -128,10 +135,12 @@ def nivel_facil():
 
 
 def nivel_medio():
-    # tiene menor cantidad de vocales
-    # tiene menos punto las letras
-    #el tablero sera un poco mas chico
-    #y menor tiempo de juego
+    '''
+    En comparación con el nivel fácil:
+    Configura un nivel con menor cantidad de vocales y de puntaje en estas letras y consonantes
+    de mayor uso; tablero y tiempo más acotado.
+    Retorna una configuracion
+    '''                                              
     conf = {
         'nivel': 'medio',
         'filas':15,
@@ -164,11 +173,14 @@ def nivel_medio():
 
 
 def nivel_dificil():
-    # tiene menor cantidad de vocales
-    # misma puntuacion que en el nivel medio
-    # el tablero sera igual al nivel medio
-    # y menor tiempo de juego
-    # tendra mas casilleros que restan puntos
+    '''
+    En comparación con el nivel fácil:
+    Configura un nivel con menor cantidad de vocales y de puntaje en estas letras y consonantes
+    de mayor uso; tablero y tiempo más acotado.
+    Con respecto a nivel medio es el mismo tipo de tablero.
+    Incorpora casilleros con mayor tipo de descuento de puntuación
+    Retorna una configuracion
+    '''
     conf = {
         'nivel': 'dificil',
         'filas': 10,
